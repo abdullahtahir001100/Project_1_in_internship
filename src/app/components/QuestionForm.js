@@ -92,7 +92,7 @@ export default function QuestionForm({ onCancel }) {
       try {
         setLoading(true);
         const res = await axios.get(
-          'http://localhost/react-backend/api/Employees/get_info.php'
+          'https://myproject2.xo.je/api/Employees/get_info.php'
         );
         setDepartments(res.data);
       } catch (error) {
@@ -110,7 +110,7 @@ export default function QuestionForm({ onCancel }) {
   async function fetch_the_exitting_post() {
    try {
     setLoading(true);
-    const res = await axios.get(`http://localhost/react-backend/api/questions/get.php?department_id=${selectedDept ? selectedDept?.department_id : ""}`);
+    const res = await axios.get(`https://myproject2.xo.je/api/questions/get.php?department_id=${selectedDept ? selectedDept?.department_id : ""}`);
      setData(res?.data[0]?.posts.filter((post) => post.post_id == (selectedPost ? selectedPost.id : null))[0]?.questions || []);
    const post = res?.data?.[0]?.posts?.find(
   post => Number(post.post_id) === Number(selectedPost?.id)
@@ -177,7 +177,7 @@ const handleSubmit = async (e) => {
 
   try {
     const res = await axios.post(
-      'http://localhost/react-backend/api/questions/create.php',
+      'https://myproject2.xo.je/api/questions/create.php',
       payload,
       {
         headers: {

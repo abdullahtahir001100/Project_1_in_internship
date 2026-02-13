@@ -32,7 +32,7 @@ export default function Employees() {
         async function get_all_info() {
             try {
                 setLoading(true);
-                const response = await axios.get('http://localhost/react-backend/api/Employees/get_info.php');
+                const response = await axios.get('https://myproject2.xo.je/api/Employees/get_info.php');
                 const data = response.data;
                 setOptions(data);
 
@@ -50,7 +50,7 @@ export default function Employees() {
         setEditId(id);
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost/react-backend/api/Employees/get_data.php?id=${id}`);
+            const response = await axios.get(`https://myproject2.xo.je/api/Employees/get_data.php?id=${id}`);
             const data = response.data;
             setEditdata(data);
             setSelected({
@@ -74,7 +74,7 @@ export default function Employees() {
     }
     async function handleDelete(id) {
         try {
-            const responce = axios.delete(`http://localhost/react-backend/api/Employees/delete.php`, { data: { id: id } });
+            const responce = axios.delete(`https://myproject2.xo.je/api/Employees/delete.php`, { data: { id: id } });
             const data = await responce.data;
             setshowdelete(false);
             setToast({ show: true, type: 'success', message: 'Employee deleted successfully.' });
@@ -92,7 +92,7 @@ export default function Employees() {
 
             editId ? formData.append('id', editId) : null;
             const url = editId ? 'update.php' : 'create.php';
-            const response = await axios.post(`http://localhost/react-backend/api/Employees/${url}`, formData, {
+            const response = await axios.post(`https://myproject2.xo.je/api/Employees/${url}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -116,7 +116,7 @@ export default function Employees() {
     async function get_all_info_table() {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost/react-backend/api/Employees/get.php');
+            const response = await axios.get('https://myproject2.xo.je/api/Employees/get.php');
             const data = response.data;
 
             setdata(data);
