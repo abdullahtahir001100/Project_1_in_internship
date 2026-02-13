@@ -1,0 +1,1464 @@
+// Variables - Minimal clean design
+$primary-color: #555;
+$text-dark: #222;
+$text-light: #666;
+$text-white: #ffffff;
+$bg-white: #ffffff;
+$bg-light: #fafafa;
+$bg-hover: #f5f5f5;
+$border-color: #ddd;
+$sidebar-width: 240px;
+$transition: all 0.15s ease;
+$radius: 1px;
+$table-border: #ddd;
+$table-head-bg: #fafafa;
+
+
+.dashboard-wrapper {
+  display: flex;
+  background: $bg-light;
+  min-height: 100vh;
+}
+
+// THE TAB LOGIC (Pure CSS)
+#tab-acr:checked~.sidebar .nav-item:nth-child(1) .nav-link,
+#tab-employees:checked~.sidebar .nav-item:nth-child(2) .nav-link,
+#tab-departments:checked~.sidebar .nav-item:nth-child(3) .nav-link,
+#tab-posts:checked~.sidebar .nav-item:nth-child(4) .nav-link,
+#tab-questions:checked~.sidebar .nav-item:nth-child(5) .nav-link,
+#tab-rating:checked~.sidebar .nav-item:nth-child(6) .nav-link {
+  @extend %active-nav;
+}
+
+// Display logic
+.content-area {
+  display: none;
+  margin-left: $sidebar-width;
+  padding: 2rem;
+  flex: 1;
+}
+
+#tab-acr:checked~.acr-view,
+#tab-employees:checked~.employees-view,
+#tab-departments:checked~.departments-view,
+#tab-posts:checked~.posts-view,
+#tab-questions:checked~.questions-view,
+#tab-rating:checked~.rating-view {
+  display: block;
+}
+
+// Simple Active State
+%active-nav {
+  background-color: $bg-light;
+  color: $text-dark !important;
+  font-weight: 600;
+  border-right: 2px solid $text-dark;
+  border-radius: 0;
+
+  .nav-icon {
+    stroke: $text-dark;
+  }
+}
+
+.sidebar {
+  width: $sidebar-width;
+  height: 100vh;
+  background: $bg-white;
+  border-right: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1000;
+  padding: 0; // Removed extra padding for a flush look
+
+  .sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid $border-color;
+    margin-bottom: 1rem;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .logo-icon {
+        font-size: 24px;
+        color: $text-dark;
+        font-weight: 800;
+      }
+
+      .logo-text {
+
+        font-weight: 700;
+        font-size: 10px;
+        position: relative;
+        top: 6px;
+        left: -4px;
+        color: $text-light;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 0;
+
+        span {
+          color: $text-dark;
+        }
+      }
+    }
+  }
+
+  .sidebar-nav {
+    padding: 0 0.75rem; // Padding on the sides of nav list
+
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-link {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: $text-light;
+      border-radius: $radius;
+      margin-bottom: 4px;
+      transition: $transition;
+      text-decoration: none;
+      font-size: 0.9rem;
+
+      .nav-icon {
+        width: 18px;
+        height: 18px;
+        stroke: $text-light;
+      }
+
+      &:hover {
+        background: $bg-hover;
+        color: $text-dark;
+
+        .nav-icon {
+          stroke: $text-dark;
+        }
+      }
+    }
+  }
+}
+
+
+.section-container {
+  background: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+}
+
+.section-header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $border-color;
+
+  .section-title {
+    font-size: 1.25rem;
+    margin: 0;
+    color: $text-dark;
+  }
+  
+  .section-subtitle {
+    font-size: 0.85rem;
+    color: $text-light;
+    margin: 0;
+  }
+}
+
+// Simple Add Button
+.btn-add {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: $radius;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.9; }
+  
+  .btn-icon { width: 16px; height: 16px; }
+}
+
+
+
+.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  th {
+    background-color: $table-head-bg;
+    color: $text-light;
+    text-align: left;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-bottom: 2px solid $table-border;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid $table-border;
+    color: $text-dark;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  
+  .font-bold { font-weight: 600; }
+  .text-right { text-align: right; }
+
+  // Simple Status Pill
+  .status-pill {
+    background: $bg-light;
+    padding: 2px 8px;
+    border-radius: $radius;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid $border-color;
+  }
+
+  // Action Button
+  .btn-text {
+    background: transparent;
+    border: none;
+    color: $primary-color;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    &:hover { color: darken($primary-color, 15%); }
+  }
+}
+.custom-select-container {
+  position: relative;
+  width: 100%;
+
+  .select-trigger {
+    width: 100%;
+    background: $bg-white;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    padding: 0.6rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: $text-dark;
+    text-align: left;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
+
+    .chevron-icon {
+      width: 20px;
+      height: 20px;
+      color: $text-light;
+    }
+  }
+
+  .select-options {
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    margin-top: 4px;
+    background: $bg-white;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 4px 0;
+    max-height: 200px;
+    overflow-y: auto;
+
+    .option-item {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      color: $text-light;
+      cursor: pointer;
+      transition: $transition;
+
+      &.active {
+        background: $bg-light;
+        color: $primary-color;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &.open-up {
+    .select-options {
+      top: auto;
+      bottom: calc(100% + 4px);
+      margin-top: 0;
+    }
+  }
+}
+// Modal Logic
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); // Simple dim
+  display: none; // Hidden by default
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+// Show modal when checkbox is checked
+#modal-toggle:checked ~ .modal-overlay {
+  display: flex;
+}
+
+.modal-content {
+  background: $bg-white;
+  width: 100%;
+  max-width: 450px;
+  border-radius: $radius;
+  border: 1px solid $border-color;
+}
+
+.modal-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .close-icon {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    color: $text-light;
+    &:hover { color: $text-dark; }
+  }
+}
+
+.modal-form {
+  padding: 1.25rem;
+
+  .form-group {
+    margin-bottom: 1.25rem;
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      float: left;
+      margin-bottom: 6px;
+      color: $text-dark;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.6rem;
+      color: #000;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      font-size: 0.9rem;
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+      }
+    }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 1.5rem;
+
+ 
+}
+// Specific Unique Logic for Post Modal
+.post-modal-wrapper {
+  #post-modal-toggle:checked ~ .post-modal-overlay {
+    display: flex !important;
+  }
+}
+
+.post-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000; // High z-index to stay on top
+  backdrop-filter: blur(1px);
+}
+
+.post-modal-content {
+  background: $bg-white;
+  width: 95%;
+  max-width: 480px;
+  border-radius: $radius;
+  border: 1px solid $border-color;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.post-modal-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .post-modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+  }
+
+  .post-close-icon {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    color: $text-light;
+    transition: $transition;
+    &:hover { color: $text-dark; }
+  }
+}
+
+.post-modal-form {
+  padding: 1.5rem;
+
+  .post-form-group {
+    margin-bottom: 1.25rem;
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: $text-dark;
+      text-align: left;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      font-size: 0.9rem;
+      background-color: $bg-white;
+      
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+      }
+    }
+  }
+}
+
+.post-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 1rem;
+  border-top: 1px solid $border-color;
+  margin-top: 0.5rem;
+}
+ .btn-cancel {
+    cursor: pointer;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $text-light;
+    background: $bg-light;
+    border-radius: $radius;
+    &:hover { background: darken($bg-light, 5%); }
+  }
+
+  .btn-save {
+    cursor: pointer;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    background: $primary-color;
+    border: none;
+    border-radius: $radius;
+    &:hover { opacity: 0.9; }
+  }
+
+.btn-icon-only,.btn-action-icon{
+    width: 17px;
+  }
+ 
+// Form Wrapper
+.form-wrapper {
+  padding: 2rem;
+  background: $bg-white;
+}
+
+.soft-form {
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: $text-dark;
+    }
+
+    input, select {
+      padding: 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      font-size: 0.9rem;
+      color: $text-dark;
+      background-color: #fff;
+      transition: $transition;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        // Soft blue ring instead of heavy shadow
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 1.5rem;
+    border-top: 1px solid $border-color;
+  }
+}
+
+// User Info Cell in Table
+.user-info {
+  display: flex;
+  flex-direction: column;
+  
+  .display-block { display: block; }
+  small { font-size: 0.8rem; }
+}
+
+// Helper utility for status
+.active-status {
+  background-color: $bg-light !important;
+  color: $text-dark !important;
+}
+
+
+.pro-question-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+
+  th {
+    padding: 10px;
+    font-size: 0.7rem;
+    color: $text-light;
+    text-transform: uppercase;
+    border-bottom: 1px solid $border-color;
+    text-align: left;
+  }
+
+  td {
+    padding: 10px;
+    background: $bg-white;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .parent-row {
+    td { background: $bg-white; font-weight: 500; }
+  }
+
+  .sub-row {
+    td { 
+      background: $bg-light; 
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+    .sub-input-wrapper {
+      padding-left: 20px;
+      border-left: 1px solid $border-color;
+      margin-left: 8px;
+    }
+  }
+
+  .q-no {
+    font-weight: 600;
+    color: $text-dark;
+    font-size: 0.85rem;
+    &.sub-no {
+      color: $text-light;
+      font-size: 0.8rem;
+      padding-left: 16px;
+    }
+  }
+}
+
+.btn-sub {
+  background: $bg-light;
+  color: $text-light;
+  border: 1px solid $border-color;
+  padding: 4px 10px;
+  border-radius: $radius;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover { background: $text-dark; color: white; border-color: $text-dark; }
+}
+
+.btn-add-main {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: $bg-white;
+  border: 1px dashed $border-color;
+  color: $text-light;
+  font-weight: 500;
+  border-radius: $radius;
+  cursor: pointer;
+  &:hover { border-color: $text-dark; color: $text-dark; }
+}
+
+.form-footer {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  .btn-large { padding: 0.75rem 2rem; font-size: 0.9rem; }
+}
+.form-top-selectors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: $bg-light;
+  border-bottom: 1px solid $border-color;
+}
+
+.dynamic-rows-container {
+  padding: 1rem;
+
+  .flat-input {
+    width: 100%;
+    border: 1px solid $border-color;
+    padding: 0.4rem 0.5rem;
+    border-radius: $radius;
+    font-size: 0.85rem;
+    &:focus { border-color: $text-dark; outline: none; }
+  }
+
+  .sub-question-row {
+    background-color: $bg-light;
+    td:nth-child(2) {
+      position: relative;
+      &::before {
+        content: "↳";
+        position: absolute;
+        left: 10px;
+        color: $text-light;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.btn-add-row {
+  background: transparent;
+  border: 1px dashed $border-color;
+  color: $text-light;
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  border-radius: $radius;
+  font-weight: 500;
+  transition: $transition;
+  &:hover {
+    border-color: $text-dark;
+    color: $text-dark;
+    background: $bg-light;
+  }
+}
+
+.form-footer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+// Employee Modal
+.emp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.emp-modal-content {
+  background: $bg-white;
+  width: 90%;
+  max-width: 520px;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+}
+
+.emp-modal-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .emp-modal-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin: 0;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    color: $text-light;
+    padding: 0;
+    &:hover { color: $text-dark; }
+    svg { width: 100%; height: 100%; }
+  }
+}
+
+.emp-modal-form {
+  padding: 1.25rem;
+
+  .form-section {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-section-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $text-light;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.75rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &.full-width {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: $text-dark;
+    }
+
+    input, select {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      font-size: 0.85rem;
+      color: $text-dark;
+      background: $bg-white;
+
+      &:focus {
+        outline: none;
+        border-color: $text-dark;
+      }
+    }
+  }
+}
+
+.emp-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid $border-color;
+}
+
+// Question Form Styles
+.question-form-wrapper {
+  background: $bg-white;
+}
+
+.qf-header {
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid $border-color;
+
+  .qf-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin: 0 0 4px 0;
+  }
+
+  .qf-subtitle {
+    font-size: 0.8rem;
+    color: $text-light;
+    margin: 0;
+  }
+}
+
+.btn-back {
+  background: none;
+  border: 1px solid $border-color;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  color: $text-light;
+  cursor: pointer;
+  border-radius: $radius;
+  &:hover {
+    border-color: $text-dark;
+    color: $text-dark;
+  }
+}
+
+.qf-filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: $bg-light;
+  border-bottom: 1px solid $border-color;
+
+  .qf-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: $text-light;
+    }
+
+    select {
+      padding: 0.5rem;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      font-size: 0.85rem;
+      background: $bg-white;
+      color: $text-dark;
+
+      &:focus {
+        outline: none;
+        border-color: $text-dark;
+      }
+    }
+  }
+}
+
+.qf-questions-area {
+  padding: 1.25rem;
+}
+
+.qf-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+
+  th {
+    text-align: left;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: $text-light;
+    text-transform: uppercase;
+    border-bottom: 1px solid $border-color;
+  }
+
+  td {
+    padding: 0.5rem;
+    border-bottom: 1px solid $border-color;
+    vertical-align: middle;
+  }
+}
+
+.qf-main-row {
+  background: $bg-white;
+  
+  .qf-num {
+    font-weight: 600;
+    color: $text-dark;
+  }
+}
+
+.qf-sub-row {
+  background: $bg-light;
+  
+  .qf-sub-num {
+    color: $text-light;
+    font-size: 0.8rem;
+    padding-left: 1rem;
+  }
+}
+
+.qf-input {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  font-size: 0.85rem;
+  color: $text-dark;
+
+  &:focus {
+    outline: none;
+    border-color: $text-dark;
+  }
+
+  &.qf-rating {
+    width: 60px;
+    text-align: center;
+  }
+}
+
+.qf-actions {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.qf-btn-sub {
+  background: $bg-light;
+  border: 1px solid $border-color;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: $text-light;
+  cursor: pointer;
+  border-radius: $radius;
+  
+  &:hover {
+    border-color: $text-dark;
+    color: $text-dark;
+  }
+}
+
+.qf-btn-del {
+  background: none;
+  border: 1px solid $border-color;
+  width: 22px;
+  height: 22px;
+  font-size: 1rem;
+  color: $text-light;
+  cursor: pointer;
+  border-radius: $radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    border-color: #c00;
+    color: #c00;
+  }
+}
+
+.qf-add-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: $bg-white;
+  border: 1px dashed $border-color;
+  color: $text-light;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: $radius;
+
+  &:hover {
+    border-color: $text-dark;
+    color: $text-dark;
+  }
+}
+
+.qf-footer {
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid $border-color;
+}
+
+// Updated button styles
+.btn-cancel {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $text-light;
+  background: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  
+  &:hover {
+    border-color: $text-dark;
+    color: $text-dark;
+  }
+}
+
+.btn-save {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $bg-white;
+  background: $text-dark;
+  border: 1px solid $text-dark;
+  border-radius: $radius;
+  
+  &:hover {
+    background: #333;
+  }
+}
+
+// Minimal Alert Styles
+.alert-box {
+  max-width: 440px;
+  border: 1px solid $border-color;
+  border-radius: $radius; // 1px for sharp look
+  background-color: $bg-white;
+  margin: 1rem auto;
+  position: absolute;
+  top: 10px;
+  z-index: 999;
+  right: 10px;
+
+}
+
+
+.alert-inner {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.alert-layout {
+  display: flex;
+  align-items: flex-start;
+
+  .alert-icon-box {
+    flex-shrink: 0;
+    svg {
+      width: 22px;
+      height: 22px;
+      fill: $primary-color; // #555
+    }
+  }
+
+  .alert-content {
+    margin-left: 16px;
+
+    .alert-head {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $text-dark;
+      margin: 0;
+      letter-spacing: -0.2px;
+    }
+
+    .alert-desc {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: $text-light;
+      line-height: 1.5;
+    }
+  }
+}
+
+.alert-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+
+  button {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: $radius; // Sharp corners
+    cursor: pointer;
+    transition: $transition;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &.btn-flat-light {
+      background-color: $bg-light;
+      color: $text-light;
+      border-color: $border-color;
+
+      &:hover {
+        background-color: $bg-hover;
+        color: $text-dark;
+      }
+    }
+
+    &.btn-flat-dark {
+      background-color: $primary-color; // #555
+      color: $text-white;
+
+      &:hover {
+        background-color: $text-dark; // #222
+      }
+    }
+  }
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); // Simple dim
+ 
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+.No_available {
+     background: transparent;
+    background-color: none;
+    box-shadow: none;
+    border: none;
+    position: absolute;
+    top: 42px;
+    font-size: 10px;
+}
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+
+  .drop-btn {
+    background: $bg-white;
+    border: 1px solid $border-color;
+    color: $text-dark;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: $radius;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background: $bg-hover;
+      border-color: darken($border-color, 10%);
+    }
+  }
+
+  .drop-content {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 110%;
+    z-index: 10;
+    min-width: 160px;
+    background: $bg-white;
+    border: 1px solid $border-color;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: $radius;
+    transition: $transition;
+    display: flex;
+    flex-direction: column;
+
+    button {
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 10px 15px;
+      font-size: 13px;
+      color: $text-light;
+      cursor: pointer;
+      transition: $transition;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $table-border;
+      }
+
+      &:hover {
+        background: $bg-hover;
+        color: $text-dark;
+      }
+    }
+  }
+
+  // Show menu on hover
+  &:hover .drop-content {
+    visibility: visible;
+    opacity: 1;
+    top: 100%;
+  }
+}
+.app-header{
+  background: $bg-white;
+  position: fixed;
+  width: 81.3%;
+  z-index: 999;
+  
+  right: 0;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-dark;
+    
+    margin: 0;
+  }
+  .header-subtitle {
+    font-size: 0.85rem;
+    color: $text-light;
+    margin: 0;
+  }
+  .col{
+    display: flex;
+   justify-content: space-between;
+   width: 100%;
+    gap: 4px;
+  }
+  .flexbox{
+    width: 100%;
+  }
+}
+main{
+  padding-top: 4rem !important;
+}
+
+// Mark Questions Page
+.mark-emp-details {
+  padding: 1.25rem;
+  border-bottom: 3px solid $text-dark;
+}
+
+.mark-emp-heading {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: $text-dark;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid $text-dark;
+}
+
+.mark-emp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.mark-emp-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mark-emp-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: $text-light;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mark-emp-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $text-dark;
+}
+
+.mark-questions-area {
+  padding: 1.25rem;
+}
+
+.mark-parent-row {
+  background: $bg-light;
+  td {
+    font-weight: 600;
+    color: $text-dark;
+  }
+}
+
+.mark-child-row {
+  background: $bg-white;
+
+  .mark-child-num {
+    padding-left: 1.5rem;
+    color: $text-light;
+    font-size: 0.8rem;
+  }
+
+  .mark-child-text {
+    padding-left: 1.5rem;
+    color: $text-light;
+    font-size: 0.85rem;
+  }
+}
+.app-title{
+  font-size: 18px;
+    font-weight: 800;
+    span{
+      font-size: 9px;
+    color: #818181;
+    font-weight: 600;
+    }
+}
+// Toast Notifications
+@keyframes toast-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.toast-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 99999;
+}
+
+.toast-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+  padding: 14px 18px;
+  background-color: $bg-white;
+  color: $text-light;
+  border: 1px solid $border-color;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  animation: toast-slide-in 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  .toast-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .toast-message {
+    flex: 1;
+    font-size: 0.85rem;
+    color: $text-dark;
+    font-weight: 500;
+  }
+
+  .toast-close {
+    margin-left: 12px;
+    background: none;
+    border: none;
+    color: $text-light;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background-color: $bg-hover;
+      color: $text-dark;
+    }
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  // Type-specific styles
+  &.success {
+    border-left: 3px solid #2e7d32;
+    .toast-icon { color: #2e7d32; }
+  }
+  &.danger, &.error {
+    border-left: 3px solid #d32f2f;
+    .toast-icon { color: #d32f2f; }
+  }
+  &.warning {
+    border-left: 3px solid #ed6c02;
+    .toast-icon { color: #ed6c02; }
+  }
+}
