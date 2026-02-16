@@ -13,6 +13,15 @@ $radius: 1px;
 $table-border: #ddd;
 $table-head-bg: #fafafa;
 
+// Variables (Duplicate as per your request)
+$sidebar-width: 240px;
+$sidebar-collapsed: 70px;
+$primary-color: #555;
+$bg-light: #fafafa;
+$bg-white: #ffffff;
+$text-dark: #222;
+$border-color: #ddd;
+$transition: all 0.2s ease;
 
 .dashboard-wrapper {
   display: flex;
@@ -20,31 +29,107 @@ $table-head-bg: #fafafa;
   min-height: 100vh;
 }
 
-// THE TAB LOGIC (Pure CSS)
-#tab-acr:checked~.sidebar .nav-item:nth-child(1) .nav-link,
-#tab-employees:checked~.sidebar .nav-item:nth-child(2) .nav-link,
-#tab-departments:checked~.sidebar .nav-item:nth-child(3) .nav-link,
-#tab-posts:checked~.sidebar .nav-item:nth-child(4) .nav-link,
-#tab-questions:checked~.sidebar .nav-item:nth-child(5) .nav-link,
-#tab-rating:checked~.sidebar .nav-item:nth-child(6) .nav-link {
-  @extend %active-nav;
+// --- SIDEBAR COLLAPSE LOGIC ---
+#sidebar-collapse-check:checked {
+  ~ .sidebar {
+    width: $sidebar-collapsed;
+    .logo-text, .nav-text { display: none; }
+    .nav-link { justify-content: center; padding: 1rem 0; }
+    .logo { justify-content: center; }
+  }
+  ~ .content-area, ~ .app-header {
+    margin-left: $sidebar-collapsed;
+  }
 }
 
-// Display logic
+// Sidebar Style
+.sidebar {
+  width: $sidebar-width;
+  background: $bg-white;
+  border-right: 1px solid $border-color;
+  height: 100vh;
+  position: fixed;
+  transition: $transition;
+  z-index: 10;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  transition: $transition;
+  white-space: nowrap;
+  .nav-icon { width: 20px; height: 20px; flex-shrink: 0; stroke: #888; }
+  .nav-text { margin-left: 12px; font-size: 14px; color: #666; }
+  &:hover { background: $bg-hover; }
+}
+
+// Header
+.app-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  margin-left: $sidebar-width;
+  height: 60px;
+  background: $bg-white;
+  border-bottom: 1px solid $border-color;
+  transition: $transition;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.burger-btn { cursor: pointer; display: flex; align-items: center; margin-right: 15px; }
+
+// --- TAB DISPLAY LOGIC ---
 .content-area {
-  display: none;
+  margin-top: 60px;
   margin-left: $sidebar-width;
   padding: 2rem;
   flex: 1;
+  display: none;
+  transition: $transition;
 }
 
-#tab-acr:checked~.acr-view,
-#tab-employees:checked~.employees-view,
-#tab-departments:checked~.departments-view,
-#tab-posts:checked~.posts-view,
-#tab-questions:checked~.questions-view,
-#tab-rating:checked~.rating-view {
+// Logic to show specific view when radio is checked
+#tab-acr:checked ~ .acr-view,
+#tab-bonus:checked ~ .bonus-view,
+#tab-employees:checked ~ .employees-view,
+#tab-departments:checked ~ .departments-view,
+#tab-posts:checked ~ .posts-view,
+#tab-questions:checked ~ .questions-view,
+#tab-deductions:checked ~ .deductions-view,
+#tab-rating:checked ~ .rating-view,
+#tab-reports:checked ~ .reports-view {
   display: block;
+}
+
+// ==========================================
+// ACTIVE NAV ITEM LOGIC (Matched to JSX Order)
+// ==========================================
+// 1. ACR
+#tab-acr:checked ~ .sidebar .nav-item:nth-child(1) .nav-link,
+// 2. Employees
+#tab-employees:checked ~ .sidebar .nav-item:nth-child(2) .nav-link,
+// 3. Departments
+#tab-departments:checked ~ .sidebar .nav-item:nth-child(3) .nav-link,
+// 4. All Posts
+#tab-posts:checked ~ .sidebar .nav-item:nth-child(4) .nav-link,
+// 5. Bonus
+#tab-bonus:checked ~ .sidebar .nav-item:nth-child(5) .nav-link,
+// 6. Deductions
+#tab-deductions:checked ~ .sidebar .nav-item:nth-child(6) .nav-link,
+// 7. Questions
+#tab-questions:checked ~ .sidebar .nav-item:nth-child(7) .nav-link,
+// 8. Ratings
+#tab-rating:checked ~ .sidebar .nav-item:nth-child(8) .nav-link,
+// 9. Reports
+#tab-reports:checked ~ .sidebar .nav-item:nth-child(9) .nav-link {
+  background: $bg-light;
+  border-right: 3px solid $primary-color;
+  .nav-icon { stroke: $primary-color; }
+  .nav-text { color: $text-dark; font-weight: 600; }
 }
 
 // Simple Active State
@@ -68,7 +153,7 @@ $table-head-bg: #fafafa;
   display: flex;
   flex-direction: column;
   position: fixed;
-  z-index: 1000;
+  z-index: 1;
   padding: 0; // Removed extra padding for a flush look
 
   .sidebar-header {
@@ -165,7 +250,7 @@ $table-head-bg: #fafafa;
     margin: 0;
     color: $text-dark;
   }
-  
+
   .section-subtitle {
     font-size: 0.85rem;
     color: $text-light;
@@ -188,9 +273,14 @@ $table-head-bg: #fafafa;
   cursor: pointer;
   transition: opacity 0.2s;
 
-  &:hover { opacity: 0.9; }
-  
-  .btn-icon { width: 16px; height: 16px; }
+  &:hover {
+    opacity: 0.9;
+  }
+
+  .btn-icon {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 
@@ -218,10 +308,17 @@ $table-head-bg: #fafafa;
     color: $text-dark;
   }
 
-  tr:last-child td { border-bottom: none; }
-  
-  .font-bold { font-weight: 600; }
-  .text-right { text-align: right; }
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  .font-bold {
+    font-weight: 600;
+  }
+
+  .text-right {
+    text-align: right;
+  }
 
   // Simple Status Pill
   .status-pill {
@@ -241,9 +338,13 @@ $table-head-bg: #fafafa;
     font-weight: 600;
     cursor: pointer;
     text-decoration: underline;
-    &:hover { color: darken($primary-color, 15%); }
+
+    &:hover {
+      color: darken($primary-color, 15%);
+    }
   }
 }
+
 .custom-select-container {
   position: relative;
   width: 100%;
@@ -311,6 +412,7 @@ $table-head-bg: #fafafa;
     }
   }
 }
+
 // Modal Logic
 .modal-overlay {
   position: fixed;
@@ -326,7 +428,7 @@ $table-head-bg: #fafafa;
 }
 
 // Show modal when checkbox is checked
-#modal-toggle:checked ~ .modal-overlay {
+#modal-toggle:checked~.modal-overlay {
   display: flex;
 }
 
@@ -356,7 +458,10 @@ $table-head-bg: #fafafa;
     width: 20px;
     height: 20px;
     color: $text-light;
-    &:hover { color: $text-dark; }
+
+    &:hover {
+      color: $text-dark;
+    }
   }
 }
 
@@ -375,13 +480,15 @@ $table-head-bg: #fafafa;
       color: $text-dark;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
       padding: 0.6rem;
       color: #000;
       border: 1px solid $border-color;
       border-radius: $radius;
       font-size: 0.9rem;
+
       &:focus {
         outline: none;
         border-color: $primary-color;
@@ -396,11 +503,12 @@ $table-head-bg: #fafafa;
   gap: 10px;
   margin-top: 1.5rem;
 
- 
+
 }
+
 // Specific Unique Logic for Post Modal
 .post-modal-wrapper {
-  #post-modal-toggle:checked ~ .post-modal-overlay {
+  #post-modal-toggle:checked~.post-modal-overlay {
     display: flex !important;
   }
 }
@@ -422,7 +530,7 @@ $table-head-bg: #fafafa;
   max-width: 480px;
   border-radius: $radius;
   border: 1px solid $border-color;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .post-modal-header {
@@ -445,7 +553,10 @@ $table-head-bg: #fafafa;
     height: 20px;
     color: $text-light;
     transition: $transition;
-    &:hover { color: $text-dark; }
+
+    &:hover {
+      color: $text-dark;
+    }
   }
 }
 
@@ -464,14 +575,15 @@ $table-head-bg: #fafafa;
       text-align: left;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
       padding: 0.7rem;
       border: 1px solid $border-color;
       border-radius: $radius;
       font-size: 0.9rem;
       background-color: $bg-white;
-      
+
       &:focus {
         outline: none;
         border-color: $primary-color;
@@ -489,33 +601,41 @@ $table-head-bg: #fafafa;
   border-top: 1px solid $border-color;
   margin-top: 0.5rem;
 }
- .btn-cancel {
-    cursor: pointer;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: $text-light;
-    background: $bg-light;
-    border-radius: $radius;
-    &:hover { background: darken($bg-light, 5%); }
-  }
 
-  .btn-save {
-    cursor: pointer;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: white;
-    background: $primary-color;
-    border: none;
-    border-radius: $radius;
-    &:hover { opacity: 0.9; }
-  }
+.btn-cancel {
+  cursor: pointer;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $text-light;
+  background: $bg-light;
+  border-radius: $radius;
 
-.btn-icon-only,.btn-action-icon{
-    width: 17px;
+  &:hover {
+    background: darken($bg-light, 5%);
   }
- 
+}
+
+.btn-save {
+  cursor: pointer;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  background: $primary-color;
+  border: none;
+  border-radius: $radius;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.btn-icon-only,
+.btn-action-icon {
+  width: 17px;
+}
+
 // Form Wrapper
 .form-wrapper {
   padding: 2rem;
@@ -541,7 +661,8 @@ $table-head-bg: #fafafa;
       color: $text-dark;
     }
 
-    input, select {
+    input,
+    select {
       padding: 0.75rem;
       border: 1px solid $border-color;
       border-radius: $radius;
@@ -572,9 +693,14 @@ $table-head-bg: #fafafa;
 .user-info {
   display: flex;
   flex-direction: column;
-  
-  .display-block { display: block; }
-  small { font-size: 0.8rem; }
+
+  .display-block {
+    display: block;
+  }
+
+  small {
+    font-size: 0.8rem;
+  }
 }
 
 // Helper utility for status
@@ -605,15 +731,19 @@ $table-head-bg: #fafafa;
   }
 
   .parent-row {
-    td { background: $bg-white; font-weight: 500; }
+    td {
+      background: $bg-white;
+      font-weight: 500;
+    }
   }
 
   .sub-row {
-    td { 
-      background: $bg-light; 
+    td {
+      background: $bg-light;
       padding-top: 6px;
       padding-bottom: 6px;
     }
+
     .sub-input-wrapper {
       padding-left: 20px;
       border-left: 1px solid $border-color;
@@ -625,6 +755,7 @@ $table-head-bg: #fafafa;
     font-weight: 600;
     color: $text-dark;
     font-size: 0.85rem;
+
     &.sub-no {
       color: $text-light;
       font-size: 0.8rem;
@@ -642,7 +773,12 @@ $table-head-bg: #fafafa;
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  &:hover { background: $text-dark; color: white; border-color: $text-dark; }
+
+  &:hover {
+    background: $text-dark;
+    color: white;
+    border-color: $text-dark;
+  }
 }
 
 .btn-add-main {
@@ -655,15 +791,24 @@ $table-head-bg: #fafafa;
   font-weight: 500;
   border-radius: $radius;
   cursor: pointer;
-  &:hover { border-color: $text-dark; color: $text-dark; }
+
+  &:hover {
+    border-color: $text-dark;
+    color: $text-dark;
+  }
 }
 
 .form-footer {
   padding: 1.5rem;
   display: flex;
   justify-content: flex-end;
-  .btn-large { padding: 0.75rem 2rem; font-size: 0.9rem; }
+
+  .btn-large {
+    padding: 0.75rem 2rem;
+    font-size: 0.9rem;
+  }
 }
+
 .form-top-selectors {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -682,13 +827,19 @@ $table-head-bg: #fafafa;
     padding: 0.4rem 0.5rem;
     border-radius: $radius;
     font-size: 0.85rem;
-    &:focus { border-color: $text-dark; outline: none; }
+
+    &:focus {
+      border-color: $text-dark;
+      outline: none;
+    }
   }
 
   .sub-question-row {
     background-color: $bg-light;
+
     td:nth-child(2) {
       position: relative;
+
       &::before {
         content: "↳";
         position: absolute;
@@ -711,6 +862,7 @@ $table-head-bg: #fafafa;
   border-radius: $radius;
   font-weight: 500;
   transition: $transition;
+
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
@@ -740,8 +892,17 @@ $table-head-bg: #fafafa;
   background: $bg-white;
   width: 90%;
   max-width: 520px;
+  height: 90vh;
+  overflow: scroll;
   border: 1px solid $border-color;
   border-radius: $radius;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .emp-modal-header {
@@ -766,8 +927,15 @@ $table-head-bg: #fafafa;
     height: 20px;
     color: $text-light;
     padding: 0;
-    &:hover { color: $text-dark; }
-    svg { width: 100%; height: 100%; }
+
+    &:hover {
+      color: $text-dark;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -810,7 +978,8 @@ $table-head-bg: #fafafa;
       color: $text-dark;
     }
 
-    input, select {
+    input,
+    select {
       padding: 0.5rem 0.75rem;
       border: 1px solid $border-color;
       border-radius: $radius;
@@ -868,6 +1037,7 @@ $table-head-bg: #fafafa;
   color: $text-light;
   cursor: pointer;
   border-radius: $radius;
+
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
@@ -937,7 +1107,7 @@ $table-head-bg: #fafafa;
 
 .qf-main-row {
   background: $bg-white;
-  
+
   .qf-num {
     font-weight: 600;
     color: $text-dark;
@@ -946,7 +1116,7 @@ $table-head-bg: #fafafa;
 
 .qf-sub-row {
   background: $bg-light;
-  
+
   .qf-sub-num {
     color: $text-light;
     font-size: 0.8rem;
@@ -988,7 +1158,7 @@ $table-head-bg: #fafafa;
   color: $text-light;
   cursor: pointer;
   border-radius: $radius;
-  
+
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
@@ -1007,7 +1177,7 @@ $table-head-bg: #fafafa;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
     border-color: #c00;
     color: #c00;
@@ -1050,7 +1220,7 @@ $table-head-bg: #fafafa;
   background: $bg-white;
   border: 1px solid $border-color;
   border-radius: $radius;
-  
+
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
@@ -1066,7 +1236,7 @@ $table-head-bg: #fafafa;
   background: $text-dark;
   border: 1px solid $text-dark;
   border-radius: $radius;
-  
+
   &:hover {
     background: #333;
   }
@@ -1099,6 +1269,7 @@ $table-head-bg: #fafafa;
 
   .alert-icon-box {
     flex-shrink: 0;
+
     svg {
       width: 22px;
       height: 22px;
@@ -1164,6 +1335,7 @@ $table-head-bg: #fafafa;
     }
   }
 }
+
 .overlay {
   position: fixed;
   top: 0;
@@ -1171,20 +1343,22 @@ $table-head-bg: #fafafa;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4); // Simple dim
- 
+
   align-items: center;
   justify-content: center;
   z-index: 20;
 }
+
 .No_available {
-     background: transparent;
-    background-color: none;
-    box-shadow: none;
-    border: none;
-    position: absolute;
-    top: 42px;
-    font-size: 10px;
+  background: transparent;
+  background-color: none;
+  box-shadow: none;
+  border: none;
+  position: absolute;
+  top: 42px;
+  font-size: 10px;
 }
+
 .custom-dropdown {
   position: relative;
   display: inline-block;
@@ -1215,7 +1389,7 @@ $table-head-bg: #fafafa;
     min-width: 160px;
     background: $bg-white;
     border: 1px solid $border-color;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: $radius;
     transition: $transition;
     display: flex;
@@ -1249,12 +1423,13 @@ $table-head-bg: #fafafa;
     top: 100%;
   }
 }
-.app-header{
+
+.app-header {
   background: $bg-white;
   position: fixed;
-  width: 81.3%;
-  z-index: 999;
-  
+
+  z-index: 1;
+
   right: 0;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid $border-color;
@@ -1266,25 +1441,29 @@ $table-head-bg: #fafafa;
     font-size: 1.25rem;
     font-weight: 600;
     color: $text-dark;
-    
+
     margin: 0;
   }
+
   .header-subtitle {
     font-size: 0.85rem;
     color: $text-light;
     margin: 0;
   }
-  .col{
+
+  .col {
     display: flex;
-   justify-content: space-between;
-   width: 100%;
+    justify-content: space-between;
+    width: 100%;
     gap: 4px;
   }
-  .flexbox{
+
+  .flexbox {
     width: 100%;
   }
 }
-main{
+
+main {
   padding-top: 4rem !important;
 }
 
@@ -1337,6 +1516,7 @@ main{
 
 .mark-parent-row {
   background: $bg-light;
+
   td {
     font-weight: 600;
     color: $text-dark;
@@ -1358,21 +1538,25 @@ main{
     font-size: 0.85rem;
   }
 }
-.app-title{
+
+.app-title {
   font-size: 18px;
-    font-weight: 800;
-    span{
-      font-size: 9px;
+  font-weight: 800;
+
+  span {
+    font-size: 9px;
     color: #818181;
     font-weight: 600;
-    }
+  }
 }
+
 // Toast Notifications
 @keyframes toast-slide-in {
   0% {
     opacity: 0;
     transform: translateX(100%);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -1451,14 +1635,244 @@ main{
   // Type-specific styles
   &.success {
     border-left: 3px solid #2e7d32;
-    .toast-icon { color: #2e7d32; }
+
+    .toast-icon {
+      color: #2e7d32;
+    }
   }
-  &.danger, &.error {
+
+  &.danger,
+  &.error {
     border-left: 3px solid #d32f2f;
-    .toast-icon { color: #d32f2f; }
+
+    .toast-icon {
+      color: #d32f2f;
+    }
   }
+
   &.warning {
     border-left: 3px solid #ed6c02;
-    .toast-icon { color: #ed6c02; }
+
+    .toast-icon {
+      color: #ed6c02;
+    }
   }
+}
+
+.bonus-multi-select {
+  .select__control {
+    background-color: $bg-white;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    transition: $transition;
+    min-height: 38px;
+    box-shadow: none;
+
+    &:hover {
+      border-color: $primary-color;
+    }
+
+    &--is-focused {
+      border-color: $primary-color !important;
+      outline: none;
+    }
+  }
+
+  .select__menu {
+    background-color: $bg-white;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    z-index: 99;
+  }
+
+  .select__option {
+    color: $text-dark;
+    background-color: $bg-white;
+    transition: $transition;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px 12px;
+
+    &--is-focused {
+      background-color: $bg-hover;
+    }
+
+    &--is-selected {
+      background-color: $primary-color;
+      color: $text-white;
+    }
+  }
+
+  .select__multi-value {
+    background-color: $bg-light;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    margin: 2px;
+
+    &__label {
+      color: $text-dark;
+      padding: 2px 6px;
+      font-size: 13px;
+    }
+
+    &__remove {
+      color: $text-light;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $text-white;
+      }
+    }
+  }
+
+  .select__placeholder {
+    color: $text-light;
+    font-size: 14px;
+  }
+
+  .select__indicator-separator {
+    display: none; // Minimal design - remove separator
+  }
+}
+
+
+.main-content {
+  flex: 1;
+  padding: 0 0 20px 0;
+  padding-top: 0 !important;
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .date-filter {
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      border: 1px solid $border-color;
+      background: $bg-white;
+      font-size: 13px;
+      color: $text-light;
+      border-radius: $radius;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        fill: $text-light;
+      }
+    }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 40px;
+
+  .stat-card {
+    background: $bg-white;
+    border: 1px solid $border-color;
+    padding: 15px; // Reduced padding slightly for 6-column fit
+    border-radius: $radius;
+    transition: $transition;
+    display: flex;        // Fix: Align icon and text side-by-side
+    align-items: center;
+    gap: 12px;
+
+    &:hover { border-color: $primary-color; }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      svg { width: 20px; height: 20px; }
+
+      // Icon Colors
+      &.employees { background: #e3f2fd; color: #1976d2; }
+      &.departments { background: #f3e5f5; color: #7b1fa2; }
+      &.designations { background: #e8f5e9; color: #2e7d32; }
+      &.bonus { background: #fff3e0; color: #ef6c00; }
+      &.deductions { background: #ffebee; color: #c62828; }
+      &.salary { background: #e0f2f1; color: #00695c; }
+    }
+
+    .stat-info {
+      label {
+        display: block;
+        font-size: 10px;
+        text-transform: uppercase;
+        color: $text-light;
+        letter-spacing: 0.5px;
+        margin: 0;
+      }
+      .value {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        color: $text-dark;
+        margin-top: 2px;
+      }
+    }
+  }
+}
+
+.report-table-wrapper {
+  background: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: $radius; // Added radius for consistency
+  overflow: hidden;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      background: $table-head-bg;
+      text-align: left;
+      padding: 15px;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: $text-light;
+      border-bottom: 1px solid $table-border;
+    }
+
+    td {
+      padding: 14px 15px;
+      font-size: 14px;
+      border-bottom: 1px solid $table-border;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: $bg-hover; }
+  }
+
+  .table-summary {
+    padding: 15px;
+    text-align: right;
+    font-size: 16px;
+    font-weight: bold;
+    color: $primary-color;
+    background: $table-head-bg;
+    border-top: 1px solid $table-border;
+  }
+}
+
+.status-tag {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  &.filled { background: #e8f5e9; color: #2e7d32; }
+  &.pending { background: #fff3e0; color: #ef6c00; } // Changed to orange for 'Pending'
 }

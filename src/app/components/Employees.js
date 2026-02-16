@@ -5,6 +5,7 @@ import { Listbox } from "@headlessui/react";
 import MarkQuestions from './MarkQuestions';
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
+import Select from 'react-select';
 
 export default function Employees() {
 
@@ -18,21 +19,55 @@ export default function Employees() {
     const [editId, setEditId] = useState(null);
     const [editData, setEditdata] = useState(null);
     const [markEmpId, setMarkEmpId] = useState(null);
-    const [showdelete,setshowdelete] = useState(false);
-    const [targetId,setTargetId] = useState(null);
-    const [showDeleteModal,setShowDeleteModal] = useState(false);
+    const [showdelete, setshowdelete] = useState(false);
+    const [MultiOP, setMultiOP] = useState([]); // Bonus options
+    const [MultiOP1, setMultiOP1] = useState([]); // Deduction options
+    const [selectedBonuses, setSelectedBonuses] = useState([]); // Selected bonuses
+    const [selectedDeductions, setSelectedDeductions] = useState([]); // Selected deductions
+    const [targetId, setTargetId] = useState(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [toast, setToast] = useState({ show: false, type: '', message: '' });
     useEffect(() => {
         setoptions_of_post(selected?.posts || []);
     }, [selected]);
 
-
-
+    // Load bonus/deduction options when modal opens
     useEffect(() => {
+        if (showModal) {
+            get_b_d();
+        }
+    }, [showModal]);
+    async function get_b_d() {
+
+        try {
+            const res = await axios.get('http://localhost/react-backend/api/bonus/get.php');
+
+            const data = res.data;
+
+            const formattedData = data.map(item => ({
+                value: item.id,
+                label: item.bonusName
+            }));
+
+            const req = await axios.get('http://localhost/react-backend/api/deduction/get.php');
+
+            const dat1a = req.data;
+
+            const formattedData1 = dat1a.map(item => ({
+                value: item.id,
+                label: item.deduction_name
+            }));
+
+            setMultiOP(formattedData);
+            setMultiOP1(formattedData1);
+        } catch (error) {
+            setToast({ show: true, type: 'error', message: 'Failed to load deduction data.' });
+        }
+    } useEffect(() => {
         async function get_all_info() {
             try {
                 setLoading(true);
-                const response = await axios.get('https://myproject2.xo.je/api/Employees/get_info.php');
+                const response = await axios.get('http://localhost/react-backend/api/Employees/get_info.php');
                 const data = response.data;
                 setOptions(data);
 
@@ -50,9 +85,11 @@ export default function Employees() {
         setEditId(id);
         try {
             setLoading(true);
-            const response = await axios.get(`https://myproject2.xo.je/api/Employees/get_data.php?id=${id}`);
+            const response = await axios.get(`http://localhost/react-backend/api/Employees/get_data.php?id=${id}`);
             const data = response.data;
             setEditdata(data);
+            setSelectedDeductions(data.deductions || []);
+            setSelectedBonuses(data.bonuses || []);
             setSelected({
                 department_id: data.department_id,
                 department_name: data.department_name,
@@ -74,7 +111,7 @@ export default function Employees() {
     }
     async function handleDelete(id) {
         try {
-            const responce = axios.delete(`https://myproject2.xo.je/api/Employees/delete.php`, { data: { id: id } });
+            const responce = axios.delete(`http://localhost/react-backend/api/Employees/delete.php`, { data: { id: id } });
             const data = await responce.data;
             setshowdelete(false);
             setToast({ show: true, type: 'success', message: 'Employee deleted successfully.' });
@@ -87,12 +124,14 @@ export default function Employees() {
     async function post_data(e) {
         e.preventDefault();
         const formData = new FormData(form.current);
+      
+        formData.append('bonuses', JSON.stringify(selectedBonuses.map(b => b.value)));
+        formData.append('deductions', JSON.stringify(selectedDeductions.map(d => d.value)));
         try {
             setLoading(true);
-
-            editId ? formData.append('id', editId) : null;
+            if (editId) formData.append('id', editId);
             const url = editId ? 'update.php' : 'create.php';
-            const response = await axios.post(`https://myproject2.xo.je/api/Employees/${url}`, formData, {
+            const response = await axios.post(`http://localhost/react-backend/api/Employees/${url}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -103,20 +142,16 @@ export default function Employees() {
             setEditId(null);
             setEditdata(null);
             get_all_info_table();
-
-        }
-
-        catch (error) {
+        } catch (error) {
             setToast({ show: true, type: 'error', message: error?.message || 'Error occurred' });
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
     }
     async function get_all_info_table() {
         try {
             setLoading(true);
-            const response = await axios.get('https://myproject2.xo.je/api/Employees/get.php');
+            const response = await axios.get('http://localhost/react-backend/api/Employees/get.php');
             const data = response.data;
 
             setdata(data);
@@ -137,6 +172,8 @@ export default function Employees() {
     if (markEmpId) {
         return <MarkQuestions empId={markEmpId} onBack={() => setMarkEmpId(null)} />;
     }
+    console.log(selectedDeductions);
+    
 
     return (
         <div className="section-container">
@@ -235,6 +272,10 @@ export default function Employees() {
                                         <label>Phone</label>
                                         <input type="tel" placeholder="+92 300 1234567" name='phone' defaultValue={editId ? editData?.phone : ""} />
                                     </div>
+                                     <div className="form-group">
+                                        <label>Salary</label>
+                                        <input type="number" placeholder="Enter salary" name='salary' defaultValue={editId ? editData?.Salery : ""} />
+                                    </div>
                                     <div className="form-group full-width">
                                         <label>Address</label>
                                         <input type="text" placeholder="House #, Street, City" name='address' defaultValue={editId ? editData?.address : ""} />
@@ -287,6 +328,48 @@ export default function Employees() {
                                             </div>
                                         </Listbox>
                                     </div>
+                                    <div className="form-group">
+                                        <label>Bonuses</label>
+                                        <div className="select-wrapper" style={{ maxWidth: '350px', padding: '10px 0' }}>
+                                            <Select
+                                                isMulti
+                                                instanceId="bonus-multi-select"
+                                                options={MultiOP}
+                                                value={selectedBonuses}
+                                                onChange={setSelectedBonuses}
+                                                placeholder="Select bonuses..."
+                                                className="bonus-multi-select"
+                                                classNamePrefix="select"
+                                                // Ye line arrow aur indicators ko gayab kar degi
+                                                components={{
+                                                    DropdownIndicator: null,
+                                                    IndicatorSeparator: null,
+                                                    ClearIndicator: null
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Deductions</label>
+                                        <div className="select-wrapper" style={{ maxWidth: '350px', padding: '10px 0' }}>
+                                            <Select
+                                                isMulti
+                                                instanceId="deduction-multi-select"
+                                                options={MultiOP1}
+                                                value={selectedDeductions}
+                                                onChange={setSelectedDeductions}
+                                                placeholder="Select deductions..."
+                                                className="bonus-multi-select"
+                                                classNamePrefix="select"
+                                               
+                                                components={{
+                                                    DropdownIndicator: null,
+                                                    IndicatorSeparator: null,
+                                                    ClearIndicator: null
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="emp-modal-footer">
@@ -302,9 +385,9 @@ export default function Employees() {
                     </div>
                 </div>
             )}
-             {showDeleteModal && (
-                            <AlertCard title="Delete?" message="Confirm delete department. This Task Not Be Undone" onCancel={() => setShowDeleteModal(false)} onContinue={handleDelete} />
-                        )}
+            {showDeleteModal && (
+                <AlertCard title="Delete?" message="Confirm delete department. This Task Not Be Undone" onCancel={() => setShowDeleteModal(false)} onContinue={handleDelete} />
+            )}
             <ToastDisplay toast={toast} setToast={setToast} />
         </div>
     );

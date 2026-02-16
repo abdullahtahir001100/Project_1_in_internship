@@ -10,7 +10,7 @@ export default function Questions() {
   const fetchAll = async () => {
     setLoading(true);
     try {
-      const resPosts = await axios.get('https://myproject2.xo.je/api/Posts/get');
+      const resPosts = await axios.get('http://localhost/react-backend/api/Posts/get');
       setData(resPosts.data);
 
     } catch (err) { /* silently fail */ }

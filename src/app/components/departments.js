@@ -39,7 +39,7 @@ export default function Departments() {
     const fetchAll = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('https://myproject2.xo.je/api/Posts/get_department.php');
+            const res = await axios.get('http://localhost/react-backend/api/Posts/get_department.php');
             setData(res.data);
         }
         catch (err) {
@@ -56,7 +56,7 @@ export default function Departments() {
         setEditId(id);
         if (id) {
             try {
-                const res = await axios.get(`https://myproject2.xo.je/api/departments/get.php?id=${id}`);
+                const res = await axios.get(`http://localhost/react-backend/api/departments/get.php?id=${id}`);
                 const department = res?.data?.[0] || {};
                 setDeptName(department.department_name || ''); // Ensure deptName is always a string
                 const statusValue = Number(department.status ?? 1);
@@ -83,7 +83,7 @@ export default function Departments() {
 
         const url = editId ? "update.php" : "create.php";
         try {
-            const res = await axios.post(`https://myproject2.xo.je/api/departments/${url}`, fd);
+            const res = await axios.post(`http://localhost/react-backend/api/departments/${url}`, fd);
 
             modalCheck.current.checked = false;
             fetchAll();
@@ -103,7 +103,7 @@ export default function Departments() {
     };
 
     const handleDelete = async () => {
-        await axios.delete('https://myproject2.xo.je/api/departments/delete.php', { data: { id: targetId } });
+        await axios.delete('http://localhost/react-backend/api/departments/delete.php', { data: { id: targetId } });
         setShowDeleteModal(false);
         fetchAll();
     };
