@@ -105,7 +105,7 @@ export default function Bonus() {
                             </div>
                             <form className="modal-form">
                                 <div className="form-group">
-                                    <label>Bonus Name</label>
+                                    <label>Allounces Name</label>
                                     <input type="text" required placeholder='eg: YearlyBonus' value={payload?.bonusName || ''} onChange={(e) => setPayload({ ...payload, bonusName: e.target.value })} />
                                 </div>
                                 <div className="form-group">
@@ -126,7 +126,7 @@ export default function Bonus() {
             <div className="table-responsive">
                 <table className="simple-table">
                     <thead>
-                        <tr><th>ID</th><th>Bonus Name</th><th>Base Value</th><th className="text-right">Actions</th></tr>
+                        <tr><th>ID</th><th>Allowances Name</th><th>Base Value</th><th className="text-right">Actions</th></tr>
                     </thead>
                     <tbody>
                         {data.map(item => (

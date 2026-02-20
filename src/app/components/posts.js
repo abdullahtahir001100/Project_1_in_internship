@@ -4,10 +4,10 @@ import axios from 'axios';
 import { Listbox } from "@headlessui/react";
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
-
+import Loading from './loading.js';
 export default function Posts() {
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([{id: 1, Post_name: "Software Engineer", department_name: "IT"}]);
   const [depts, setDepts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editId, setEditId] = useState(null);
@@ -85,6 +85,7 @@ export default function Posts() {
 
   return (
     <div className="section-container">
+      {loading && <Loading />}
       <div className="section-header">
         <div className="header-info">
           <h2 className="section-title">All Posts</h2>
@@ -103,7 +104,7 @@ export default function Posts() {
               </div>
               <form className="modal-form" ref={formRef} onSubmit={handleSave}>
                 <div className="form-group">
-                  <label>Post Name</label>
+                  <label>Desination Name</label>
                   <input
                     name='Post_name'
                     value={postName}
@@ -144,11 +145,11 @@ export default function Posts() {
         <table className="simple-table">
           <thead>
             <tr>
-              <th>ID</th><th>Post Name</th><th>Department</th><th className="text-right">Actions</th>
+              <th>ID</th><th>Desination Name</th><th>Department</th><th className="text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {data.map(item => (
+            {data?.map(item => (
               <tr key={item.id}>
                 <td>#P-{item.id}</td>
                 <td>{item.Post_name}</td>

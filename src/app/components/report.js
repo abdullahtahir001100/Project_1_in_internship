@@ -1,6 +1,7 @@
 'use client';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loading from "./loading.js";
 export default function DashboardPage() {
  
   const [reportData, setReportData] = useState({
@@ -13,9 +14,11 @@ export default function DashboardPage() {
     employeeDetails: []
 
   });
+  const [loading, setLoading] = useState(true);
 
   async function fetchReportData() {
     try {
+    setLoading(true);
       const response1 = await axios.get('http://localhost/react-backend/api/Posts/get_department.php'); // Departments
       const response2 = await axios.get('http://localhost/react-backend/api/Posts/get'); // Posts
       const response3 = await axios.get('http://localhost/react-backend/api/bonus/get.php'); // Bonuses
@@ -24,7 +27,6 @@ export default function DashboardPage() {
 
         const employees = response6.data;
 
-    console.log("Employees Data:", employees); // Debugging log
    
       setReportData({
           totalEmployees: employees.length,
@@ -32,11 +34,14 @@ export default function DashboardPage() {
           totalDesignations: response2.data.length,
           totalBonus: response3.data.length,
           totalDeductions: response4.data.length,
-          totalSalary: employees.reduce((sum, emp) => Number(sum) + (emp.Salery || 0), 0),
+          totalSalary: employees.reduce((sum, emp) => Number(sum) + Number(emp?.Salery || 0), 0),
           employeeDetails: employees
       });
     } catch (error) {
         console.error("Error fetching report data", error);
+    }
+    finally {
+      setLoading(false);
     }
   }
     useEffect(() => {
@@ -46,6 +51,7 @@ export default function DashboardPage() {
    
   return (
     <div className="dashboard-container">
+      {loading && <Loading />}
       <main className="main-content">
        
 

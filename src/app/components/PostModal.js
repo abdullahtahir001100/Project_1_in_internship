@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Listbox } from "@headlessui/react";
 import ToastDisplay from './alert.js';
-
+import Loading from './loading.js';
 export default function PostModal() {
 
 
@@ -51,6 +51,7 @@ export default function PostModal() {
   }
   return (
     <div className="post-modal-wrapper">
+      {loading && <Loading />}
       {/* UNIQUE ID FOR POSTS */}
       <input type="checkbox" id="post-modal-toggle" className="post-toggle-check" hidden />
 

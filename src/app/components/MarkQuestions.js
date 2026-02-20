@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ToastDisplay from './alert.js';
-
+import Loading from './loading.js';
 export default function MarkQuestions({ empId, onBack }) {
     const [employee, setEmployee] = useState(null);
     const [questions, setQuestions] = useState([]);
@@ -89,7 +89,7 @@ export default function MarkQuestions({ empId, onBack }) {
 
 
 
-    if (loading) return <div className="section-container" style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="section-container">
@@ -125,7 +125,7 @@ export default function MarkQuestions({ empId, onBack }) {
                         </div>
                         <div className="mark-emp-item">
                             <span className="mark-emp-label">Designation</span>
-                            <span className="mark-emp-value">{employee.post_name}</span>
+                            <span className="mark-emp-value">{employee.Post_name}</span>
                         </div>
                         <div className="mark-emp-item">
                             <span className="mark-emp-label">Address</span>

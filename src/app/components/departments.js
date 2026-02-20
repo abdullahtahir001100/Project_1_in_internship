@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Listbox } from "@headlessui/react";
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
-
+import Loading from './loading.js';
 export default function Departments() {
 
     const [data, setData] = useState([]);
@@ -109,7 +109,9 @@ export default function Departments() {
     };
 
     return (
+        
         <div className="section-container">
+            {loading && <Loading />}
             <div className="section-header">
                 <div className="header-info">
                     <h2 className="section-title">Departments</h2>

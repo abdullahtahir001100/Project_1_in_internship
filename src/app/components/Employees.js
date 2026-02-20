@@ -6,7 +6,7 @@ import MarkQuestions from './MarkQuestions';
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
 import Select from 'react-select';
-
+import Loading from './loading.js';
 export default function Employees() {
 
     const [showModal, setShowModal] = useState(false);
@@ -25,6 +25,7 @@ export default function Employees() {
     const [selectedBonuses, setSelectedBonuses] = useState([]); // Selected bonuses
     const [selectedDeductions, setSelectedDeductions] = useState([]); // Selected deductions
     const [targetId, setTargetId] = useState(null);
+    const [selery, setSelery] = useState(0);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [toast, setToast] = useState({ show: false, type: '', message: '' });
     useEffect(() => {
@@ -46,7 +47,8 @@ export default function Employees() {
 
             const formattedData = data.map(item => ({
                 value: item.id,
-                label: item.bonusName
+                label: item.bonusName,
+                price: item.baseValue
             }));
 
             const req = await axios.get('http://localhost/react-backend/api/deduction/get.php');
@@ -55,7 +57,8 @@ export default function Employees() {
 
             const formattedData1 = dat1a.map(item => ({
                 value: item.id,
-                label: item.deduction_name
+                label: item.deduction_name,
+                price: item.deduction_amount
             }));
 
             setMultiOP(formattedData);
@@ -63,7 +66,11 @@ export default function Employees() {
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to load deduction data.' });
         }
-    } useEffect(() => {
+    }
+    const totalBonus = selectedBonuses ? selectedBonuses.reduce((sum, item) => sum + Number(item.price || item.baseValue), 0) : 0;
+    const totalDeductions = selectedDeductions ? selectedDeductions.reduce((sum, item) => sum + Number(item.price || item.baseValue), 0) : 0;
+    const netTotal = totalBonus - totalDeductions + (editData?.Salery || 0);
+    useEffect(() => {
         async function get_all_info() {
             try {
                 setLoading(true);
@@ -90,11 +97,16 @@ export default function Employees() {
             setEditdata(data);
             setSelectedDeductions(data.deductions || []);
             setSelectedBonuses(data.bonuses || []);
+           
             setSelected({
                 department_id: data.department_id,
                 department_name: data.department_name,
                 posts: data.posts || []
             });
+            setSelery(data.Salery);
+            
+          
+
             // setposts(data?.post_name)
 
 
@@ -111,9 +123,11 @@ export default function Employees() {
     }
     async function handleDelete(id) {
         try {
-            const responce = axios.delete(`http://localhost/react-backend/api/Employees/delete.php`, { data: { id: id } });
-            const data = await responce.data;
-            setshowdelete(false);
+            const response = await axios.delete(`http://localhost/react-backend/api/Employees/delete.php`, {
+                data: { id: id },
+            });
+            const data = response.data;
+            setShowDeleteModal(false);
             setToast({ show: true, type: 'success', message: 'Employee deleted successfully.' });
             get_all_info_table();
         } catch (error) {
@@ -124,7 +138,7 @@ export default function Employees() {
     async function post_data(e) {
         e.preventDefault();
         const formData = new FormData(form.current);
-      
+
         formData.append('bonuses', JSON.stringify(selectedBonuses.map(b => b.value)));
         formData.append('deductions', JSON.stringify(selectedDeductions.map(d => d.value)));
         try {
@@ -172,11 +186,12 @@ export default function Employees() {
     if (markEmpId) {
         return <MarkQuestions empId={markEmpId} onBack={() => setMarkEmpId(null)} />;
     }
-    console.log(selectedDeductions);
     
+
 
     return (
         <div className="section-container">
+            {loading && <Loading />}
             <div className="section-header">
                 <div className="header-info">
                     <h2 className="section-title">Employee Directory</h2>
@@ -204,7 +219,7 @@ export default function Employees() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((emp) => (
+                        {data?.map((emp) => (
                             <tr key={emp.id}>
                                 <td>#EMP-00{emp.id}</td>
                                 <td>
@@ -272,9 +287,9 @@ export default function Employees() {
                                         <label>Phone</label>
                                         <input type="tel" placeholder="+92 300 1234567" name='phone' defaultValue={editId ? editData?.phone : ""} />
                                     </div>
-                                     <div className="form-group">
+                                    <div className="form-group">
                                         <label>Salary</label>
-                                        <input type="number" placeholder="Enter salary" name='salary' defaultValue={editId ? editData?.Salery : ""} />
+                                        <input type="number" placeholder="Enter salary" name='salary' defaultValue={selery} />
                                     </div>
                                     <div className="form-group full-width">
                                         <label>Address</label>
@@ -328,49 +343,70 @@ export default function Employees() {
                                             </div>
                                         </Listbox>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Bonuses</label>
-                                        <div className="select-wrapper" style={{ maxWidth: '350px', padding: '10px 0' }}>
-                                            <Select
-                                                isMulti
-                                                instanceId="bonus-multi-select"
-                                                options={MultiOP}
-                                                value={selectedBonuses}
-                                                onChange={setSelectedBonuses}
-                                                placeholder="Select bonuses..."
-                                                className="bonus-multi-select"
-                                                classNamePrefix="select"
-                                                // Ye line arrow aur indicators ko gayab kar degi
-                                                components={{
-                                                    DropdownIndicator: null,
-                                                    IndicatorSeparator: null,
-                                                    ClearIndicator: null
-                                                }}
-                                            />
+
+                                    <div className="payroll-container">
+                                        <div className="form-group">
+                                            <label className='pos1'>Allowences</label>
+                                            <div className="summary-line">
+                                                <span>Total Bonus:</span>
+                                                <span className="summary-value">$ {totalBonus}</span>
+                                            </div>
+                                            <div className="custom-select-container">
+                                                <Select
+                                                    isMulti
+                                                    menuPlacement="top"
+                                                    instanceId="bonus-multi-select"
+                                                    options={MultiOP}
+                                                    value={selectedBonuses}
+                                                    onChange={setSelectedBonuses}
+                                                    placeholder="Select bonuses..."
+                                                    classNamePrefix="select"
+                                                    formatOptionLabel={(option) => (
+                                                        <div className="row-option">
+                                                            <span>{option.label}</span>
+                                                            <span className="item-price">${option.price || option.baseValue}</span>
+                                                        </div>
+                                                    )}
+                                                    components={{ DropdownIndicator: null, IndicatorSeparator: null, ClearIndicator: null }}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Deductions</label>
-                                        <div className="select-wrapper" style={{ maxWidth: '350px', padding: '10px 0' }}>
-                                            <Select
-                                                isMulti
-                                                instanceId="deduction-multi-select"
-                                                options={MultiOP1}
-                                                value={selectedDeductions}
-                                                onChange={setSelectedDeductions}
-                                                placeholder="Select deductions..."
-                                                className="bonus-multi-select"
-                                                classNamePrefix="select"
-                                               
-                                                components={{
-                                                    DropdownIndicator: null,
-                                                    IndicatorSeparator: null,
-                                                    ClearIndicator: null
-                                                }}
-                                            />
+
+                                        <div className="form-group">
+                                            <div className="summary-line">
+                                                <span>Total Deductions:</span>
+                                                <span className="summary-value">$ {totalDeductions}</span>
+                                            </div>
+                                            <label className='pos2'>Deductions</label>
+                                            <div className="custom-select-container">
+                                                <Select
+                                                    isMulti
+                                                    menuPlacement="top"
+                                                    instanceId="deduction-multi-select"
+                                                    options={MultiOP1}
+                                                    value={selectedDeductions}
+                                                    onChange={setSelectedDeductions}
+                                                    placeholder="Select deductions..."
+                                                    classNamePrefix="select"
+                                                    formatOptionLabel={(option) => (
+                                                        <div className="row-option">
+                                                            <span>{option.label}</span>
+                                                            <span className="item-price">${option.price || option.baseValue}</span>
+                                                        </div>
+                                                    )}
+                                                    components={{ DropdownIndicator: null, IndicatorSeparator: null, ClearIndicator: null }}
+                                                />
+                                            </div>
                                         </div>
+
+
                                     </div>
                                 </div>
+
+                            </div>
+                            <div className="summary-total">
+                                <strong>Net Total:&nbsp;</strong>
+                                <strong>$ {netTotal}</strong>
                             </div>
                             <div className="emp-modal-footer">
                                 <button type="button" className="btn-cancel" onClick={() => {
@@ -386,7 +422,12 @@ export default function Employees() {
                 </div>
             )}
             {showDeleteModal && (
-                <AlertCard title="Delete?" message="Confirm delete department. This Task Not Be Undone" onCancel={() => setShowDeleteModal(false)} onContinue={handleDelete} />
+                <AlertCard
+                    title="Delete?"
+                    message="Confirm delete department. This Task Not Be Undone"
+                    onCancel={() => setShowDeleteModal(false)}
+                    onContinue={() => handleDelete(targetId)} // Pass targetId directly
+                />
             )}
             <ToastDisplay toast={toast} setToast={setToast} />
         </div>

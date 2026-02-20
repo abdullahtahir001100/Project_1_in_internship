@@ -31,13 +31,26 @@ $transition: all 0.2s ease;
 
 // --- SIDEBAR COLLAPSE LOGIC ---
 #sidebar-collapse-check:checked {
-  ~ .sidebar {
+  ~.sidebar {
     width: $sidebar-collapsed;
-    .logo-text, .nav-text { display: none; }
-    .nav-link { justify-content: center; padding: 1rem 0; }
-    .logo { justify-content: center; }
+
+    .logo-text,
+    .nav-text {
+      display: none;
+    }
+
+    .nav-link {
+      justify-content: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      justify-content: center;
+    }
   }
-  ~ .content-area, ~ .app-header {
+
+  ~.content-area,
+  ~.app-header {
     margin-left: $sidebar-collapsed;
   }
 }
@@ -60,15 +73,31 @@ $transition: all 0.2s ease;
   cursor: pointer;
   transition: $transition;
   white-space: nowrap;
-  .nav-icon { width: 20px; height: 20px; flex-shrink: 0; stroke: #888; }
-  .nav-text { margin-left: 12px; font-size: 14px; color: #666; }
-  &:hover { background: $bg-hover; }
+
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    stroke: #888;
+  }
+
+  .nav-text {
+    margin-left: 12px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  &:hover {
+    background: $bg-hover;
+  }
 }
 
 // Header
 .app-header {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   margin-left: $sidebar-width;
   height: 60px;
   background: $bg-white;
@@ -80,7 +109,12 @@ $transition: all 0.2s ease;
   padding: 0 20px;
 }
 
-.burger-btn { cursor: pointer; display: flex; align-items: center; margin-right: 15px; }
+.burger-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
 
 // --- TAB DISPLAY LOGIC ---
 .content-area {
@@ -93,15 +127,15 @@ $transition: all 0.2s ease;
 }
 
 // Logic to show specific view when radio is checked
-#tab-acr:checked ~ .acr-view,
-#tab-bonus:checked ~ .bonus-view,
-#tab-employees:checked ~ .employees-view,
-#tab-departments:checked ~ .departments-view,
-#tab-posts:checked ~ .posts-view,
-#tab-questions:checked ~ .questions-view,
-#tab-deductions:checked ~ .deductions-view,
-#tab-rating:checked ~ .rating-view,
-#tab-reports:checked ~ .reports-view {
+#tab-acr:checked~.acr-view,
+#tab-bonus:checked~.bonus-view,
+#tab-employees:checked~.employees-view,
+#tab-departments:checked~.departments-view,
+#tab-posts:checked~.posts-view,
+#tab-questions:checked~.questions-view,
+#tab-deductions:checked~.deductions-view,
+#tab-rating:checked~.rating-view,
+#tab-reports:checked~.reports-view {
   display: block;
 }
 
@@ -109,27 +143,34 @@ $transition: all 0.2s ease;
 // ACTIVE NAV ITEM LOGIC (Matched to JSX Order)
 // ==========================================
 // 1. ACR
-#tab-acr:checked ~ .sidebar .nav-item:nth-child(1) .nav-link,
+#tab-acr:checked~.sidebar .nav-item:nth-child(1) .nav-link,
 // 2. Employees
-#tab-employees:checked ~ .sidebar .nav-item:nth-child(2) .nav-link,
+#tab-employees:checked~.sidebar .nav-item:nth-child(2) .nav-link,
 // 3. Departments
-#tab-departments:checked ~ .sidebar .nav-item:nth-child(3) .nav-link,
+#tab-departments:checked~.sidebar .nav-item:nth-child(3) .nav-link,
 // 4. All Posts
-#tab-posts:checked ~ .sidebar .nav-item:nth-child(4) .nav-link,
+#tab-posts:checked~.sidebar .nav-item:nth-child(4) .nav-link,
 // 5. Bonus
-#tab-bonus:checked ~ .sidebar .nav-item:nth-child(5) .nav-link,
+#tab-bonus:checked~.sidebar .nav-item:nth-child(5) .nav-link,
 // 6. Deductions
-#tab-deductions:checked ~ .sidebar .nav-item:nth-child(6) .nav-link,
+#tab-deductions:checked~.sidebar .nav-item:nth-child(6) .nav-link,
 // 7. Questions
-#tab-questions:checked ~ .sidebar .nav-item:nth-child(7) .nav-link,
+#tab-questions:checked~.sidebar .nav-item:nth-child(7) .nav-link,
 // 8. Ratings
-#tab-rating:checked ~ .sidebar .nav-item:nth-child(8) .nav-link,
+#tab-rating:checked~.sidebar .nav-item:nth-child(8) .nav-link,
 // 9. Reports
-#tab-reports:checked ~ .sidebar .nav-item:nth-child(9) .nav-link {
+#tab-reports:checked~.sidebar .nav-item:nth-child(9) .nav-link {
   background: $bg-light;
   border-right: 3px solid $primary-color;
-  .nav-icon { stroke: $primary-color; }
-  .nav-text { color: $text-dark; font-weight: 600; }
+
+  .nav-icon {
+    stroke: $primary-color;
+  }
+
+  .nav-text {
+    color: $text-dark;
+    font-weight: 600;
+  }
 }
 
 // Simple Active State
@@ -470,6 +511,10 @@ $transition: all 0.2s ease;
 
   .form-group {
     margin-bottom: 1.25rem;
+
+    &:nth-last-child(1) {
+      width: 100%;
+    }
 
     label {
       display: block;
@@ -891,7 +936,7 @@ $transition: all 0.2s ease;
 .emp-modal-content {
   background: $bg-white;
   width: 90%;
-  max-width: 520px;
+  max-width: 55rem;
   height: 90vh;
   overflow: scroll;
   border: 1px solid $border-color;
@@ -958,14 +1003,15 @@ $transition: all 0.2s ease;
   }
 
   .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
   }
 
   .form-group {
     display: flex;
     flex-direction: column;
+    width: calc(50% - 0.5rem);
     gap: 4px;
 
     &.full-width {
@@ -1249,7 +1295,7 @@ $transition: all 0.2s ease;
   border-radius: $radius; // 1px for sharp look
   background-color: $bg-white;
   margin: 1rem auto;
-  position: absolute;
+  position: fixed;
   top: 10px;
   z-index: 999;
   right: 10px;
@@ -1781,11 +1827,13 @@ main {
     padding: 15px; // Reduced padding slightly for 6-column fit
     border-radius: $radius;
     transition: $transition;
-    display: flex;        // Fix: Align icon and text side-by-side
+    display: flex; // Fix: Align icon and text side-by-side
     align-items: center;
     gap: 12px;
 
-    &:hover { border-color: $primary-color; }
+    &:hover {
+      border-color: $primary-color;
+    }
 
     .stat-icon {
       width: 38px;
@@ -1796,15 +1844,41 @@ main {
       justify-content: center;
       flex-shrink: 0;
 
-      svg { width: 20px; height: 20px; }
+      svg {
+        width: 20px;
+        height: 20px;
+      }
 
       // Icon Colors
-      &.employees { background: #e3f2fd; color: #1976d2; }
-      &.departments { background: #f3e5f5; color: #7b1fa2; }
-      &.designations { background: #e8f5e9; color: #2e7d32; }
-      &.bonus { background: #fff3e0; color: #ef6c00; }
-      &.deductions { background: #ffebee; color: #c62828; }
-      &.salary { background: #e0f2f1; color: #00695c; }
+      &.employees {
+        background: #e3f2fd;
+        color: #1976d2;
+      }
+
+      &.departments {
+        background: #f3e5f5;
+        color: #7b1fa2;
+      }
+
+      &.designations {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      &.bonus {
+        background: #fff3e0;
+        color: #ef6c00;
+      }
+
+      &.deductions {
+        background: #ffebee;
+        color: #c62828;
+      }
+
+      &.salary {
+        background: #e0f2f1;
+        color: #00695c;
+      }
     }
 
     .stat-info {
@@ -1816,6 +1890,7 @@ main {
         letter-spacing: 0.5px;
         margin: 0;
       }
+
       .value {
         display: block;
         font-size: 16px;
@@ -1853,8 +1928,13 @@ main {
       border-bottom: 1px solid $table-border;
     }
 
-    tr:last-child td { border-bottom: none; }
-    tr:hover { background: $bg-hover; }
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover {
+      background: $bg-hover;
+    }
   }
 
   .table-summary {
@@ -1873,6 +1953,901 @@ main {
   border-radius: 4px;
   font-size: 11px;
   font-weight: 600;
-  &.filled { background: #e8f5e9; color: #2e7d32; }
-  &.pending { background: #fff3e0; color: #ef6c00; } // Changed to orange for 'Pending'
+
+  &.filled {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.pending {
+    background: #fff3e0;
+    color: #ef6c00;
+  }
+
+  // Changed to orange for 'Pending'
+}
+
+.select-wrapper {
+  width: 100%;
+  max-width: 100% !important;
+}
+
+.payroll-container {
+  width: 100%;
+
+  .form-group {
+    margin-bottom: 20px;
+    width: 100%;
+
+    label {
+      font-weight: 600;
+      color: $text-dark;
+      margin-bottom: 8px;
+      display: block;
+    }
+  }
+
+  .custom-select-container {
+    max-width: 100% !important;
+
+    // Base Select Styling
+    .select__control {
+      background: $bg-white;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      box-shadow: none;
+
+      &:hover {
+        border-color: $primary-color;
+      }
+    }
+
+    .select__menu {
+      background: $bg-white;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .select__option {
+      color: $text-light;
+
+      &--is-focused {
+        background: $bg-hover;
+        color: $text-dark;
+      }
+
+      &--is-selected {
+        background: $primary-color;
+        color: $text-white;
+      }
+    }
+
+    // Price inside dropdown
+    .row-option {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-right: 5px;
+
+      .item-price {
+        font-weight: 600;
+        color: $text-dark;
+      }
+    }
+  }
+
+  .payroll-summary {
+    max-width: 350px;
+    margin-top: 25px;
+    padding: 15px;
+    background: $bg-light;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: $text-light;
+      font-size: 0.9rem;
+
+      .summary-value {
+        color: $text-dark;
+        font-weight: 500;
+      }
+    }
+
+    .summary-total {
+      position: relative;
+      top: 26px;
+      /* left: 38px; */
+      background: #eee;
+      width: fit-content;
+      padding: 10px;
+      margin: -36px 0;
+      border-radius: 5px;
+    }
+  }
+}
+
+.css-v7duua:hover {
+  background-color: #c6c6c6 !important;
+  color: #000 !important;
+}
+
+.form-group {
+  position: relative;
+}
+
+.summary-line {
+  position: absolute;
+
+  right: 0;
+  top: 0;
+  span{
+    margin: 0 5px;
+  }
+}
+// Variables (Ensure these match your top variables)
+$sidebar-width: 240px;
+$sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
+
+// --- SIDEBAR BASE STYLE ---
+.sidebar {
+  width: $sidebar-width;
+  background: $bg-white;
+  border-right: 1px solid $border-color;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: width 0.2s ease; // Smooth transition for width
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // Taaki collapsed state mein text bahar na nikalay
+}
+
+// --- CONTENT AREA BASE STYLE ---
+.content-area {
+  margin-top: 60px;
+  margin-left: $sidebar-width; 
+  width: calc(100% - #{$sidebar-width}); // Poori width lock karein
+  padding: 2rem;
+  transition: margin-left 0.2s ease, width 0.2s ease;
+  box-sizing: border-box;
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: $sidebar-width;
+  height: 60px;
+  background: $bg-white;
+  border-bottom: 1px solid $border-color;
+  transition: margin-left 0.2s ease;
+  z-index: 90;
+}
+
+// --- COLLAPSE LOGIC (The "Fix") ---
+#sidebar-collapse-check:checked {
+  ~ .sidebar {
+    width: $sidebar-collapsed !important; // Force 70px
+
+    .logo-text,
+    .nav-text {
+      display: none !important; // Text bilkul gayab
+    }
+
+    .nav-link {
+      justify-content: center;
+      padding: 1rem 0;
+    }
+  }
+
+  // Content aur Header ko shift karein
+  ~ .content-area {
+    margin-left: $sidebar-collapsed !important;
+    width: calc(100% - #{$sidebar-collapsed}) !important;
+  }
+
+  ~ .app-header {
+    margin-left: $sidebar-collapsed !important;
+  }
+}
+// Variables
+$pr-primary: #555;
+$pr-border: #ddd;
+$pr-bg-light: #fafafa;
+
+.pr-compact-wrapper {
+  padding: 12px; // Reduced padding
+  width: 100%;
+  box-sizing: border-box;
+  transform-origin: top left;
+  // This makes 100% look like 85% zoom for extra compactness
+  font-size: 0.85rem; 
+
+  .pr-header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    .pr-page-title { font-size: 15px; font-weight: 600; color: #222; margin: 0; }
+    
+    .pr-make-btn {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+  }
+
+  .pr-card-filter {
+    border: 1px solid $pr-border;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 15px;
+
+    .pr-flex-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+
+      .pr-grp {
+        flex: 1 1 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        
+        &.id-field { flex: 0 0 100px; }
+        &.period-field { flex: 1 1 200px; } // Combined Month-Year width
+
+        label { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; }
+        
+        input {
+          height: 30px; // Shorter height
+          border: 1px solid $pr-border;
+          padding: 0 8px;
+          font-size: 12px;
+          &:disabled { background: #f5f5f5; color: #999; }
+        }
+      }
+
+      .pr-btn-search {
+        height: 30px;
+        background: $pr-primary;
+        color: white;
+        border: none;
+        padding: 0 15px;
+        font-size: 11px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .pr-table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid $pr-border;
+
+    .pr-table-main {
+      width: 100%;
+      min-width: 1200px; // Compact width
+      border-collapse: collapse;
+
+      th {
+        border: 1px solid $pr-border;
+        padding: 6px 8px; // Very compact padding
+        font-size: 10px;
+        background: #f1f1f1;
+        text-align: left;
+      }
+
+      .pr-th-parent th { text-align: center; background: #e9e9e9; font-weight: 800; }
+      .pr-th-child th { background: #fafafa; font-weight: 600; }
+
+      td {
+        border: 1px solid $pr-border;
+        padding: 6px 8px;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+
+      .pr-emp-name { font-weight: 600; color: #000; }
+      .pr-small-text { font-size: 10px; color: #777; line-height: 1.2; }
+      .pr-hint { display: block; font-size: 9px; color: #999; margin-top: 2px; }
+
+      .pr-input-small {
+        width: 65px;
+        padding: 3px;
+        border: 1px solid $pr-border;
+        font-size: 11px;
+      }
+
+      .pr-bold { font-weight: 700; }
+      .pr-green { color: green; font-size: 10px; }
+      .pr-payout-final {
+        background: #f9f9f9;
+        text-align: right;
+        strong { font-size: 13px; color: #000; }
+      }
+    }
+  }
+}
+
+// Compact React Select
+.pr-select__control {
+  min-height: 30px !important;
+  height: 30px !important;
+  border-radius: 0 !important;
+  border-color: $pr-border !important;
+  font-size: 12px !important;
+  box-shadow: none !important;
+  .pr-select__value-container { padding: 0 8px !important; }
+  .pr-select__indicators { height: 28px !important; }
+}
+// Variables Integration
+$primary-color: #555;
+$text-dark: #222;
+$text-light: #666;
+$text-white: #ffffff;
+$bg-white: #ffffff;
+$bg-light: #fafafa;
+$bg-hover: #f5f5f5;
+$border-color: #ddd;
+$radius: 1px;
+$table-head-bg: #fafafa;
+$transition: all 0.2s ease;
+
+.payroll-page-container {
+  padding: 12px; // Reduced from 20px
+  background-color: $bg-white;
+  max-width: 100%;
+  box-sizing: border-box;
+  // overflow: hidden; 
+  font-size: 0.9rem; // Zoom-out effect base
+
+  .filter-section-card {
+    .qf-header{
+      margin-bottom: 2rem;
+    }
+    border: 1px solid $border-color;
+    background-color: $bg-white;
+    padding: 10px; // Reduced from 15px
+    margin-bottom: 12px; // Reduced from 20px
+    border-radius: $radius;
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap; 
+      gap: 10px;
+      align-items: flex-end;
+
+      .input-field {
+        flex: 1 1 150px; // Reduced from 180px
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        &.sm { flex: 1 1 90px; } // Reduced from 110px
+
+        label {
+          font-size: 10px; // Reduced from 11px
+          font-weight: 700;
+          color: $text-light;
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+        }
+
+        .react-select__control {
+          border-radius: $radius;
+          border-color: $border-color;
+          min-height: 32px; // Reduced from 38px
+          height: 32px;
+          box-shadow: none;
+          font-size: 12px;
+          &:hover { border-color: $primary-color; }
+        }
+
+        .react-select__indicators { height: 30px; }
+        .react-select__value-container { padding: 0 8px; }
+      }
+
+      .search-action-btn {
+        height: 32px; // Reduced from 38px
+        padding: 0 15px;
+        background-color: $primary-color;
+        color: $text-white;
+        border: none;
+        border-radius: $radius;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px; // Reduced from 14px
+        transition: $transition;
+        &:hover { background-color: $text-dark; }
+      }
+    }
+  }
+
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto; 
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    background: $bg-white;
+
+    &::-webkit-scrollbar { height: 4px; }
+    &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+    .payroll-main-table {
+      width: 100%;
+      min-width: 1000px; 
+      border-collapse: collapse;
+
+      th {
+        background-color: $table-head-bg;
+        color: $text-dark;
+        font-weight: 700;
+        text-align: left;
+        padding: 8px 10px; // Reduced padding
+        font-size: 11px; // Reduced from 12px
+        border-bottom: 1px solid $border-color;
+        white-space: nowrap;
+      }
+
+      td {
+        padding: 8px 10px; // Reduced padding
+        border-bottom: 1px solid $border-color;
+        color: $text-dark;
+        font-size: 12px; // Reduced from 13px
+        vertical-align: top;
+      }
+
+      .emp-cell, .contact-cell, .dept-cell {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        .name { font-weight: 600; font-size: 12px; }
+        .sub-text { 
+          font-size: 10px; 
+          color: $text-light; 
+          display: flex; 
+          align-items: center; 
+          gap: 4px; 
+        }
+        .dept-tag { font-weight: 600; font-size: 11px; }
+        .post-tag { font-size: 10px; color: $text-light; }
+      }
+
+      .table-inline-input {
+        width: 65px; // Reduced from 80px
+        padding: 4px 6px;
+        font-size: 11px;
+        border: 1px solid $border-color;
+        border-radius: $radius;
+        outline: none;
+        &:focus { border-color: $primary-color; }
+      }
+
+      .final-total-col {
+        background-color: $bg-light;
+        text-align: right;
+        font-weight: bold;
+        strong { font-size: 13px; }
+        .allowences{
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+.allowences {
+  font-size: 9px; // Reduced from 10px
+  margin: 2px 0;
+  color: $text-light;
+  line-height: 1.2;
+}
+// Variables
+$pr-primary: #555;
+$pr-border: #ddd;
+$pr-bg-light: #fafafa;
+
+.pr-compact-wrapper {
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.88rem; // Overall zoom-out effect
+
+  .pr-header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    .pr-page-title { font-size: 15px; font-weight: 600; color: #222; }
+    
+    .pr-make-btn {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+  }
+
+  .pr-card-filter {
+    border: 1px solid $pr-border;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 15px;
+
+    .pr-flex-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+
+      .pr-grp {
+        flex: 1 1 140px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        &.id-field { flex: 0 0 100px; }
+        &.period-field { flex: 1 1 180px; }
+
+        label { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; }
+        
+        input {
+          height: 30px;
+          border: 1px solid $pr-border;
+          padding: 0 8px;
+          font-size: 12px;
+          &:disabled { background: #f5f5f5; color: #999; }
+        }
+      }
+
+      .pr-btn-search {
+        height: 30px;
+        background: $pr-primary;
+        color: white;
+        border: none;
+        padding: 0 15px;
+        font-size: 11px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .pr-table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid $pr-border;
+    background: #fff;
+
+    // --- CUSTOM SCROLLBAR ADDED HERE ---
+    &::-webkit-scrollbar { height: 6px; }
+    &::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+    &::-webkit-scrollbar-track { background: #f9f9f9; }
+
+    .pr-table-main {
+      width: 100%;
+      min-width: 1250px; // Ensures scrolling is active
+      border-collapse: collapse;
+
+      th {
+        border: 1px solid $pr-border;
+        padding: 6px 10px;
+        font-size: 10px;
+        background: #f1f1f1;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .pr-th-parent th { text-align: center; background: #e9e9e9; font-weight: 800; }
+      .pr-th-child th { background: #fafafa; font-weight: 600; }
+
+      td {
+        border: 1px solid $pr-border;
+        padding: 8px 10px;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+
+      .pr-emp-name { font-weight: 600; color: #000; }
+      .pr-small-text { font-size: 10px; color: #777; line-height: 1.2; }
+      .pr-hint { display: block; font-size: 9px; color: #999; margin-top: 2px; }
+
+      .pr-input-small {
+        width: 65px;
+        padding: 3px;
+        border: 1px solid $pr-border;
+        font-size: 11px;
+      }
+
+      .pr-bold { font-weight: 700; }
+      .pr-green { color: green; font-size: 10px; }
+      .pr-payout-final {
+        background: #f9f9f9;
+        text-align: right;
+        strong { font-size: 13px; color: #000; }
+      }
+    }
+  }
+}
+
+// Compact Select Adjustments
+.pr-select__control {
+  min-height: 30px !important;
+  height: 30px !important;
+  border-radius: 1px !important;
+  border-color: $pr-border !important;
+  font-size: 12px !important;
+  box-shadow: none !important;
+  .pr-select__value-container { padding: 0 8px !important; }
+  .pr-select__indicators { height: 28px !important; }
+}
+/* Root container - removing the bulk */
+.react-datepicker {
+  font-family: inherit;
+  border: 1px solid $border-color !important;
+  border-radius: $radius !important; // 1px
+  background-color: $bg-white !important;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.05) !important; // Sharp, flat shadow
+  padding: 0 !important;
+  display: inline-block;
+}
+
+/* Header - making it slim */
+.react-datepicker__header {
+  background-color: $bg-light !important;
+  border-bottom: 1px solid $border-color !important;
+  padding: 10px 0 !important;
+  border-radius: 0 !important;
+}
+
+.react-datepicker__current-month {
+  color: $text-dark !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Month Grid - The "Large" Fix */
+.react-datepicker__month-container {
+  width: 240px !important; // Tightening the width
+  padding: 8px !important;
+}
+
+.react-datepicker__month-text {
+  display: inline-block !important;
+  width: 50px !important; // Narrower columns
+  margin: 4px !important;
+  padding: 10px 0 !important;
+  font-size: 12px !important;
+  border-radius: $radius !important; // 1px
+  color: $text-light !important;
+  transition: $transition;
+
+  &:hover {
+    background-color: $bg-hover !important;
+    color: $text-dark !important;
+    cursor: pointer;
+  }
+
+  /* Your #555 Selection Style */
+  &--selected, 
+  &--keyboard-selected {
+    background-color: $primary-color !important; 
+    color: $text-white !important;
+    font-weight: bold !important;
+  }
+}
+
+/* Navigation - Tiny & Sharp */
+.react-datepicker__navigation {
+  top: 12px !important;
+  
+  &-icon::before {
+    border-color: $text-light !important;
+    border-width: 1px 1px 0 0 !important;
+    height: 6px !important;
+    width: 6px !important;
+  }
+
+  &:hover &-icon::before {
+    border-color: $primary-color !important;
+  }
+}
+
+/* Removing the default pointer triangle */
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+/* The Input Field itself */
+.react-datepicker-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  background-color: $bg-white;
+  color: $text-dark;
+  transition: $transition;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+}
+.full-body-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($bg-white, 0.9); // Slight transparency
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; // Ensure it stays on top of everything
+  backdrop-filter: blur(2px); // Modern touch
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Sharp, Minimalist Spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid $border-color;
+  border-top: 2px solid $primary-color; // Use your #555
+  border-radius: $radius; // 1px for that sharp look
+  animation: spin 0.8s linear infinite;
+}
+
+.loader-message {
+  color: $text-dark;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Spin Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+// Your Variables
+$primary-color: #555;
+$text-dark: #222;
+$text-light: #666;
+$text-white: #ffffff;
+$bg-white: #ffffff;
+$bg-light: #fafafa;
+$bg-hover: #f5f5f5;
+$border-color: #ddd;
+$radius: 1px;
+$table-border: #ddd;
+$table-head-bg: #fafafa;
+$transition: all 0.2s ease;
+
+.section-container {
+  padding: 20px;
+  background-color: $bg-white;
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .section-title {
+      font-size: 1.25rem;
+      color: $text-dark;
+      margin: 0;
+    }
+
+    .btn-add {
+      background-color: $primary-color;
+      color: $text-white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border-radius: $radius;
+      transition: $transition;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .table-responsive {
+    border: 1px solid $table-border;
+    border-radius: $radius;
+
+    .simple-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+
+      thead {
+        background-color: $table-head-bg;
+        tr {
+          border-bottom: 1px solid $table-border;
+        }
+        th {
+          padding: 12px 15px;
+          color: $primary-color;
+          font-size: 0.85rem;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid $table-border;
+          transition: $transition;
+          &:hover { background-color: $bg-hover; }
+          &:last-child { border-bottom: none; }
+        }
+
+        td {
+          padding: 12px 15px;
+          color: $text-light;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .delete-btn {
+      background: none;
+      border: 1px solid $border-color;
+      color: $primary-color;
+      padding: 4px 10px;
+      cursor: pointer;
+      border-radius: $radius;
+      font-size: 0.8rem;
+      transition: $transition;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $text-white;
+      }
+    }
+  }
+}
+.react-datepicker-wrapper{
+  width: 100%;
 }

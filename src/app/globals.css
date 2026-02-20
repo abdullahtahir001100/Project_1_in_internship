@@ -21,6 +21,11 @@
 
 
 
+
+body {
+ 
+  font-family: light !important;
+}
 @font-face {
   font-family: light;
   src: url("/fonts/Nunito-VariableFont_wght.ttf");
@@ -28,9 +33,4 @@
 @font-face {
   font-family: Italic;
   src: url('/fonts/Nunito-Italic-VariableFont_wght.ttf');
-}
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: light !important;
 }

@@ -4,7 +4,7 @@ import React, { useState, useEffect, use } from 'react';
 import { Listbox } from "@headlessui/react";
 import axios from 'axios';
 import ToastDisplay from './alert.js';
-
+import Loading from './loading.js';
 export default function QuestionForm({ onCancel }) {
 
  
@@ -204,6 +204,7 @@ const handleSubmit = async (e) => {
 
   return (
     <div className="question-form-wrapper">
+      {loading && <Loading />}
 
       <div className="qf-header">
         <div>

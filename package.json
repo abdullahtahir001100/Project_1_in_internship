@@ -16,6 +16,8 @@
     "lucide-react": "^0.563.0",
     "next": "16.1.6",
     "react": "19.2.3",
+    "react-date-object": "^2.1.9",
+    "react-datepicker": "^9.1.0",
     "react-dom": "19.2.3",
     "react-select": "^5.10.2",
     "sass": "^1.97.3"

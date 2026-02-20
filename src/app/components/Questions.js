@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import QuestionForm from './QuestionForm';
 import axios from 'axios';
+import Loading from './loading.js';
 
 export default function Questions() {
   const [view, setView] = useState('list'); 
@@ -22,7 +23,9 @@ export default function Questions() {
     <div className="section-container">
       {view === 'list' ? (
         <>
+        {loading && <Loading />}
           <div className="section-header">
+
             <div className="header-info">
               <h2 className="section-title">Evaluation Questions</h2>
               <p className="section-subtitle">Manage questions for department ratings</p>
