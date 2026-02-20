@@ -19,11 +19,11 @@ export default function DashboardPage() {
   async function fetchReportData() {
     try {
     setLoading(true);
-      const response1 = await axios.get('http://localhost/react-backend/api/Posts/get_department.php'); // Departments
-      const response2 = await axios.get('http://localhost/react-backend/api/Posts/get'); // Posts
-      const response3 = await axios.get('http://localhost/react-backend/api/bonus/get.php'); // Bonuses
-      const response4 = await axios.get('http://localhost/react-backend/api/deduction/get.php'); // Deductions
-      const response6 = await axios.get('http://localhost/react-backend/api/Employees/get.php'); // Employees
+      const response1 = await axios.get('https://php-production-c3d6.up.railway.app/api/Posts/get_department.php'); // Departments
+      const response2 = await axios.get('https://php-production-c3d6.up.railway.app/api/Posts/get'); // Posts
+      const response3 = await axios.get('https://php-production-c3d6.up.railway.app/api/bonus/get.php'); // Bonuses
+      const response4 = await axios.get('https://php-production-c3d6.up.railway.app/api/deduction/get.php'); // Deductions
+      const response6 = await axios.get('https://php-production-c3d6.up.railway.app/api/Employees/get.php'); // Employees
 
         const employees = response6.data;
 

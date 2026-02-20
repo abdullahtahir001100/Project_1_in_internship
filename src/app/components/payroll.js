@@ -37,7 +37,7 @@ async function fetchPayrollData() {
     try {
         setIsLoading(true);
         console.log(formattedDate)
-        const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all.php?duration=${formattedDate}`);
+        const res = await axios.get(`https://php-production-c3d6.up.railway.app/api/bonusmain/all.php?duration=${formattedDate}`);
         
         if (res.data.success) {
             const fetchedData = res.data.data;
@@ -54,7 +54,7 @@ async function fetchPayrollData() {
             setEmpOptions([{ value: 'all', label: 'All Employees' }, ...emps]);
         }
 
-        const deptReq = await axios.get(`http://localhost/react-backend/api/Posts/get_department.php`);
+        const deptReq = await axios.get(`https://php-production-c3d6.up.railway.app/api/Posts/get_department.php`);
         const deptData = deptReq.data || [];
         const formattedDepts = deptData.map(dept => ({ 
             value: dept.id, 
@@ -129,7 +129,7 @@ useEffect(() => {
 async function handleProcessPayroll() {
     try {
         setIsLoading(true);
-        const res = await axios.post(`http://localhost/react-backend/api/payrool/create.php`, payload);
+        const res = await axios.post(`https://php-production-c3d6.up.railway.app/api/payrool/create.php`, payload);
         setToast({ show: true, type: 'success', message: res.data.message || 'Payroll processed successfully!' });
     } catch (error) {
         setToast({ show: true, type: 'error', message: 'Failed to process payroll.' });
