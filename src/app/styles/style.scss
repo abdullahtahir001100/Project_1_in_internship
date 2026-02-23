@@ -1,4 +1,5 @@
 // Variables - Minimal clean design
+@use "sass:color";
 $primary-color: #555;
 $text-dark: #222;
 $text-light: #666;
@@ -381,7 +382,7 @@ $transition: all 0.2s ease;
     text-decoration: underline;
 
     &:hover {
-      color: darken($primary-color, 15%);
+      // color: darken($primary-color, 15%);
     }
   }
 }
@@ -657,7 +658,7 @@ $transition: all 0.2s ease;
   border-radius: $radius;
 
   &:hover {
-    background: darken($bg-light, 5%);
+    background: color.adjust($bg-light, $lightness: -5%);
   }
 }
 
@@ -1421,7 +1422,7 @@ $transition: all 0.2s ease;
 
     &:hover {
       background: $bg-hover;
-      border-color: darken($border-color, 10%);
+      // border-color: darken($border-color, 10%);
     }
   }
 

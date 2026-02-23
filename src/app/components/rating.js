@@ -89,13 +89,13 @@ const BonusManagement = () => {
 
     try {
       setLoading(true);
-      const req = await axios.get('https://php-production-c3d6.up.railway.app/api/Posts/get_department.php');
+      const req = await axios.get('http://localhost/react-backend/api/Posts/get_department.php');
       setdepartments(req.data.map(dept => ({ value: dept.id, label: dept.department_name })))
-      const emp = await axios.get('https://php-production-c3d6.up.railway.app/api/Employees/get.php');
-      const table =  await axios.get('https://php-production-c3d6.up.railway.app/api/bonusmain/get.php');
+      const emp = await axios.get('http://localhost/react-backend/api/Employees/get.php');
+      const table =  await axios.get('http://localhost/react-backend/api/bonusmain/get.php');
       
       setTabledata(table.data);
-      // const table = await axios.get('https://php-production-c3d6.up.railway.app/api/bonusmain/get.php');
+      // const table = await axios.get('http://localhost/react-backend/api/bonusmain/get.php');
 
 // Map previous bonus/fine per employee for quick lookup
 const bonusMap = {};
@@ -123,7 +123,7 @@ const empOptions = emp.data.map(item => ({
   previousBonus: bonusMap[item.id]?.bonus || 0,
   previousFine: bonusMap[item.id]?.fine || 0
 }));
-console.log(empOptions);
+// console.log(empOptions);
 
 
       selectedDepartment ? setdata(empOptions.filter(emp => emp.department_id === selectedDepartment.value)) : setdata(empOptions);
@@ -184,11 +184,11 @@ console.log(empOptions);
       setToast({ show: true, type: 'error', message: 'Please select type, month, and year.' });
       return;
     }
-    console.log('Posting data with payload:', payload);
+    // console.log('Posting data with payload:', payload);
     try {
       setLoading(true);
       const url = Updata ? "update.php" : "create.php";
-      const req = await axios.post(`https://php-production-c3d6.up.railway.app/api/bonusmain/${url}`, payload);
+      const req = await axios.post(`http://localhost/react-backend/api/bonusmain/${url}`, payload);
       setToast({ show: true, type: 'success', message: req?.data?.message });
     } catch (error) {
       console.log(err.response?.data || err)
@@ -205,7 +205,7 @@ console.log(empOptions);
   try {
     setLoading(true);
    setUpdata(true);
-    const res = await axios.get(`https://php-production-c3d6.up.railway.app/api/bonusmain/get_single.php?id=${id}`);
+    const res = await axios.get(`http://localhost/react-backend/api/bonusmain/get_single.php?id=${id}`);
     
     const bonusData = res.data; 
     
@@ -244,7 +244,7 @@ console.log(empOptions);
      setShowDeleteModal(true);
     try {
       setLoading(true);
-      const res = await axios.post(`https://php-production-c3d6.up.railway.app/api/bonusmain/delete.php`, { id });
+      const res = await axios.post(`http://localhost/react-backend/api/bonusmain/delete.php`, { id });
       setToast({ show: true, type: 'success', message: res?.data?.message || 'Deleted successfully!' });
     }
     catch (err) {
@@ -256,7 +256,7 @@ console.log(empOptions);
       fetchdepartmentsList();
     }
   }
-console.log("Payload:", payload);
+// console.log("Payload:", payload);
   return (
     <div className="payroll-page-container">
       {loading && <Loading />}

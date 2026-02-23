@@ -11,7 +11,7 @@ export default function Questions() {
   const fetchAll = async () => {
     setLoading(true);
     try {
-      const resPosts = await axios.get('https://php-production-c3d6.up.railway.app/api/Posts/get');
+      const resPosts = await axios.get('http://localhost/react-backend/api/Posts/get');
       setData(resPosts.data);
 
     } catch (err) { /* silently fail */ }
