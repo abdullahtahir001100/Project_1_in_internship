@@ -6,12 +6,12 @@
   },
   "routes": [
     {
-      "src": "/api/(.*).php",
-      "dest": "/api/$1.php"
+      "src": "/next-backend/(.*).php",
+      "dest": "/next-backend/$1.php"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.php"
+      "src": "/next-backend/(.*)",
+      "dest": "/next-backend/$1.php"
     }
   ]
 }
