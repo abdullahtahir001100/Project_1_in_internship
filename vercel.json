@@ -1,21 +1,17 @@
 {
-  "version": 2,
   "functions": {
-    "backend/api/**/*.php": {
-      "runtime": "vercel-php@0.7.1"
-    },
-    "backend/dbconfig/*.php": {
+    "api/**/*.php": {
       "runtime": "vercel-php@0.7.1"
     }
   },
   "routes": [
     {
-      "src": "/api/dbconfig/(.*)",
-      "dest": "/backend/dbconfig/$1.php"
+      "src": "/api/(.*).php",
+      "dest": "/api/$1.php"
     },
     {
       "src": "/api/(.*)",
-      "dest": "/backend/api/$1.php"
+      "dest": "/api/$1.php"
     }
   ]
 }
