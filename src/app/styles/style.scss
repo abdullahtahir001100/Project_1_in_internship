@@ -23,7 +23,16 @@ $bg-white: #ffffff;
 $text-dark: #222;
 $border-color: #ddd;
 $transition: all 0.2s ease;
+*{
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
 
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+}
 .dashboard-wrapper {
   display: flex;
   background: $bg-light;
@@ -47,6 +56,13 @@ $transition: all 0.2s ease;
 
     .logo {
       justify-content: center;
+    }
+    // Force all subtabs closed and chevrons reset when sidebar is collapsed
+    .subtab-list {
+      max-height: 0 !important;
+    }
+    .chevron-icon {
+      transform: none !important;
     }
   }
 
@@ -136,31 +152,184 @@ $transition: all 0.2s ease;
 #tab-questions:checked~.questions-view,
 #tab-deductions:checked~.deductions-view,
 #tab-rating:checked~.rating-view,
-#tab-reports:checked~.reports-view {
+#tab-reports:checked~.reports-view,
+#tab-attendance:checked~.attendance-view,
+#tab-resignation:checked~.resignation-view,
+#tab-ledger:checked~.ledger-view,
+#tab-voucher:checked~.voucher-view,
+#tab-expenses:checked~.expenses-view,
+#tab-invoices:checked~.invoices-view,
+#tab-settings:checked~.settings-view,
+#tab-audit:checked~.audit-view {
   display: block;
 }
 
 // ==========================================
-// ACTIVE NAV ITEM LOGIC (Matched to JSX Order)
+// SUBTAB / COLLAPSIBLE GROUP STYLES
 // ==========================================
-// 1. ACR
-#tab-acr:checked~.sidebar .nav-item:nth-child(1) .nav-link,
-// 2. Employees
-#tab-employees:checked~.sidebar .nav-item:nth-child(2) .nav-link,
-// 3. Departments
-#tab-departments:checked~.sidebar .nav-item:nth-child(3) .nav-link,
-// 4. All Posts
-#tab-posts:checked~.sidebar .nav-item:nth-child(4) .nav-link,
-// 5. Bonus
-#tab-bonus:checked~.sidebar .nav-item:nth-child(5) .nav-link,
-// 6. Deductions
-#tab-deductions:checked~.sidebar .nav-item:nth-child(6) .nav-link,
-// 7. Questions
-#tab-questions:checked~.sidebar .nav-item:nth-child(7) .nav-link,
-// 8. Ratings
-#tab-rating:checked~.sidebar .nav-item:nth-child(8) .nav-link,
-// 9. Reports
-#tab-reports:checked~.sidebar .nav-item:nth-child(9) .nav-link {
+
+// Subtab list hidden by default
+.subtab-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+// Chevron icon in parent nav
+.chevron-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  transition: transform 0.25s ease;
+  stroke: #999;
+  flex-shrink: 0;
+}
+
+// ===== DEPARTMENT GROUP =====
+#dept-toggle:checked ~ .sidebar .dept-subtabs {
+  max-height: 200px;
+}
+#tab-departments:checked ~ .sidebar .dept-subtabs,
+#tab-posts:checked ~ .sidebar .dept-subtabs,
+#tab-questions:checked ~ .sidebar .dept-subtabs {
+  max-height: 200px;
+}
+#dept-toggle:checked ~ .sidebar .nav-item-dept-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-departments:checked ~ .sidebar .nav-item-dept-group .chevron-icon,
+#tab-posts:checked ~ .sidebar .nav-item-dept-group .chevron-icon,
+#tab-questions:checked ~ .sidebar .nav-item-dept-group .chevron-icon {
+  transform: rotate(180deg);
+}
+
+// ===== BONUS & FINE GROUP =====
+#bonus-toggle:checked ~ .sidebar .bonus-subtabs {
+  max-height: 200px;
+}
+#tab-bonus:checked ~ .sidebar .bonus-subtabs,
+#tab-deductions:checked ~ .sidebar .bonus-subtabs,
+#tab-rating:checked ~ .sidebar .bonus-subtabs {
+  max-height: 200px;
+}
+#bonus-toggle:checked ~ .sidebar .nav-item-bonus-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-bonus:checked ~ .sidebar .nav-item-bonus-group .chevron-icon,
+#tab-deductions:checked ~ .sidebar .nav-item-bonus-group .chevron-icon,
+#tab-rating:checked ~ .sidebar .nav-item-bonus-group .chevron-icon {
+  transform: rotate(180deg);
+}
+
+// ===== PAYROLL & FINANCE GROUP =====
+#payroll-toggle:checked ~ .sidebar .payroll-subtabs {
+  max-height: 200px;
+}
+#tab-reports:checked ~ .sidebar .payroll-subtabs,
+#tab-ledger:checked ~ .sidebar .payroll-subtabs,
+#tab-voucher:checked ~ .sidebar .payroll-subtabs {
+  max-height: 200px;
+}
+#payroll-toggle:checked ~ .sidebar .nav-item-payroll-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-reports:checked ~ .sidebar .nav-item-payroll-group .chevron-icon,
+#tab-ledger:checked ~ .sidebar .nav-item-payroll-group .chevron-icon,
+#tab-voucher:checked ~ .sidebar .nav-item-payroll-group .chevron-icon {
+  transform: rotate(180deg);
+}
+
+// ===== HR MANAGEMENT GROUP =====
+#hr-toggle:checked ~ .sidebar .hr-subtabs {
+  max-height: 200px;
+}
+#tab-attendance:checked ~ .sidebar .hr-subtabs,
+#tab-resignation:checked ~ .sidebar .hr-subtabs {
+  max-height: 200px;
+}
+#hr-toggle:checked ~ .sidebar .nav-item-hr-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-attendance:checked ~ .sidebar .nav-item-hr-group .chevron-icon,
+#tab-resignation:checked ~ .sidebar .nav-item-hr-group .chevron-icon {
+  transform: rotate(180deg);
+}
+
+// ===== ACCOUNTS GROUP =====
+#accounts-toggle:checked ~ .sidebar .accounts-subtabs {
+  max-height: 200px;
+}
+#tab-expenses:checked ~ .sidebar .accounts-subtabs,
+#tab-invoices:checked ~ .sidebar .accounts-subtabs {
+  max-height: 200px;
+}
+#accounts-toggle:checked ~ .sidebar .nav-item-accounts-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-expenses:checked ~ .sidebar .nav-item-accounts-group .chevron-icon,
+#tab-invoices:checked ~ .sidebar .nav-item-accounts-group .chevron-icon {
+  transform: rotate(180deg);
+}
+
+// ===== SYSTEM GROUP =====
+#system-toggle:checked ~ .sidebar .system-subtabs {
+  max-height: 200px;
+}
+#tab-settings:checked ~ .sidebar .system-subtabs,
+#tab-audit:checked ~ .sidebar .system-subtabs {
+  max-height: 200px;
+}
+#system-toggle:checked ~ .sidebar .nav-item-system-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-settings:checked ~ .sidebar .nav-item-system-group .chevron-icon,
+#tab-audit:checked ~ .sidebar .nav-item-system-group .chevron-icon {
+  transform: rotate(180deg);
+}
+
+// Subtab link style
+.subtab-link {
+  display: block;
+  padding: 0.55rem 1rem 0.55rem 3rem;
+  font-size: 0.82rem;
+  color: #888;
+  cursor: pointer;
+  transition: $transition;
+  border-radius: $radius;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 1.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ccc;
+    transition: $transition;
+  }
+
+  &:hover {
+    background: $bg-hover;
+    color: $text-dark;
+
+    &::before {
+      background: $text-dark;
+    }
+  }
+}
+
+// ==========================================
+// ACTIVE NAV ITEM LOGIC (Class-based selectors)
+// ==========================================
+// Top-level nav items (ACR, Employees only)
+#tab-acr:checked ~ .sidebar .nav-item-acr .nav-link,
+#tab-employees:checked ~ .sidebar .nav-item-employees .nav-link {
   background: $bg-light;
   border-right: 3px solid $primary-color;
 
@@ -171,6 +340,65 @@ $transition: all 0.2s ease;
   .nav-text {
     color: $text-dark;
     font-weight: 600;
+  }
+}
+
+// Highlight parent group when any subtab inside is active
+// Department group
+#tab-departments:checked ~ .sidebar .nav-item-dept-group > .nav-link,
+#tab-posts:checked ~ .sidebar .nav-item-dept-group > .nav-link,
+#tab-questions:checked ~ .sidebar .nav-item-dept-group > .nav-link,
+// Bonus & Fine group
+#tab-bonus:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
+#tab-deductions:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
+#tab-rating:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
+// Payroll & Finance group
+#tab-reports:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
+#tab-ledger:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
+#tab-voucher:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
+// HR Management group
+#tab-attendance:checked ~ .sidebar .nav-item-hr-group > .nav-link,
+#tab-resignation:checked ~ .sidebar .nav-item-hr-group > .nav-link,
+// Accounts group
+#tab-expenses:checked ~ .sidebar .nav-item-accounts-group > .nav-link,
+#tab-invoices:checked ~ .sidebar .nav-item-accounts-group > .nav-link,
+// System group
+#tab-settings:checked ~ .sidebar .nav-item-system-group > .nav-link,
+#tab-audit:checked ~ .sidebar .nav-item-system-group > .nav-link {
+  background: $bg-light;
+
+  .nav-icon {
+    stroke: $primary-color;
+  }
+
+  .nav-text {
+    color: $text-dark;
+    font-weight: 600;
+  }
+}
+
+// Active subtab links
+#tab-departments:checked ~ .sidebar .subtab-item-departments .subtab-link,
+#tab-posts:checked ~ .sidebar .subtab-item-posts .subtab-link,
+#tab-questions:checked ~ .sidebar .subtab-item-questions .subtab-link,
+#tab-bonus:checked ~ .sidebar .subtab-item-bonus .subtab-link,
+#tab-deductions:checked ~ .sidebar .subtab-item-deductions .subtab-link,
+#tab-rating:checked ~ .sidebar .subtab-item-rating .subtab-link,
+#tab-reports:checked ~ .sidebar .subtab-item-reports .subtab-link,
+#tab-ledger:checked ~ .sidebar .subtab-item-ledger .subtab-link,
+#tab-voucher:checked ~ .sidebar .subtab-item-voucher .subtab-link,
+#tab-attendance:checked ~ .sidebar .subtab-item-attendance .subtab-link,
+#tab-resignation:checked ~ .sidebar .subtab-item-resignation .subtab-link,
+#tab-expenses:checked ~ .sidebar .subtab-item-expenses .subtab-link,
+#tab-invoices:checked ~ .sidebar .subtab-item-invoices .subtab-link,
+#tab-settings:checked ~ .sidebar .subtab-item-settings .subtab-link,
+#tab-audit:checked ~ .sidebar .subtab-item-audit .subtab-link {
+  color: $text-dark;
+  font-weight: 600;
+  background: $bg-hover;
+
+  &::before {
+    background: $primary-color;
   }
 }
 
@@ -234,7 +462,14 @@ $transition: all 0.2s ease;
   }
 
   .sidebar-nav {
-    padding: 0 0.75rem; // Padding on the sides of nav list
+    padding: 0 0.75rem;
+    overflow: scroll; 
+     &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;// Padding on the sides of nav list
 
     .nav-list {
       list-style: none;
@@ -1393,7 +1628,7 @@ $transition: all 0.2s ease;
 
   align-items: center;
   justify-content: center;
-  z-index: 20;
+  z-index: 200;
 }
 
 .No_available {
@@ -1541,6 +1776,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  margin: 20px;
 }
 
 .mark-emp-label {
@@ -2086,10 +2322,12 @@ main {
 
   right: 0;
   top: 0;
-  span{
+
+  span {
     margin: 0 5px;
   }
 }
+
 // Variables (Ensure these match your top variables)
 $sidebar-width: 240px;
 $sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
@@ -2113,7 +2351,7 @@ $sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
 // --- CONTENT AREA BASE STYLE ---
 .content-area {
   margin-top: 60px;
-  margin-left: $sidebar-width; 
+  margin-left: $sidebar-width;
   width: calc(100% - #{$sidebar-width}); // Poori width lock karein
   padding: 2rem;
   transition: margin-left 0.2s ease, width 0.2s ease;
@@ -2135,7 +2373,7 @@ $sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
 
 // --- COLLAPSE LOGIC (The "Fix") ---
 #sidebar-collapse-check:checked {
-  ~ .sidebar {
+  ~.sidebar {
     width: $sidebar-collapsed !important; // Force 70px
 
     .logo-text,
@@ -2150,15 +2388,16 @@ $sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
   }
 
   // Content aur Header ko shift karein
-  ~ .content-area {
+  ~.content-area {
     margin-left: $sidebar-collapsed !important;
     width: calc(100% - #{$sidebar-collapsed}) !important;
   }
 
-  ~ .app-header {
+  ~.app-header {
     margin-left: $sidebar-collapsed !important;
   }
 }
+
 // Variables
 $pr-primary: #555;
 $pr-border: #ddd;
@@ -2170,15 +2409,21 @@ $pr-bg-light: #fafafa;
   box-sizing: border-box;
   transform-origin: top left;
   // This makes 100% look like 85% zoom for extra compactness
-  font-size: 0.85rem; 
+  font-size: 0.85rem;
 
   .pr-header-area {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-    .pr-page-title { font-size: 15px; font-weight: 600; color: #222; margin: 0; }
-    
+
+    .pr-page-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #222;
+      margin: 0;
+    }
+
     .pr-make-btn {
       background: #222;
       color: white;
@@ -2209,18 +2454,34 @@ $pr-bg-light: #fafafa;
         display: flex;
         flex-direction: column;
         gap: 4px;
-        
-        &.id-field { flex: 0 0 100px; }
-        &.period-field { flex: 1 1 200px; } // Combined Month-Year width
 
-        label { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; }
-        
+        &.id-field {
+          flex: 0 0 100px;
+        }
+
+        &.period-field {
+          flex: 1 1 200px;
+        }
+
+        // Combined Month-Year width
+
+        label {
+          font-size: 10px;
+          font-weight: 700;
+          color: #666;
+          text-transform: uppercase;
+        }
+
         input {
           height: 30px; // Shorter height
           border: 1px solid $pr-border;
           padding: 0 8px;
           font-size: 12px;
-          &:disabled { background: #f5f5f5; color: #999; }
+
+          &:disabled {
+            background: #f5f5f5;
+            color: #999;
+          }
         }
       }
 
@@ -2254,8 +2515,16 @@ $pr-bg-light: #fafafa;
         text-align: left;
       }
 
-      .pr-th-parent th { text-align: center; background: #e9e9e9; font-weight: 800; }
-      .pr-th-child th { background: #fafafa; font-weight: 600; }
+      .pr-th-parent th {
+        text-align: center;
+        background: #e9e9e9;
+        font-weight: 800;
+      }
+
+      .pr-th-child th {
+        background: #fafafa;
+        font-weight: 600;
+      }
 
       td {
         border: 1px solid $pr-border;
@@ -2264,9 +2533,23 @@ $pr-bg-light: #fafafa;
         vertical-align: middle;
       }
 
-      .pr-emp-name { font-weight: 600; color: #000; }
-      .pr-small-text { font-size: 10px; color: #777; line-height: 1.2; }
-      .pr-hint { display: block; font-size: 9px; color: #999; margin-top: 2px; }
+      .pr-emp-name {
+        font-weight: 600;
+        color: #000;
+      }
+
+      .pr-small-text {
+        font-size: 10px;
+        color: #777;
+        line-height: 1.2;
+      }
+
+      .pr-hint {
+        display: block;
+        font-size: 9px;
+        color: #999;
+        margin-top: 2px;
+      }
 
       .pr-input-small {
         width: 65px;
@@ -2275,12 +2558,23 @@ $pr-bg-light: #fafafa;
         font-size: 11px;
       }
 
-      .pr-bold { font-weight: 700; }
-      .pr-green { color: green; font-size: 10px; }
+      .pr-bold {
+        font-weight: 700;
+      }
+
+      .pr-green {
+        color: green;
+        font-size: 10px;
+      }
+
       .pr-payout-final {
         background: #f9f9f9;
         text-align: right;
-        strong { font-size: 13px; color: #000; }
+
+        strong {
+          font-size: 13px;
+          color: #000;
+        }
       }
     }
   }
@@ -2294,9 +2588,16 @@ $pr-bg-light: #fafafa;
   border-color: $pr-border !important;
   font-size: 12px !important;
   box-shadow: none !important;
-  .pr-select__value-container { padding: 0 8px !important; }
-  .pr-select__indicators { height: 28px !important; }
+
+  .pr-select__value-container {
+    padding: 0 8px !important;
+  }
+
+  .pr-select__indicators {
+    height: 28px !important;
+  }
 }
+
 // Variables Integration
 $primary-color: #555;
 $text-dark: #222;
@@ -2319,9 +2620,10 @@ $transition: all 0.2s ease;
   font-size: 0.9rem; // Zoom-out effect base
 
   .filter-section-card {
-    .qf-header{
+    .qf-header {
       margin-bottom: 2rem;
     }
+
     border: 1px solid $border-color;
     background-color: $bg-white;
     padding: 10px; // Reduced from 15px
@@ -2330,7 +2632,7 @@ $transition: all 0.2s ease;
 
     .filter-row {
       display: flex;
-      flex-wrap: wrap; 
+      flex-wrap: wrap;
       gap: 10px;
       align-items: flex-end;
 
@@ -2340,7 +2642,11 @@ $transition: all 0.2s ease;
         flex-direction: column;
         gap: 3px;
 
-        &.sm { flex: 1 1 90px; } // Reduced from 110px
+        &.sm {
+          flex: 1 1 90px;
+        }
+
+        // Reduced from 110px
 
         label {
           font-size: 10px; // Reduced from 11px
@@ -2357,11 +2663,19 @@ $transition: all 0.2s ease;
           height: 32px;
           box-shadow: none;
           font-size: 12px;
-          &:hover { border-color: $primary-color; }
+
+          &:hover {
+            border-color: $primary-color;
+          }
         }
 
-        .react-select__indicators { height: 30px; }
-        .react-select__value-container { padding: 0 8px; }
+        .react-select__indicators {
+          height: 30px;
+        }
+
+        .react-select__value-container {
+          padding: 0 8px;
+        }
       }
 
       .search-action-btn {
@@ -2377,24 +2691,33 @@ $transition: all 0.2s ease;
         gap: 6px;
         font-size: 12px; // Reduced from 14px
         transition: $transition;
-        &:hover { background-color: $text-dark; }
+
+        &:hover {
+          background-color: $text-dark;
+        }
       }
     }
   }
 
   .table-wrapper {
     width: 100%;
-    overflow-x: auto; 
+    overflow-x: auto;
     border: 1px solid $border-color;
     border-radius: $radius;
     background: $bg-white;
 
-    &::-webkit-scrollbar { height: 4px; }
-    &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
 
     .payroll-main-table {
       width: 100%;
-      min-width: 1000px; 
+      min-width: 1000px;
       border-collapse: collapse;
 
       th {
@@ -2416,20 +2739,35 @@ $transition: all 0.2s ease;
         vertical-align: top;
       }
 
-      .emp-cell, .contact-cell, .dept-cell {
+      .emp-cell,
+      .contact-cell,
+      .dept-cell {
         display: flex;
         flex-direction: column;
         gap: 2px;
-        .name { font-weight: 600; font-size: 12px; }
-        .sub-text { 
-          font-size: 10px; 
-          color: $text-light; 
-          display: flex; 
-          align-items: center; 
-          gap: 4px; 
+
+        .name {
+          font-weight: 600;
+          font-size: 12px;
         }
-        .dept-tag { font-weight: 600; font-size: 11px; }
-        .post-tag { font-size: 10px; color: $text-light; }
+
+        .sub-text {
+          font-size: 10px;
+          color: $text-light;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .dept-tag {
+          font-weight: 600;
+          font-size: 11px;
+        }
+
+        .post-tag {
+          font-size: 10px;
+          color: $text-light;
+        }
       }
 
       .table-inline-input {
@@ -2439,15 +2777,22 @@ $transition: all 0.2s ease;
         border: 1px solid $border-color;
         border-radius: $radius;
         outline: none;
-        &:focus { border-color: $primary-color; }
+
+        &:focus {
+          border-color: $primary-color;
+        }
       }
 
       .final-total-col {
         background-color: $bg-light;
         text-align: right;
         font-weight: bold;
-        strong { font-size: 13px; }
-        .allowences{
+
+        strong {
+          font-size: 13px;
+        }
+
+        .allowences {
           text-align: left;
         }
       }
@@ -2461,6 +2806,7 @@ $transition: all 0.2s ease;
   color: $text-light;
   line-height: 1.2;
 }
+
 // Variables
 $pr-primary: #555;
 $pr-border: #ddd;
@@ -2477,8 +2823,13 @@ $pr-bg-light: #fafafa;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-    .pr-page-title { font-size: 15px; font-weight: 600; color: #222; }
-    
+
+    .pr-page-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #222;
+    }
+
     .pr-make-btn {
       background: #222;
       color: white;
@@ -2509,17 +2860,32 @@ $pr-bg-light: #fafafa;
         display: flex;
         flex-direction: column;
         gap: 4px;
-        &.id-field { flex: 0 0 100px; }
-        &.period-field { flex: 1 1 180px; }
 
-        label { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; }
-        
+        &.id-field {
+          flex: 0 0 100px;
+        }
+
+        &.period-field {
+          flex: 1 1 180px;
+        }
+
+        label {
+          font-size: 10px;
+          font-weight: 700;
+          color: #666;
+          text-transform: uppercase;
+        }
+
         input {
           height: 30px;
           border: 1px solid $pr-border;
           padding: 0 8px;
           font-size: 12px;
-          &:disabled { background: #f5f5f5; color: #999; }
+
+          &:disabled {
+            background: #f5f5f5;
+            color: #999;
+          }
         }
       }
 
@@ -2542,9 +2908,18 @@ $pr-bg-light: #fafafa;
     background: #fff;
 
     // --- CUSTOM SCROLLBAR ADDED HERE ---
-    &::-webkit-scrollbar { height: 6px; }
-    &::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
-    &::-webkit-scrollbar-track { background: #f9f9f9; }
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f9f9f9;
+    }
 
     .pr-table-main {
       width: 100%;
@@ -2560,8 +2935,16 @@ $pr-bg-light: #fafafa;
         white-space: nowrap;
       }
 
-      .pr-th-parent th { text-align: center; background: #e9e9e9; font-weight: 800; }
-      .pr-th-child th { background: #fafafa; font-weight: 600; }
+      .pr-th-parent th {
+        text-align: center;
+        background: #e9e9e9;
+        font-weight: 800;
+      }
+
+      .pr-th-child th {
+        background: #fafafa;
+        font-weight: 600;
+      }
 
       td {
         border: 1px solid $pr-border;
@@ -2570,9 +2953,23 @@ $pr-bg-light: #fafafa;
         vertical-align: middle;
       }
 
-      .pr-emp-name { font-weight: 600; color: #000; }
-      .pr-small-text { font-size: 10px; color: #777; line-height: 1.2; }
-      .pr-hint { display: block; font-size: 9px; color: #999; margin-top: 2px; }
+      .pr-emp-name {
+        font-weight: 600;
+        color: #000;
+      }
+
+      .pr-small-text {
+        font-size: 10px;
+        color: #777;
+        line-height: 1.2;
+      }
+
+      .pr-hint {
+        display: block;
+        font-size: 9px;
+        color: #999;
+        margin-top: 2px;
+      }
 
       .pr-input-small {
         width: 65px;
@@ -2581,12 +2978,23 @@ $pr-bg-light: #fafafa;
         font-size: 11px;
       }
 
-      .pr-bold { font-weight: 700; }
-      .pr-green { color: green; font-size: 10px; }
+      .pr-bold {
+        font-weight: 700;
+      }
+
+      .pr-green {
+        color: green;
+        font-size: 10px;
+      }
+
       .pr-payout-final {
         background: #f9f9f9;
         text-align: right;
-        strong { font-size: 13px; color: #000; }
+
+        strong {
+          font-size: 13px;
+          color: #000;
+        }
       }
     }
   }
@@ -2600,9 +3008,16 @@ $pr-bg-light: #fafafa;
   border-color: $pr-border !important;
   font-size: 12px !important;
   box-shadow: none !important;
-  .pr-select__value-container { padding: 0 8px !important; }
-  .pr-select__indicators { height: 28px !important; }
+
+  .pr-select__value-container {
+    padding: 0 8px !important;
+  }
+
+  .pr-select__indicators {
+    height: 28px !important;
+  }
 }
+
 /* Root container - removing the bulk */
 .react-datepicker {
   font-family: inherit;
@@ -2653,9 +3068,9 @@ $pr-bg-light: #fafafa;
   }
 
   /* Your #555 Selection Style */
-  &--selected, 
+  &--selected,
   &--keyboard-selected {
-    background-color: $primary-color !important; 
+    background-color: $primary-color !important;
     color: $text-white !important;
     font-weight: bold !important;
   }
@@ -2664,7 +3079,7 @@ $pr-bg-light: #fafafa;
 /* Navigation - Tiny & Sharp */
 .react-datepicker__navigation {
   top: 12px !important;
-  
+
   &-icon::before {
     border-color: $text-light !important;
     border-width: 1px 1px 0 0 !important;
@@ -2698,6 +3113,7 @@ $pr-bg-light: #fafafa;
     border-color: $primary-color;
   }
 }
+
 .full-body-loader {
   position: fixed;
   top: 0;
@@ -2743,10 +3159,12 @@ $pr-bg-light: #fafafa;
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
+
 // Your Variables
 $primary-color: #555;
 $text-dark: #222;
@@ -2794,19 +3212,32 @@ $transition: all 0.2s ease;
   }
 
   .table-responsive {
+  
     border: 1px solid $table-border;
     border-radius: $radius;
+   &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+
 
     .simple-table {
       width: 100%;
+      // min-width: 1100px;
       border-collapse: collapse;
       text-align: left;
 
       thead {
         background-color: $table-head-bg;
+
         tr {
           border-bottom: 1px solid $table-border;
         }
+
         th {
           padding: 12px 15px;
           color: $primary-color;
@@ -2820,8 +3251,14 @@ $transition: all 0.2s ease;
         tr {
           border-bottom: 1px solid $table-border;
           transition: $transition;
-          &:hover { background-color: $bg-hover; }
-          &:last-child { border-bottom: none; }
+
+          &:hover {
+            background-color: $bg-hover;
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
         }
 
         td {
@@ -2849,6 +3286,1329 @@ $transition: all 0.2s ease;
     }
   }
 }
-.react-datepicker-wrapper{
+
+.react-datepicker-wrapper {
   width: 100%;
+}
+
+// .pr-make-btn {
+//   display: none !important;
+// }
+
+// ========================================
+// ATTENDANCE CALENDAR STYLES
+// ========================================
+
+.attendance-calendar-wrapper {
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  padding: 20px;
+  background: $bg-light;
+
+  .cal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .cal-title-section {
+      .cal-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $text-dark;
+        margin: 0;
+      }
+
+      .cal-subtitle {
+        font-size: 0.85rem;
+        color: $text-light;
+        margin: 4px 0 0;
+      }
+    }
+
+    .cal-employee-select {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      label {
+        font-size: 0.9rem;
+        color: $text-dark;
+        white-space: nowrap;
+      }
+
+      .cal-select__control {
+        min-width: 250px;
+        border-color: $border-color;
+        box-shadow: none;
+
+        &:hover {
+          border-color: $primary-color;
+        }
+      }
+
+      .cal-select__menu {
+        z-index: 100;
+      }
+    }
+  }
+
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+
+    .cal-nav-btn {
+      background: $bg-white;
+      border: 1px solid $border-color;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: $radius;
+      transition: $transition;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: $primary-color;
+        border-color: $primary-color;
+
+        svg {
+          stroke: $text-white;
+        }
+      }
+
+      svg {
+        stroke: $text-dark;
+      }
+    }
+
+    .cal-current-month {
+      text-align: center;
+      min-width: 180px;
+
+      .month-name {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: $text-dark;
+        margin-right: 8px;
+      }
+
+      .year {
+        font-size: 1.1rem;
+        color: $text-light;
+      }
+    }
+
+    .cal-today-btn {
+      background: $primary-color;
+      color: $text-white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: $radius;
+      font-size: 0.85rem;
+      transition: $transition;
+
+      &:hover {
+        background: color.scale($primary-color, $lightness: -15%);
+      }
+    }
+  }
+
+  .cal-legend {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: $text-dark;
+
+      .legend-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+
+        &.leave {
+          background: #3182ce;
+        }
+
+        &.absent {
+          background: #e53e3e;
+        }
+
+        &.sunday {
+          background: #a0aec0;
+        }
+      }
+    }
+  }
+
+  .cal-table-container {
+    background: $bg-white;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+    overflow: hidden;
+  }
+
+  .cal-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    thead {
+      th {
+        background: $table-head-bg;
+        padding: 12px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: $text-dark;
+        border-bottom: 1px solid $border-color;
+
+        &.sunday-header {
+          color: #e53e3e;
+        }
+      }
+    }
+
+    tbody {
+      .cal-day {
+        border: 1px solid $border-color;
+        height: 100px;
+        vertical-align: top;
+        padding: 0;
+        transition: $transition;
+
+        &:hover:not(.empty-day):not(.sunday) {
+          background: $bg-hover;
+        }
+
+        &.empty-day {
+          background: #f7f7f7;
+        }
+
+        &.sunday {
+          background: #f0f0f0;
+
+          .day-number {
+            color: #e53e3e;
+          }
+
+          .sunday-label {
+            display: block;
+            font-size: 0.7rem;
+            color: #a0aec0;
+            margin-top: 10px;
+            text-align: center;
+          }
+        }
+
+        &.today {
+          .day-actions {
+           opacity: 1 !important;
+          }
+
+          .day-number {
+            background: $primary-color;
+            color: $text-white;
+          }
+        }
+
+        .day-content {
+          padding: 8px;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+
+          .day-number {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: $text-dark;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // border-radius: 50%;
+          }
+
+          .day-indicators {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+
+            .indicator {
+              font-size: 0.65rem;
+              font-weight: 600;
+              padding: 2px 6px;
+              border-radius: 2px;
+              color: $text-white;
+
+              &.leave-indicator {
+                background: #3182ce;
+              }
+
+              &.absent-indicator {
+                background: #e53e3e;
+              }
+
+              &.count-indicator {
+                background: #718096;
+              }
+            }
+          }
+
+          .day-actions {
+            display: flex;
+            gap: 4px;
+            margin-top: auto;
+            justify-content: flex-end;
+            opacity: 0;
+            transition: $transition;
+
+            button {
+              padding: 4px 6px;
+              border: 1px solid $border-color;
+              background: $bg-white;
+              cursor: pointer;
+              border-radius: $radius;
+              transition: $transition;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              &:hover {
+                background: $primary-color;
+                border-color: $primary-color;
+
+                svg {
+                  stroke: $text-white;
+                }
+              }
+
+              svg {
+                stroke: $text-dark;
+              }
+            }
+          }
+        }
+
+        &:hover .day-actions {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  // Modal styles
+  .cal-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .cal-modal {
+    background: $bg-white;
+    border-radius: $radius;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    &.action-modal {
+      max-width: 550px;
+    }
+
+    .cal-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid $border-color;
+
+      h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: $text-dark;
+      }
+
+      .cal-modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: $text-light;
+        padding: 0;
+        line-height: 1;
+
+        &:hover {
+          color: $text-dark;
+        }
+      }
+    }
+
+    .cal-modal-body {
+      padding: 20px;
+      // overflow-y: auto;
+      flex: 1;
+
+      .no-data {
+        text-align: center;
+        color: $text-light;
+        padding: 20px;
+      }
+
+      .cal-details-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+          padding: 10px;
+          text-align: left;
+          border-bottom: 1px solid $border-color;
+        }
+
+        th {
+          font-weight: 600;
+          font-size: 0.85rem;
+          color: $text-dark;
+          background: $table-head-bg;
+        }
+
+        .type-badge {
+          font-size: 0.75rem;
+          padding: 3px 8px;
+          border-radius: 2px;
+          color: $text-white;
+          font-weight: 500;
+
+          &.leave {
+            background: #3182ce;
+          }
+
+          &.absent {
+            background: #e53e3e;
+          }
+        }
+
+        .btn-edit-sm,
+        .btn-delete-sm {
+          padding: 4px 8px;
+          font-size: 0.75rem;
+          border: 1px solid $border-color;
+          background: $bg-white;
+          cursor: pointer;
+          border-radius: $radius;
+          margin-right: 5px;
+          transition: $transition;
+
+          &:hover {
+            background: $primary-color;
+            color: $text-white;
+            border-color: $primary-color;
+          }
+        }
+
+        .btn-delete-sm:hover {
+          background: #e53e3e;
+          border-color: #e53e3e;
+        }
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          font-size: 0.85rem;
+          color: $text-dark;
+          margin-bottom: 6px;
+          font-weight: 500;
+        }
+
+        .form-input {
+          width: 100%;
+          padding: 10px 12px;
+          border: 1px solid $border-color;
+          border-radius: $radius;
+          font-size: 0.9rem;
+          background: $bg-light;
+
+          &:disabled {
+            background: #eee;
+            cursor: not-allowed;
+          }
+        }
+
+        .type-options {
+          display: flex;
+          gap: 10px;
+
+          .type-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 2px solid $border-color;
+            border-radius: $radius;
+            cursor: pointer;
+            transition: $transition;
+
+            input {
+              display: none;
+            }
+
+            .type-label {
+              font-size: 0.9rem;
+              font-weight: 500;
+
+              &.leave {
+                color: #3182ce;
+              }
+
+              &.absent {
+                color: #e53e3e;
+              }
+            }
+
+            &.active {
+              border-color: #878787a5;
+              background: $bg-hover;
+            }
+
+            &:hover {
+              background: $bg-hover;
+            }
+          }
+        }
+      }
+    }
+
+    .cal-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 15px 20px;
+      border-top: 1px solid $border-color;
+
+      .btn-cancel {
+        padding: 8px 16px;
+        border: 1px solid $border-color;
+        background: $bg-white;
+        cursor: pointer;
+        border-radius: $radius;
+        font-size: 0.9rem;
+        transition: $transition;
+
+        &:hover {
+          background: $bg-hover;
+        }
+      }
+
+      .btn-save {
+        padding: 8px 20px;
+        border: none;
+        background: $primary-color;
+        color: $text-white;
+        cursor: pointer;
+        border-radius: $radius;
+        font-size: 0.9rem;
+        transition: $transition;
+
+        &:hover {
+          background: color.scale($primary-color, $lightness: -15%);
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .attendance-calendar-wrapper {
+    padding: 10px;
+
+    .cal-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .cal-employee-select {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start !important;
+
+      .cal-select__control {
+        min-width: 100% !important;
+      }
+    }
+
+    .cal-table tbody .cal-day {
+      height: 70px;
+
+      .day-content {
+        padding: 4px;
+
+        .day-number {
+          font-size: 0.8rem;
+          width: 22px;
+          height: 22px;
+        }
+
+        .day-actions {
+          opacity: 1;
+
+          button {
+            padding: 2px 4px;
+          }
+        }
+      }
+    }
+  }
+}
+
+$primary: #3b82f6;
+$danger: #ef4444;
+$sunday-bg: #f1f5f9;
+$border-color: #e2e8f0;
+
+.calendar-page-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: #fff;
+
+  .calendar-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    border-bottom: 1px solid $border-color;
+
+    h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: #1e293b;
+    }
+
+    p {
+      margin: 0;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .filter-area {
+      width: 300px;
+
+      label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .calendar-container {
+    flex: 1;
+    padding: 20px;
+    overflow: hidden;
+
+    // Custom Cell Styling
+    .custom-cell {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      min-height: 100px;
+
+      &.is-sunday {
+        background-color: $sunday-bg;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .cell-overlay-actions {
+        display: flex;
+        gap: 4px;
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        right: 5px;
+        opacity: 0;
+        transition: opacity 0.2s;
+
+        button {
+          flex: 1;
+          padding: 4px;
+          border: none;
+          border-radius: 4px;
+          font-size: 10px;
+          cursor: pointer;
+          font-weight: bold;
+        }
+
+        .btn-view {
+          background: #e2e8f0;
+          color: #475569;
+        }
+
+        .btn-add {
+          background: $primary;
+          color: white;
+        }
+      }
+
+      &:hover .cell-overlay-actions {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Modal Styles
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 450px;
+      max-width: 90%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+      .type-selector {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+
+        button {
+          flex: 1;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 6px;
+          cursor: pointer;
+
+          &.active {
+            background: $primary;
+            color: white;
+            border-color: $primary;
+          }
+        }
+      }
+
+      .save-btn {
+        background: $primary;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// FullCalendar Theme Overrides
+.fc {
+  .fc-col-header-cell {
+    background: #f8fafc;
+    padding: 10px 0;
+  }
+
+  .fc-daygrid-day-frame {
+    cursor: pointer;
+  }
+
+  .fc-day-sun {
+    background-color: $sunday-bg !important;
+  }
+}
+
+// ==========================================
+// RESIGNATION STYLES
+// ==========================================
+.resignation-form-area {
+  background: $bg-white;
+  border: 1px solid $border-color;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.resignation-subtitle {
+  font-size: 0.85rem;
+  color: $text-light;
+  margin-bottom: 1.5rem;
+}
+
+.resignation-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.resignation-radio-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: $bg-light;
+  border: 1px solid $border-color;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background: $bg-hover;
+    border-color: $primary-color;
+  }
+
+  input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    accent-color: $primary-color;
+    cursor: pointer;
+  }
+
+  .radio-label {
+    font-size: 0.9rem;
+    color: $text-dark;
+  }
+}
+
+.other-reason-container {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: $bg-light;
+  border: 1px solid $border-color;
+}
+
+.other-reason-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 0.75rem;
+}
+
+.other-reason-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid $border-color;
+  font-size: 0.9rem;
+  color: $text-dark;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.resignation-btn {
+  background: #dc3545 !important;
+  
+  &:hover {
+    background: #c82333 !important;
+  }
+}
+
+.resignation-reason-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: #f8f9fa;
+  border: 1px solid $border-color;
+  font-size: 0.8rem;
+  color: $text-dark;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ==========================================
+// LEDGER STYLES (inside Employee form)
+// ==========================================
+.ledger-modal-size {
+  max-width: 36rem !important;
+  height: auto !important;
+  max-height: 85vh;
+}
+
+.ledger-select-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+
+  .ledger-select-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: $text-dark;
+    }
+  }
+}
+
+.ledger-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  background: $bg-white;
+  cursor: pointer;
+  color: $text-light;
+  transition: $transition;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    border-color: $text-dark;
+    color: $text-dark;
+    background: $bg-hover;
+  }
+}
+
+.required-star {
+  color: #dc3545;
+  margin-left: 2px;
+}
+
+.ledger-form-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 1rem;
+  background: #fff5f5;
+  border: 1px solid #fecaca;
+  color: #dc3545;
+  font-size: 0.82rem;
+  border-radius: $radius;
+
+  .error-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+}
+.ledger-view{
+  .table-responsive{
+    overflow: scroll;
+    // overflow-y: hidden;
+    .simple-table{
+      width: 1200px;
+      
+    }
+
+    td{
+      padding: 10px 0 !important;
+      &:nth-child(1){
+        padding: 10px 15px !important;
+      }
+       &:nth-last-child(1){
+        padding: 10px 15px !important;
+      }
+    }
+  }
+}
+
+// ==========================================
+// VOUCHER FORM STYLES
+// ==========================================
+
+.voucher-form-wrapper {
+  background: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+}
+
+.vf-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .vf-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin: 0;
+  }
+
+  .vf-subtitle {
+    font-size: 0.82rem;
+    color: $text-light;
+    margin: 4px 0 0;
+  }
+}
+
+.vf-top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid $border-color;
+  background: $bg-light;
+
+  .vf-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: $text-dark;
+    }
+  }
+}
+
+.vf-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  font-size: 0.85rem;
+  color: $text-dark;
+  background: $bg-white;
+  transition: $transition;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+
+  &[readOnly] {
+    background: $bg-light;
+    color: $text-light;
+    cursor: default;
+  }
+}
+
+.vf-date-group {
+  .vf-date-inputs {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .vf-date-input {
+    width: 55px;
+    text-align: center;
+  }
+
+  .vf-date-year {
+    width: 70px;
+  }
+
+  .vf-date-sep {
+    color: $text-light;
+    font-size: 0.9rem;
+    user-select: none;
+  }
+}
+
+// Section (Debit / Credit)
+.vf-section {
+  margin: 1rem 1.5rem;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+
+  .vf-section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: $bg-light;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .vf-section-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin: 0;
+  }
+
+  .vf-section-total {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $primary-color;
+  }
+}
+
+.vf-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: $text-light;
+    border-bottom: 1px solid $border-color;
+    background: $bg-white;
+  }
+
+  tbody td {
+    padding: 0.5rem 0.75rem;
+    vertical-align: middle;
+    border-bottom: 1px solid lighten($border-color, 5%);
+  }
+
+  .vf-num {
+    font-size: 0.82rem;
+    color: $text-light;
+    text-align: center;
+  }
+
+  .vf-amount {
+    text-align: right;
+  }
+}
+
+.vf-row-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+
+  button {
+    width: 30px;
+    height: 30px;
+    border-radius: $radius;
+    border: 1px solid $border-color;
+    background: $bg-white;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: $transition;
+
+    &:hover:not(:disabled) {
+      border-color: $text-dark;
+      background: $bg-hover;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  .vf-btn-add {
+    color: #27ae60;
+  }
+
+  .vf-btn-del {
+    color: #e74c3c;
+  }
+}
+
+// Balance indicator
+.vf-balance {
+  margin: 0 1.5rem;
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: $radius;
+
+  &.balanced {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+  }
+
+  &.unbalanced {
+    background: #fff5f5;
+    border: 1px solid #fecaca;
+    color: #dc3545;
+  }
+
+  .vf-balance-divider {
+    color: #ccc;
+  }
+}
+
+// Narration & Attachment
+.vf-bottom-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+
+  label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: $text-dark;
+    margin-bottom: 6px;
+  }
+}
+
+.vf-textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  font-size: 0.85rem;
+  color: $text-dark;
+  resize: vertical;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+}
+
+.vf-file-area {
+  border: 1px dashed $border-color;
+  border-radius: $radius;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vf-file-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 1.5rem;
+
+  span {
+    font-size: 0.8rem;
+    color: #999;
+  }
+
+  &:hover span {
+    color: $text-dark;
+  }
+}
+
+.vf-preview {
+  position: relative;
+  padding: 0.5rem;
+
+  img {
+    max-height: 110px;
+    max-width: 100%;
+    border-radius: $radius;
+    object-fit: contain;
+  }
+
+  .vf-preview-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+}
+
+// Footer
+.vf-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid $border-color;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+// ---- Responsive ----
+@media (max-width: 768px) {
+  .vf-top-row {
+    grid-template-columns: 1fr;
+  }
+
+  .vf-bottom-section {
+    grid-template-columns: 1fr;
+  }
+
+  .vf-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+// .css-1xc3v61-indicatorContainer{
+//   display: none !important;
+// }
+// .css-15lsz6c-indicatorContainer{
+//   display: none !important;
+// }
+.vf-field {
+  .flex{
+    input{
+      &:nth-child(1){
+        width: 40px !important;
+      }
+    }
+  }
 }

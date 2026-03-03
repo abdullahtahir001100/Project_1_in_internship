@@ -276,7 +276,7 @@ const empOptions = emp.data.map(item => ({
       </div>
           <div className="filter-row">
             <div className="input-field">
-              <label>Dept Name</label>
+              <label>Bonus Name</label>
               <Select
                 classNamePrefix="react-select"
                 placeholder="Select Dept"
@@ -533,7 +533,7 @@ const empOptions = emp.data.map(item => ({
               <tbody>
                 {tabledata && tabledata.length > 0 ? tabledata.map((item, index) => (
                   <tr key={index}>
-                    <td>#DEP-00{index + 1}</td>
+                    <td>#BOS-00{index + 1}</td>
                     <td>{item?.month ? item.month : "N/A"}</td>
                     <td>{item?.year ? item.year : "N/A"}</td>
                     <td>{item?.type ? item.type : "N/A"}</td>
