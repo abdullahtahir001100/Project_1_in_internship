@@ -1,19 +1,16 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "backend/api/**/*.php",
-      "use": "vercel-php@0.7.1"
+  "functions": {
+    "backend/api/**/*.php": {
+      "runtime": "vercel-php@0.7.1"
     },
-    {
-      "src": "backend/dbconfig/*.php",
-      "use": "vercel-php@0.7.1"
+    "backend/dbconfig/*.php": {
+      "runtime": "vercel-php@0.7.1"
     },
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
+    "backend/index.php": {
+      "runtime": "vercel-php@0.7.1"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/(.*)",
@@ -22,6 +19,10 @@
     {
       "src": "/dbconfig/(.*)",
       "dest": "/backend/dbconfig/$1.php"
+    },
+    {
+      "src": "/backend-index",
+      "dest": "/backend/index.php"
     },
     {
       "src": "/(.*)",
