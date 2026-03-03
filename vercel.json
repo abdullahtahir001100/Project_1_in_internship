@@ -1,13 +1,7 @@
 {
   "version": 2,
   "functions": {
-    "backend/api/**/*.php": {
-      "runtime": "vercel-php@0.7.1"
-    },
-    "backend/dbconfig/*.php": {
-      "runtime": "vercel-php@0.7.1"
-    },
-    "backend/index.php": {
+    "backend/**/*.php": {
       "runtime": "vercel-php@0.7.1"
     }
   },
