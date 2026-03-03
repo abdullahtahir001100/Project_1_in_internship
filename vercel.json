@@ -1,27 +1,30 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "backend/**/*.php",
-      "use": "vercel-php@0.7.1"
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
+  "functions": {
+    "backend/**/*.php": {
+      "runtime": "vercel-php@0.7.1"
     }
-  ],
+  },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/backend/api/$1.php"
+      "src": "/api/Employees/(.*)",
+      "dest": "/backend/api/Employees/$1.php"
     },
     {
-      "src": "/dbconfig/(.*)",
+      "src": "/api/Posts/(.*)",
+      "dest": "/backend/api/Posts/$1.php"
+    },
+    {
+      "src": "/api/vouchers/(.*)",
+      "dest": "/backend/api/vouchers/$1.php"
+    },
+    {
+      "src": "/api/dbconfig/(.*)",
       "dest": "/backend/dbconfig/$1.php"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "src": "/api/index",
+      "dest": "/backend/index.php"
     }
   ]
 }
