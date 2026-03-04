@@ -36,7 +36,7 @@ export default function Ledger() {
     async function fetchLedgers() {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost/react-backend/api/ledgers/get_leger.php');
+            const res = await axios.get('http://localhost/react-backend/api/ledgers/get_leger);
             setData(res.data || []);
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to load ledgers.' });
@@ -84,7 +84,7 @@ export default function Ledger() {
         // console.log(payload) 
         if (editId) payload.id = editId;
 
-        const url = editId ? 'update.php' : 'create.php';
+        const url = editId ? 'update : 'create;
         const method = editId ? 'put' : 'post';
 
         try {
@@ -108,7 +108,7 @@ export default function Ledger() {
     async function handleDelete() {
         try {
             setLoading(true);
-            await axios.delete('http://localhost/react-backend/api/ledgers/delete.php', {
+            await axios.delete('http://localhost/react-backend/api/ledgers/delete, {
                 data: { id: targetId }
             });
             setShowDeleteModal(false);

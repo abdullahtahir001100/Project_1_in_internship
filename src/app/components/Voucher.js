@@ -120,7 +120,7 @@ export default function Voucher() {
 
     async function fetchLedgers() {
         try {
-            const res = await axios.get('http://localhost/react-backend/api/Employees/get.php');
+            const res = await axios.get('http://localhost/react-backend/api/Employees/get);
             setLedgers(res.data || []);
         } catch (err) {
             /* silent */

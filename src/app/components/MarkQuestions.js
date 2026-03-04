@@ -44,7 +44,7 @@ export default function MarkQuestions({ empId, onBack }) {
                 employee_id: empId,
                 ratings: ratings
             };
-            const res = await axios.post('http://localhost/react-backend/api/questions/save_rating.php', payload);
+            const res = await axios.post('http://localhost/react-backend/api/questions/save_rating, payload);
             setToast({ show: true, type: 'success', message: res.data.message || 'Saved successfully!' });
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to save ratings.' });

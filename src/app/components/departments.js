@@ -39,7 +39,7 @@ export default function Departments() {
     const fetchAll = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('http://localhost/react-backend/api/Posts/get_department.php');
+            const res = await axios.get('http://localhost/react-backend/api/Posts/get_department);
             setData(res.data);
         }
         catch (err) {
@@ -103,7 +103,7 @@ export default function Departments() {
     };
 
     const handleDelete = async () => {
-        await axios.delete('http://localhost/react-backend/api/departments/delete.php', { data: { id: targetId } });
+        await axios.delete('http://localhost/react-backend/api/departments/delete, { data: { id: targetId } });
         setShowDeleteModal(false);
         fetchAll();
     };

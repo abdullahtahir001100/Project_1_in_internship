@@ -25,7 +25,7 @@ const AttendanceCalendar = () => {
     // Fetch employees
     const fetchEmployees = async () => {
         try {
-            const res = await axios.get('http://localhost/react-backend/api/Employees/get.php');
+            const res = await axios.get('http://localhost/react-backend/api/Employees/get);
             if (res.data) {
                 const empOptions = res.data.map(emp => ({
                     value: emp.id,
@@ -185,10 +185,10 @@ const AttendanceCalendar = () => {
 
             if (editMode) {
                 payload.id = editId;
-                await axios.put('http://localhost/react-backend/api/leave/l.php', payload);
+                await axios.put('http://localhost/react-backend/api/leave/l, payload);
                 setToast({ show: true, type: 'success', message: 'Record updated successfully.' });
             } else {
-                await axios.post('http://localhost/react-backend/api/leave/l.php', payload);
+                await axios.post('http://localhost/react-backend/api/leave/l, payload);
                 setToast({ show: true, type: 'success', message: 'Record added successfully.' });
             }
             fetchLeaveData();

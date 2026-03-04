@@ -60,7 +60,7 @@ export default function Employees() {
 
     async function get_b_d() {
         try {
-            const res = await axios.get('http://localhost/react-backend/api/bonus/get.php');
+            const res = await axios.get('http://localhost/react-backend/api/bonus/get);
             const data = res.data;
             const formattedData = data.map(item => ({
                 value: String(item.id),
@@ -68,7 +68,7 @@ export default function Employees() {
                 price: item.baseValue
             }));
 
-            const req = await axios.get('http://localhost/react-backend/api/deduction/get.php');
+            const req = await axios.get('http://localhost/react-backend/api/deduction/get);
             const dat1a = req.data;
             const formattedData1 = dat1a.map(item => ({
                 value: String(item.id),
@@ -91,7 +91,7 @@ export default function Employees() {
         async function get_all_info() {
             try {
                 setLoading(true);
-                const response = await axios.get('http://localhost/react-backend/api/Employees/get_info.php');
+                const response = await axios.get('http://localhost/react-backend/api/Employees/get_info);
                 const data = response.data;
                 setOptions(data);
             } catch (error) {
@@ -105,7 +105,7 @@ export default function Employees() {
 
     async function fetchLedgers() {
         try {
-            const res = await axios.get('http://localhost/react-backend/api/ledgers/get.php');
+            const res = await axios.get('http://localhost/react-backend/api/ledgers/get);
             const data = res.data || [];
             setLedgers(data.map(item => ({
                 value: item.id,
@@ -145,7 +145,7 @@ export default function Employees() {
 
         try {
             setLoading(true);
-            await axios.post('http://localhost/react-backend/api/ledgers/create.php',
+            await axios.post('http://localhost/react-backend/api/ledgers/create,
                 { name, father_name, cnic, email, phone, salary, status: 'employ_simple' },
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -231,7 +231,7 @@ export default function Employees() {
         try {
             setLoading(true);
             if (editId) formData.append('id', editId);
-            const url = editId ? 'update.php' : 'create.php';
+            const url = editId ? 'update : 'create;
             const response = await axios.post(`http://localhost/react-backend/api/Employees/${url}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
@@ -260,7 +260,7 @@ export default function Employees() {
     async function get_all_info_table() {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost/react-backend/api/Employees/get.php');
+            const response = await axios.get('http://localhost/react-backend/api/Employees/get);
             const data = response.data;
             setdata(data);
         } catch (error) {
