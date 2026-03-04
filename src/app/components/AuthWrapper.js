@@ -22,11 +22,7 @@ export default function AuthWrapper({ children }) {
 
   if (checking) {
     return (
-      <div style={{
-        position: 'fixed', inset: 0,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: '#0f172a', color: '#94a3b8', fontSize: '16px',
-      }}>
+      <div className="login-overlay">
         Loading...
       </div>
     );

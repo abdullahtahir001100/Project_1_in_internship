@@ -17,7 +17,7 @@ export default function PostModal() {
     async function get_all_departments() {
       try {
         setloading(true);
-        const request = await fetch('/api/api/Posts/get_department')
+        const request = await fetch('http://localhost/react-backend/api/Posts/get_department')
         const responce = await request.json();
         setdata(responce);
       } catch (error) {
@@ -35,7 +35,7 @@ export default function PostModal() {
     const formData = new FormData(form.current);
     try {
       setloading(true);
-      const insert = await fetch('/api/api/Posts/create', {
+      const insert = await fetch('http://localhost/react-backend/api/Posts/create', {
         method: 'POST',
         body: formData,
       })

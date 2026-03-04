@@ -4616,3 +4616,131 @@ $border-color: #e2e8f0;
     }
   }
 }
+
+// ===== LOGIN PAGE =====
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-light;
+  z-index: 99999;
+}
+
+.login-card {
+  background: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 8px;
+
+  .login-logo-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: $radius;
+    background: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-white;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 44px;
+    text-align: center;
+  }
+
+  .login-logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+
+    span {
+      color: $primary-color;
+    }
+  }
+}
+
+.login-subtitle {
+  text-align: center;
+  color: $text-light;
+  font-size: 14px;
+  margin-bottom: 28px;
+  margin-top: 4px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  .login-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: $text-dark;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid $border-color;
+      border-radius: $radius;
+      font-size: 0.9rem;
+      color: #000;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+      }
+    }
+  }
+
+  .login-btn {
+    padding: 10px;
+    border-radius: $radius;
+    border: 1px solid transparent;
+    background: $primary-color;
+    color: $text-white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: $transition;
+
+    &:hover {
+      background: $text-dark;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  .login-error {
+    background: #fff5f5;
+    border: 1px solid #e8cccc;
+    color: #c53030;
+    padding: 10px 14px;
+    border-radius: $radius;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}
