@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./styles/style.scss";
-import Sidebar from "./components/sidebar.js"
+import AuthWrapper from "./components/AuthWrapper.js";
+import Sidebar from "./components/sidebar.js";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -23,8 +24,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Sidebar />
-        {children}
+        <AuthWrapper>
+          <Sidebar />
+          {children}
+        </AuthWrapper>
       </body>
     </html>
   );
