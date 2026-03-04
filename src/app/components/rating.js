@@ -89,13 +89,13 @@ const BonusManagement = () => {
 
     try {
       setLoading(true);
-      const req = await axios.get('/api/api/Posts/get_department');
+      const req = await axios.get('http://localhost/react-backend/api/Posts/get_department');
       setdepartments(req.data.map(dept => ({ value: dept.id, label: dept.department_name })))
-      const emp = await axios.get('/api/api/Employees/get');
-      const table =  await axios.get('/api/api/bonusmain/get');
+      const emp = await axios.get('http://localhost/react-backend/api/Employees/get');
+      const table =  await axios.get('http://localhost/react-backend/api/bonusmain/get');
       
       setTabledata(table.data);
-      // const table = await axios.get('/api/api/bonusmain/get');
+      // const table = await axios.get('http://localhost/react-backend/api/bonusmain/get');
 
 // Map previous bonus/fine per employee for quick lookup
 const bonusMap = {};
@@ -188,7 +188,7 @@ const empOptions = emp.data.map(item => ({
     try {
       setLoading(true);
       const url = Updata ? "update" : "create";
-      const req = await axios.post(`/api/api/bonusmain/${url}`, payload);
+      const req = await axios.post(`http://localhost/react-backend/api/bonusmain/${url}`, payload);
       setToast({ show: true, type: 'success', message: req?.data?.message });
     } catch (error) {
       console.log(err.response?.data || err)
@@ -205,7 +205,7 @@ const empOptions = emp.data.map(item => ({
   try {
     setLoading(true);
    setUpdata(true);
-    const res = await axios.get(`/api/api/bonusmain/get_single?id=${id}`);
+    const res = await axios.get(`http://localhost/react-backend/api/bonusmain/get_single?id=${id}`);
     
     const bonusData = res.data; 
     
@@ -244,7 +244,7 @@ const empOptions = emp.data.map(item => ({
      setShowDeleteModal(true);
     try {
       setLoading(true);
-      const res = await axios.post(`/api/api/bonusmain/delete`, { id });
+      const res = await axios.post(`http://localhost/react-backend/api/bonusmain/delete`, { id });
       setToast({ show: true, type: 'success', message: res?.data?.message || 'Deleted successfully!' });
     }
     catch (err) {

@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: application/json");
     
 $id = $_GET['id11'] ?? 0;
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {

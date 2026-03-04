@@ -25,7 +25,7 @@ const AttendanceCalendar = () => {
     // Fetch employees
     const fetchEmployees = async () => {
         try {
-            const res = await axios.get('/api/api/Employees/get');
+            const res = await axios.get('http://localhost/react-backend/api/Employees/get');
             if (res.data) {
                 const empOptions = res.data.map(emp => ({
                     value: emp.id,
@@ -45,7 +45,7 @@ const AttendanceCalendar = () => {
             setIsLoading(true);
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth() + 1;
-            let url = `/api/api/leave/l?year=${year}&month=${month}`;
+            let url = `http://localhost/react-backend/api/leave/l?year=${year}&month=${month}`;
             if (selectedEmployee) {
                 url += `&emp_id=${selectedEmployee.value}`;
             }
@@ -157,7 +157,7 @@ const AttendanceCalendar = () => {
         // if (!confirm('Are you sure you want to delete this record?')) return;
         try {
             setIsLoading(true);
-            await axios.delete(`/api/api/leave/l?id=${id}`);
+            await axios.delete(`http://localhost/react-backend/api/leave/l?id=${id}`);
             setToast({ show: true, type: 'success', message: 'Record deleted successfully.' });
             fetchLeaveData();
             setShowDetailsModal(false);
@@ -185,10 +185,10 @@ const AttendanceCalendar = () => {
 
             if (editMode) {
                 payload.id = editId;
-                await axios.put('/api/api/leave/l', payload);
+                await axios.put('http://localhost/react-backend/api/leave/l', payload);
                 setToast({ show: true, type: 'success', message: 'Record updated successfully.' });
             } else {
-                await axios.post('/api/api/leave/l', payload);
+                await axios.post('http://localhost/react-backend/api/leave/l', payload);
                 setToast({ show: true, type: 'success', message: 'Record added successfully.' });
             }
             fetchLeaveData();

@@ -35,7 +35,7 @@ export default function Resignation() {
     async function getResignations() {
         try {
             setLoading(true);
-            const response = await axios.get('/api/api/reasons/get');
+            const response = await axios.get('http://localhost/react-backend/api/reasons/get');
             setData(response.data || []);
             
         } catch (error) {
@@ -48,7 +48,7 @@ export default function Resignation() {
     async function handleDelete(id) {
         try {
             setLoading(true);
-            await axios.delete('/api/api/reasons/delete', {
+            await axios.delete('http://localhost/react-backend/api/reasons/delete', {
                 data: { id: id }
             });
             setShowDeleteModal(false);
@@ -96,7 +96,7 @@ export default function Resignation() {
                 reason_type: editReasonType
             };
 
-            await axios.put('/api/api/reasons/update', payload);
+            await axios.put('http://localhost/react-backend/api/reasons/update', payload);
             setToast({ show: true, type: 'success', message: 'Resignation updated successfully.' });
             setEditModal(false);
             setEditData(null);

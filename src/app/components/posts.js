@@ -32,9 +32,9 @@ export default function Posts() {
   const fetchAll = async () => {
     setLoading(true);
     try {
-      const resPosts = await axios.get('/api/api/Posts/get');
+      const resPosts = await axios.get('http://localhost/react-backend/api/Posts/get');
       setData(resPosts.data);
-      const resDepts = await axios.get('/api/api/Posts/get_department');
+      const resDepts = await axios.get('http://localhost/react-backend/api/Posts/get_department');
       setDepts(resDepts.data);
     } catch (err) { setToast({ show: true, type: 'error', message: 'Failed to load data.' }); }
     setLoading(false);
@@ -46,7 +46,7 @@ export default function Posts() {
     if (id) {
       setEditId(id);
       try {
-        const res = await axios.get(`/api/api/Posts/get_data?id=${id}`);
+        const res = await axios.get(`http://localhost/react-backend/api/Posts/get_data?id=${id}`);
         const postData = res.data[0];
         setPostName(postData?.Post_name ?? '');
         const matchedDept = depts.find(d => d.id == postData?.department_id);
@@ -68,7 +68,7 @@ export default function Posts() {
 
     const url = editId ? "update" : "create";
     try {
-      const res = await axios.post(`/api/api/Posts/${url}`, fd);
+      const res = await axios.post(`http://localhost/react-backend/api/Posts/${url}`, fd);
       closeModal(); // Success par modal reset aur close
       fetchAll();
       setToast({ show: true, type: 'success', message: res.data.message });
@@ -77,7 +77,7 @@ export default function Posts() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete('/api/api/Posts/delete', { data: { id: targetId } });
+      await axios.delete('http://localhost/react-backend/api/Posts/delete', { data: { id: targetId } });
       setShowDeleteModal(false);
       fetchAll();
     } catch (err) { setToast({ show: true, type: 'error', message: 'Delete failed' }); }
