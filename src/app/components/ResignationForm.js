@@ -25,7 +25,7 @@ export default function ResignationForm({ empId, onBack }) {
         async function fetchData() {
             try {
                 setLoading(true);
-                const empRes = await axios.get(`http://localhost/react-backend/api/Employees/get_data?id=${empId}`);
+                const empRes = await axios.get(`/api/api/Employees/get_data?id=${empId}`);
                 const emp = empRes.data;
                 setEmployee(emp);
             } catch (error) {
@@ -57,7 +57,7 @@ export default function ResignationForm({ empId, onBack }) {
                 resignation_date: new Date().toISOString().split('T')[0]
             };
 
-            const res = await axios.post('http://localhost/react-backend/api/reasons/save', payload);
+            const res = await axios.post('/api/api/reasons/save', payload);
             setToast({ show: true, type: 'success', message: res.data.message || 'Resignation submitted successfully!' });
             
             setTimeout(() => {

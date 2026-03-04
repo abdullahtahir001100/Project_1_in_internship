@@ -15,11 +15,11 @@ export default function MarkQuestions({ empId, onBack }) {
         async function fetchData() {
             try {
                 setLoading(true);
-                const empRes = await axios.get(`http://localhost/react-backend/api/Employees/get_data?id=${empId}`);
+                const empRes = await axios.get(`/api/api/Employees/get_data?id=${empId}`);
                 const emp = empRes.data;
                 setEmployee(emp);
 
-                const qRes = await axios.get(`http://localhost/react-backend/api/questions/get?department_id=${emp.department_id}`);
+                const qRes = await axios.get(`/api/api/questions/get?department_id=${emp.department_id}`);
                 const qData = qRes.data;
 
                 await get_existing_rating();
@@ -44,7 +44,7 @@ export default function MarkQuestions({ empId, onBack }) {
                 employee_id: empId,
                 ratings: ratings
             };
-            const res = await axios.post('http://localhost/react-backend/api/questions/save_rating', payload);
+            const res = await axios.post('/api/api/questions/save_rating', payload);
             setToast({ show: true, type: 'success', message: res.data.message || 'Saved successfully!' });
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to save ratings.' });
@@ -56,7 +56,7 @@ export default function MarkQuestions({ empId, onBack }) {
     async function get_existing_rating() {
         try {
             const res = await axios.get(
-                `http://localhost/react-backend/api/questions/get_rating?employee_id=${empId}`
+                `/api/api/questions/get_rating?employee_id=${empId}`
             );
 
             const dbRatings = res.data;
