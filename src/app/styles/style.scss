@@ -4,7 +4,7 @@ $primary-color: #555;
 $text-dark: #222;
 $text-light: #666;
 $text-white: #ffffff;
-$bg-white: #ffffff;
+$bg-white: transparent;
 $bg-light: #fafafa;
 $bg-hover: #f5f5f5;
 $border-color: #ddd;
@@ -23,16 +23,18 @@ $bg-white: #ffffff;
 $text-dark: #222;
 $border-color: #ddd;
 $transition: all 0.2s ease;
-*{
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
 
-    &::-webkit-scrollbar-thumb {
-      background: #ccc;
-      border-radius: 10px;
-    }
+* {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
 }
+
 .dashboard-wrapper {
   display: flex;
   background: $bg-light;
@@ -57,10 +59,12 @@ $transition: all 0.2s ease;
     .logo {
       justify-content: center;
     }
+
     // Force all subtabs closed and chevrons reset when sidebar is collapsed
     .subtab-list {
       max-height: 0 !important;
     }
+
     .chevron-icon {
       transform: none !important;
     }
@@ -189,104 +193,122 @@ $transition: all 0.2s ease;
 }
 
 // ===== DEPARTMENT GROUP =====
-#dept-toggle:checked ~ .sidebar .dept-subtabs {
+#dept-toggle:checked~.sidebar .dept-subtabs {
   max-height: 200px;
 }
-#tab-departments:checked ~ .sidebar .dept-subtabs,
-#tab-posts:checked ~ .sidebar .dept-subtabs,
-#tab-questions:checked ~ .sidebar .dept-subtabs {
+
+#tab-departments:checked~.sidebar .dept-subtabs,
+#tab-posts:checked~.sidebar .dept-subtabs,
+#tab-questions:checked~.sidebar .dept-subtabs {
   max-height: 200px;
 }
-#dept-toggle:checked ~ .sidebar .nav-item-dept-group .chevron-icon {
+
+#dept-toggle:checked~.sidebar .nav-item-dept-group .chevron-icon {
   transform: rotate(180deg);
 }
-#tab-departments:checked ~ .sidebar .nav-item-dept-group .chevron-icon,
-#tab-posts:checked ~ .sidebar .nav-item-dept-group .chevron-icon,
-#tab-questions:checked ~ .sidebar .nav-item-dept-group .chevron-icon {
+
+#tab-departments:checked~.sidebar .nav-item-dept-group .chevron-icon,
+#tab-posts:checked~.sidebar .nav-item-dept-group .chevron-icon,
+#tab-questions:checked~.sidebar .nav-item-dept-group .chevron-icon {
   transform: rotate(180deg);
 }
 
 // ===== BONUS & FINE GROUP =====
-#bonus-toggle:checked ~ .sidebar .bonus-subtabs {
+#bonus-toggle:checked~.sidebar .bonus-subtabs {
   max-height: 200px;
 }
-#tab-bonus:checked ~ .sidebar .bonus-subtabs,
-#tab-deductions:checked ~ .sidebar .bonus-subtabs,
-#tab-rating:checked ~ .sidebar .bonus-subtabs {
+
+#tab-bonus:checked~.sidebar .bonus-subtabs,
+#tab-deductions:checked~.sidebar .bonus-subtabs,
+#tab-rating:checked~.sidebar .bonus-subtabs {
   max-height: 200px;
 }
-#bonus-toggle:checked ~ .sidebar .nav-item-bonus-group .chevron-icon {
+
+#bonus-toggle:checked~.sidebar .nav-item-bonus-group .chevron-icon {
   transform: rotate(180deg);
 }
-#tab-bonus:checked ~ .sidebar .nav-item-bonus-group .chevron-icon,
-#tab-deductions:checked ~ .sidebar .nav-item-bonus-group .chevron-icon,
-#tab-rating:checked ~ .sidebar .nav-item-bonus-group .chevron-icon {
+
+#tab-bonus:checked~.sidebar .nav-item-bonus-group .chevron-icon,
+#tab-deductions:checked~.sidebar .nav-item-bonus-group .chevron-icon,
+#tab-rating:checked~.sidebar .nav-item-bonus-group .chevron-icon {
   transform: rotate(180deg);
 }
 
 // ===== PAYROLL & FINANCE GROUP =====
-#payroll-toggle:checked ~ .sidebar .payroll-subtabs {
+#payroll-toggle:checked~.sidebar .payroll-subtabs {
   max-height: 200px;
 }
-#tab-reports:checked ~ .sidebar .payroll-subtabs,
-#tab-ledger:checked ~ .sidebar .payroll-subtabs,
-#tab-voucher:checked ~ .sidebar .payroll-subtabs {
+
+#tab-reports:checked~.sidebar .payroll-subtabs,
+#tab-ledger:checked~.sidebar .payroll-subtabs,
+#tab-voucher:checked~.sidebar .payroll-subtabs {
   max-height: 200px;
 }
-#payroll-toggle:checked ~ .sidebar .nav-item-payroll-group .chevron-icon {
+
+#payroll-toggle:checked~.sidebar .nav-item-payroll-group .chevron-icon {
   transform: rotate(180deg);
 }
-#tab-reports:checked ~ .sidebar .nav-item-payroll-group .chevron-icon,
-#tab-ledger:checked ~ .sidebar .nav-item-payroll-group .chevron-icon,
-#tab-voucher:checked ~ .sidebar .nav-item-payroll-group .chevron-icon {
+
+#tab-reports:checked~.sidebar .nav-item-payroll-group .chevron-icon,
+#tab-ledger:checked~.sidebar .nav-item-payroll-group .chevron-icon,
+#tab-voucher:checked~.sidebar .nav-item-payroll-group .chevron-icon {
   transform: rotate(180deg);
 }
 
 // ===== HR MANAGEMENT GROUP =====
-#hr-toggle:checked ~ .sidebar .hr-subtabs {
+#hr-toggle:checked~.sidebar .hr-subtabs {
   max-height: 200px;
 }
-#tab-attendance:checked ~ .sidebar .hr-subtabs,
-#tab-resignation:checked ~ .sidebar .hr-subtabs {
+
+#tab-attendance:checked~.sidebar .hr-subtabs,
+#tab-resignation:checked~.sidebar .hr-subtabs {
   max-height: 200px;
 }
-#hr-toggle:checked ~ .sidebar .nav-item-hr-group .chevron-icon {
+
+#hr-toggle:checked~.sidebar .nav-item-hr-group .chevron-icon {
   transform: rotate(180deg);
 }
-#tab-attendance:checked ~ .sidebar .nav-item-hr-group .chevron-icon,
-#tab-resignation:checked ~ .sidebar .nav-item-hr-group .chevron-icon {
+
+#tab-attendance:checked~.sidebar .nav-item-hr-group .chevron-icon,
+#tab-resignation:checked~.sidebar .nav-item-hr-group .chevron-icon {
   transform: rotate(180deg);
 }
 
 // ===== ACCOUNTS GROUP =====
-#accounts-toggle:checked ~ .sidebar .accounts-subtabs {
+#accounts-toggle:checked~.sidebar .accounts-subtabs {
   max-height: 200px;
 }
-#tab-expenses:checked ~ .sidebar .accounts-subtabs,
-#tab-invoices:checked ~ .sidebar .accounts-subtabs {
+
+#tab-expenses:checked~.sidebar .accounts-subtabs,
+#tab-invoices:checked~.sidebar .accounts-subtabs {
   max-height: 200px;
 }
-#accounts-toggle:checked ~ .sidebar .nav-item-accounts-group .chevron-icon {
+
+#accounts-toggle:checked~.sidebar .nav-item-accounts-group .chevron-icon {
   transform: rotate(180deg);
 }
-#tab-expenses:checked ~ .sidebar .nav-item-accounts-group .chevron-icon,
-#tab-invoices:checked ~ .sidebar .nav-item-accounts-group .chevron-icon {
+
+#tab-expenses:checked~.sidebar .nav-item-accounts-group .chevron-icon,
+#tab-invoices:checked~.sidebar .nav-item-accounts-group .chevron-icon {
   transform: rotate(180deg);
 }
 
 // ===== SYSTEM GROUP =====
-#system-toggle:checked ~ .sidebar .system-subtabs {
+#system-toggle:checked~.sidebar .system-subtabs {
   max-height: 200px;
 }
-#tab-settings:checked ~ .sidebar .system-subtabs,
-#tab-audit:checked ~ .sidebar .system-subtabs {
+
+#tab-settings:checked~.sidebar .system-subtabs,
+#tab-audit:checked~.sidebar .system-subtabs {
   max-height: 200px;
 }
-#system-toggle:checked ~ .sidebar .nav-item-system-group .chevron-icon {
+
+#system-toggle:checked~.sidebar .nav-item-system-group .chevron-icon {
   transform: rotate(180deg);
 }
-#tab-settings:checked ~ .sidebar .nav-item-system-group .chevron-icon,
-#tab-audit:checked ~ .sidebar .nav-item-system-group .chevron-icon {
+
+#tab-settings:checked~.sidebar .nav-item-system-group .chevron-icon,
+#tab-audit:checked~.sidebar .nav-item-system-group .chevron-icon {
   transform: rotate(180deg);
 }
 
@@ -328,8 +350,8 @@ $transition: all 0.2s ease;
 // ACTIVE NAV ITEM LOGIC (Class-based selectors)
 // ==========================================
 // Top-level nav items (ACR, Employees only)
-#tab-acr:checked ~ .sidebar .nav-item-acr .nav-link,
-#tab-employees:checked ~ .sidebar .nav-item-employees .nav-link {
+#tab-acr:checked~.sidebar .nav-item-acr .nav-link,
+#tab-employees:checked~.sidebar .nav-item-employees .nav-link {
   background: $bg-light;
   border-right: 3px solid $primary-color;
 
@@ -345,26 +367,26 @@ $transition: all 0.2s ease;
 
 // Highlight parent group when any subtab inside is active
 // Department group
-#tab-departments:checked ~ .sidebar .nav-item-dept-group > .nav-link,
-#tab-posts:checked ~ .sidebar .nav-item-dept-group > .nav-link,
-#tab-questions:checked ~ .sidebar .nav-item-dept-group > .nav-link,
+#tab-departments:checked~.sidebar .nav-item-dept-group>.nav-link,
+#tab-posts:checked~.sidebar .nav-item-dept-group>.nav-link,
+#tab-questions:checked~.sidebar .nav-item-dept-group>.nav-link,
 // Bonus & Fine group
-#tab-bonus:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
-#tab-deductions:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
-#tab-rating:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
+#tab-bonus:checked~.sidebar .nav-item-bonus-group>.nav-link,
+#tab-deductions:checked~.sidebar .nav-item-bonus-group>.nav-link,
+#tab-rating:checked~.sidebar .nav-item-bonus-group>.nav-link,
 // Payroll & Finance group
-#tab-reports:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
-#tab-ledger:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
-#tab-voucher:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
+#tab-reports:checked~.sidebar .nav-item-payroll-group>.nav-link,
+#tab-ledger:checked~.sidebar .nav-item-payroll-group>.nav-link,
+#tab-voucher:checked~.sidebar .nav-item-payroll-group>.nav-link,
 // HR Management group
-#tab-attendance:checked ~ .sidebar .nav-item-hr-group > .nav-link,
-#tab-resignation:checked ~ .sidebar .nav-item-hr-group > .nav-link,
+#tab-attendance:checked~.sidebar .nav-item-hr-group>.nav-link,
+#tab-resignation:checked~.sidebar .nav-item-hr-group>.nav-link,
 // Accounts group
-#tab-expenses:checked ~ .sidebar .nav-item-accounts-group > .nav-link,
-#tab-invoices:checked ~ .sidebar .nav-item-accounts-group > .nav-link,
+#tab-expenses:checked~.sidebar .nav-item-accounts-group>.nav-link,
+#tab-invoices:checked~.sidebar .nav-item-accounts-group>.nav-link,
 // System group
-#tab-settings:checked ~ .sidebar .nav-item-system-group > .nav-link,
-#tab-audit:checked ~ .sidebar .nav-item-system-group > .nav-link {
+#tab-settings:checked~.sidebar .nav-item-system-group>.nav-link,
+#tab-audit:checked~.sidebar .nav-item-system-group>.nav-link {
   background: $bg-light;
 
   .nav-icon {
@@ -378,21 +400,21 @@ $transition: all 0.2s ease;
 }
 
 // Active subtab links
-#tab-departments:checked ~ .sidebar .subtab-item-departments .subtab-link,
-#tab-posts:checked ~ .sidebar .subtab-item-posts .subtab-link,
-#tab-questions:checked ~ .sidebar .subtab-item-questions .subtab-link,
-#tab-bonus:checked ~ .sidebar .subtab-item-bonus .subtab-link,
-#tab-deductions:checked ~ .sidebar .subtab-item-deductions .subtab-link,
-#tab-rating:checked ~ .sidebar .subtab-item-rating .subtab-link,
-#tab-reports:checked ~ .sidebar .subtab-item-reports .subtab-link,
-#tab-ledger:checked ~ .sidebar .subtab-item-ledger .subtab-link,
-#tab-voucher:checked ~ .sidebar .subtab-item-voucher .subtab-link,
-#tab-attendance:checked ~ .sidebar .subtab-item-attendance .subtab-link,
-#tab-resignation:checked ~ .sidebar .subtab-item-resignation .subtab-link,
-#tab-expenses:checked ~ .sidebar .subtab-item-expenses .subtab-link,
-#tab-invoices:checked ~ .sidebar .subtab-item-invoices .subtab-link,
-#tab-settings:checked ~ .sidebar .subtab-item-settings .subtab-link,
-#tab-audit:checked ~ .sidebar .subtab-item-audit .subtab-link {
+#tab-departments:checked~.sidebar .subtab-item-departments .subtab-link,
+#tab-posts:checked~.sidebar .subtab-item-posts .subtab-link,
+#tab-questions:checked~.sidebar .subtab-item-questions .subtab-link,
+#tab-bonus:checked~.sidebar .subtab-item-bonus .subtab-link,
+#tab-deductions:checked~.sidebar .subtab-item-deductions .subtab-link,
+#tab-rating:checked~.sidebar .subtab-item-rating .subtab-link,
+#tab-reports:checked~.sidebar .subtab-item-reports .subtab-link,
+#tab-ledger:checked~.sidebar .subtab-item-ledger .subtab-link,
+#tab-voucher:checked~.sidebar .subtab-item-voucher .subtab-link,
+#tab-attendance:checked~.sidebar .subtab-item-attendance .subtab-link,
+#tab-resignation:checked~.sidebar .subtab-item-resignation .subtab-link,
+#tab-expenses:checked~.sidebar .subtab-item-expenses .subtab-link,
+#tab-invoices:checked~.sidebar .subtab-item-invoices .subtab-link,
+#tab-settings:checked~.sidebar .subtab-item-settings .subtab-link,
+#tab-audit:checked~.sidebar .subtab-item-audit .subtab-link {
   color: $text-dark;
   font-weight: 600;
   background: $bg-hover;
@@ -463,13 +485,14 @@ $transition: all 0.2s ease;
 
   .sidebar-nav {
     padding: 0 0.75rem;
-    overflow: scroll; 
-     &::-webkit-scrollbar {
-    display: none;
-  }
+    overflow: scroll;
 
-  -ms-overflow-style: none;
-  scrollbar-width: none;// Padding on the sides of nav list
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none; // Padding on the sides of nav list
 
     .nav-list {
       list-style: none;
@@ -1733,15 +1756,37 @@ $transition: all 0.2s ease;
     margin: 0;
   }
 
-  .col {
+
+
+  .flexbox {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     width: 100%;
     gap: 4px;
-  }
 
-  .flexbox {
-    width: 100%;
+    .col {
+      &:first-child {
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+      }
+
+
+
+    }
+  }
+}
+
+.header-actions {
+  border: 1px solid $border-color;
+  padding: 8px 10px 0 10px;
+  transition: all ease 0.15s;
+  cursor: pointer;
+
+  &:hover {
+    // border-color: $text-dark;
+    background: rgba(183, 1, 43, 0.071);
   }
 }
 
@@ -2493,6 +2538,15 @@ $pr-bg-light: #fafafa;
         padding: 0 15px;
         font-size: 11px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px; // Reduced from 14px
+        transition: $transition;
+
+        &:hover {
+          background-color: $text-dark;
+        }
       }
     }
   }
@@ -2513,6 +2567,7 @@ $pr-bg-light: #fafafa;
         font-size: 10px;
         background: #f1f1f1;
         text-align: left;
+        white-space: nowrap;
       }
 
       .pr-th-parent th {
@@ -2566,6 +2621,7 @@ $pr-bg-light: #fafafa;
         color: green;
         font-size: 10px;
       }
+
       .pr-red {
         color: red;
         font-size: 10px;
@@ -2901,6 +2957,15 @@ $pr-bg-light: #fafafa;
         padding: 0 15px;
         font-size: 11px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px; // Reduced from 14px
+        transition: $transition;
+
+        &:hover {
+          background-color: $text-dark;
+        }
       }
     }
   }
@@ -3216,10 +3281,11 @@ $transition: all 0.2s ease;
   }
 
   .table-responsive {
-  
+
     border: 1px solid $table-border;
     border-radius: $radius;
-   &::-webkit-scrollbar {
+
+    &::-webkit-scrollbar {
       height: 4px;
     }
 
@@ -3257,7 +3323,7 @@ $transition: all 0.2s ease;
           transition: $transition;
 
           &:hover {
-            background-color: $bg-hover;
+            background: $bg-hover;
           }
 
           &:last-child {
@@ -3520,7 +3586,7 @@ $transition: all 0.2s ease;
 
         &.today {
           .day-actions {
-           opacity: 1 !important;
+            opacity: 1 !important;
           }
 
           .day-number {
@@ -4146,7 +4212,7 @@ $border-color: #e2e8f0;
 
 .resignation-btn {
   background: #dc3545 !important;
-  
+
   &:hover {
     background: #c82333 !important;
   }
@@ -4242,21 +4308,25 @@ $border-color: #e2e8f0;
     flex-shrink: 0;
   }
 }
-.ledger-view{
-  .table-responsive{
+
+.ledger-view {
+  .table-responsive {
     overflow: scroll;
+
     // overflow-y: hidden;
-    .simple-table{
+    .simple-table {
       width: 1200px;
-      
+
     }
 
-    td{
+    td {
       padding: 10px 0 !important;
-      &:nth-child(1){
+
+      &:nth-child(1) {
         padding: 10px 15px !important;
       }
-       &:nth-last-child(1){
+
+      &:nth-last-child(1) {
         padding: 10px 15px !important;
       }
     }
@@ -4601,6 +4671,7 @@ $border-color: #e2e8f0;
     overflow-x: auto;
   }
 }
+
 // .css-1xc3v61-indicatorContainer{
 //   display: none !important;
 // }
@@ -4608,9 +4679,9 @@ $border-color: #e2e8f0;
 //   display: none !important;
 // }
 .vf-field {
-  .flex{
-    input{
-      &:nth-child(1){
+  .flex {
+    input {
+      &:nth-child(1) {
         width: 40px !important;
       }
     }
@@ -4634,7 +4705,7 @@ $border-color: #e2e8f0;
   border-radius: $radius;
   padding: 40px;
   width: 100%;
-  max-width: 400px;
+  max-width: 40%;
 }
 
 .login-logo {
@@ -4710,6 +4781,61 @@ $border-color: #e2e8f0;
     }
   }
 
+  // ── show/hide password wrapper ──
+  .login-pw-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+      padding-right: 2.4rem;
+    }
+
+    .login-pw-toggle {
+      position: absolute;
+      right: 0.6rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      color: $text-light;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+
+  // ── remember me ──
+  .login-remember {
+    .login-remember-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: $text-light;
+      cursor: pointer;
+
+      input[type='checkbox'] {
+        width: 15px;
+        height: 15px;
+        accent-color: $primary-color;
+        cursor: pointer;
+      }
+
+      span {
+        user-select: none;
+      }
+    }
+  }
+
   .login-btn {
     padding: 10px;
     border-radius: $radius;
@@ -4732,6 +4858,23 @@ $border-color: #e2e8f0;
       opacity: 0.6;
       cursor: not-allowed;
     }
+
+    .login-btn-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .login-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: login-spin 0.7s linear infinite;
+    }
   }
 
   .login-error {
@@ -4743,4 +4886,27 @@ $border-color: #e2e8f0;
     font-size: 0.8rem;
     text-align: center;
   }
+}
+
+// ── Login entry animation ──
+@keyframes login-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes login-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.login-card--animate {
+  animation: login-card-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }

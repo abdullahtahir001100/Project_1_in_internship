@@ -1,6 +1,6 @@
 'use client'; // Ye line zaroori hai ssr: false ke liye
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Menu } from "lucide-react";
 
@@ -20,8 +20,24 @@ const Ledger = dynamic(() => import('./Ledger.js'), { ssr: false });
 const Voucher = dynamic(() => import('./Voucher.js'), { ssr: false });
 
 export default function Sidebar() {
+  const [dark, setDark] = useState(false);
+
+  // Load dark mode preference on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('dark_mode');
+    if (saved === 'true') {
+      setDark(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const handleLogout = () => {
+    document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    window.location.reload();
+  };
+
   return (
-    <div className="dashboard-wrapper">
+      <div className="dashboard-wrapper">
       {/* 1. Sidebar Toggle Checkbox (Invisible) */}
       <input type="checkbox" id="sidebar-collapse-check" hidden />
 
@@ -59,6 +75,15 @@ export default function Sidebar() {
               <Menu size={24} />
             </label>
             <h1 className="app-title">Admin <span>Dashboard</span></h1>
+          </div>
+          <div className="col header-actions">
+            <button className="header-icon-btn" onClick={handleLogout} title="Logout">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+            </button>
           </div>
         </div>
       </header>

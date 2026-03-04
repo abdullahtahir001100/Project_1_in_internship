@@ -9,7 +9,7 @@ export default function Header() {
             <div className="flexbox">
                 <div className="col">
                     <Menu size={24} />
-                    <h1 className="app-title">Admin <span>Dashboard</span></h1>
+                    {/* <h1 className="app-title">Admin <span>Dashboard</span></h1> */}
                 </div>
             </div>
             
