@@ -13,7 +13,7 @@ $port = 4000;
 $username = "3AEZrv2kzEmLLGp.root";
 $password = "qOakZjYjWqhDR7G4";
 $database = "test";
-
+// ho gi ha 
 $conn = mysqli_init();
 
 // TiDB requires SSL. We set it here.
