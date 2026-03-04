@@ -163,12 +163,12 @@ const PayrollProcessor = () => {
                 const processedIds = payrollRecord ? payrollRecord.employees.map(e => String(e.employee_id)) : [];
 
                 const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all.php?duration=${dateStr}`);
-                
+
                 if (res.data.success) {
                     const fetchedData = res.data.data;
                     // Filter: only keep employees whose ID exists in the processed list
                     const filteredData = fetchedData.filter(emp => processedIds.includes(String(emp.id)));
-                    
+
                     setMasterData(filteredData);
                     setData(filteredData);
 
@@ -189,24 +189,25 @@ const PayrollProcessor = () => {
         }
     };
 
+
     // Print function - Updated to filter only processed employees
     const handlePrint = async (dateStr) => {
         setPrintDate(dateStr);
         setIsLoading(true);
-        
+
         try {
             // Find IDs that were actually processed for this date in geton
             const payrollRecord = geton.find(item => item.date === dateStr);
             const processedIds = payrollRecord ? payrollRecord.employees.map(e => String(e.employee_id)) : [];
 
             const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all.php?duration=${dateStr}`);
-            
+
             if (!res.data.success || !res.data.data || res.data.data.length === 0) {
                 setToast({ show: true, type: 'error', message: 'No payroll data found for this date.' });
                 setIsLoading(false);
                 return;
             }
-            
+
             // Filter: only keep employees whose ID exists in the processed list
             const dataToPrint = res.data.data.filter(emp => processedIds.includes(String(emp.id)));
 
@@ -215,11 +216,11 @@ const PayrollProcessor = () => {
                 setIsLoading(false);
                 return;
             }
-            
+
             const printWindow = window.open('', '_blank');
             let totalNetPay = 0;
             let tableRows = '';
-            
+
             dataToPrint.forEach((item, index) => {
                 const baseSalary = parseFloat(item.Salery) || 0;
                 const fixedAllowances = item.bonuses?.reduce((sum, b) => sum + parseFloat(b.value || 0), 0) || 0;
@@ -229,7 +230,7 @@ const PayrollProcessor = () => {
                 const netAdjustment = currentBonus - currentFine + fixedAllowances - fixedDeductions;
                 const finalNetPay = baseSalary + netAdjustment;
                 totalNetPay += finalNetPay;
-                
+
                 tableRows += `
                     <tr>
                         <td>${index + 1}</td>
@@ -247,7 +248,7 @@ const PayrollProcessor = () => {
                     </tr>
                 `;
             });
-            
+
             const printContent = `
                 <!DOCTYPE html>
                 <html>
@@ -303,7 +304,7 @@ const PayrollProcessor = () => {
                 </body>
                 </html>
             `;
-            
+
             printWindow.document.write(printContent);
             printWindow.document.close();
             printWindow.focus();
@@ -337,6 +338,8 @@ const PayrollProcessor = () => {
             setIsLoading(false);
         }
     }
+
+    // console.log(data);
 
     return (
         <>
@@ -400,7 +403,10 @@ const PayrollProcessor = () => {
                                 <div style={{ display: 'flex', gap: '5px' }}>
                                     <DatePicker
                                         selected={selectedDate}
-                                        onChange={(date) => setSelectedDate(date)}
+                                        onChange={(date) => {
+                                            setSelectedDate(date);
+                                            // fetchPayrollData();
+                                        }}
                                         dateFormat="MM-yyyy"
                                         showMonthYearPicker
                                         placeholderText="Select month & year"
@@ -424,7 +430,9 @@ const PayrollProcessor = () => {
                                     <th colSpan="2">Job Details</th>
                                     <th colSpan="2">Fixed Adjustments</th>
                                     <th colSpan="2">Current Evaluation</th>
-                                    <th colSpan="3">Final Payout</th>
+                                    <th colSpan="2">Base Salary</th>
+
+                                    <th colSpan="2">Final Payout</th>
                                 </tr>
                                 <tr className="pr-th-child">
                                     <th>Name</th>
@@ -436,6 +444,7 @@ const PayrollProcessor = () => {
                                     <th>Bonus</th>
                                     <th>Fine</th>
                                     <th>Base Salary</th>
+                                    <th>Advance Debits</th>
                                     <th>Net Adj</th>
                                     <th>Net Amount</th>
                                 </tr>
@@ -448,7 +457,16 @@ const PayrollProcessor = () => {
                                     const currentBonus = parseFloat(item.bonus_main?.[0]?.bonus || 0);
                                     const currentFine = parseFloat(item.bonus_main?.[0]?.fine || 0);
                                     const netAdjustment = currentBonus - currentFine + fixedAllowances - fixedDeductions;
-                                    const finalNetPay = baseSalary + netAdjustment;
+                                    // const vouchers_main = item?.vouchers_main || [];
+                                    // const filteredVouchers = vouchers_main.filter(v => v.date == formattedDate);
+                                    // const vouchers_price = filteredVouchers[0]?.total_amount ? parseFloat(filteredVouchers[0].total_amount) : 0;
+                                    const vouchers_main = item?.vouchers_main || [];
+
+                                    const vouchers_price = vouchers_main
+                                        .filter(v => v.date === formattedDate)
+                                        .reduce((sum, v) => sum + parseFloat(v.total_amount || 0), 0);
+                                    const finalNetPay = baseSalary + netAdjustment - vouchers_price;
+                                    // const date = 
 
                                     return (
                                         <tr key={item.id || index} style={{ backgroundColor: item.is_processed == 1 ? '#6007071f' : 'white' }}>
@@ -470,14 +488,18 @@ const PayrollProcessor = () => {
                                                 <span className="pr-hint">Items: {item.deductions?.length || 0}</span>
                                             </td>
                                             <td>
-                                                <input type="number" className="pr-input-small" value={currentBonus} readOnly />
+                                                <input type="number" className="pr-input-small" value={currentBonus} readOnly disabled/>
                                                 <span className="pr-hint">Prev: {currentBonus}</span>
                                             </td>
                                             <td>
-                                                <input type="number" className="pr-input-small" value={currentFine} readOnly />
+                                                <input type="number" className="pr-input-small" value={currentFine} readOnly disabled/>
                                                 <span className="pr-hint">Prev: {currentFine}</span>
                                             </td>
                                             <td className="pr-bold">${baseSalary.toLocaleString()}</td>
+                                            <td className={vouchers_price <= 0 ? "pr-green" : "pr-red"}>
+                                                {vouchers_price <= 0 ? "+" : "-"}{vouchers_price.toLocaleString()}
+                                            </td>
+
                                             <td className={netAdjustment >= 0 ? "pr-green" : "pr-red"}>
                                                 {netAdjustment >= 0 ? "+" : ""}{netAdjustment.toLocaleString()}
                                             </td>
@@ -533,7 +555,7 @@ const PayrollProcessor = () => {
                                                     <button onClick={() => handlePrint(item.date)}>
                                                         Print
                                                     </button>
-                                                     <button onClick={() => handleDelete(item.date)}>
+                                                    <button onClick={() => handleDelete(item.date)}>
                                                         Delete
                                                     </button>
                                                 </div>
