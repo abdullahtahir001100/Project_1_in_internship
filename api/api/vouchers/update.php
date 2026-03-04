@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);

@@ -1,5 +1,5 @@
 <?php
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 
 
 header("Content-Type: application/json");

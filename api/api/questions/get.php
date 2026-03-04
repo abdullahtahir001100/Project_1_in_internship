@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 $department_id = isset($_GET['department_id']) ? (int)$_GET['department_id'] : 0;
 $departments = [];
 $department_id ? ($sql = "SELECT d.id as department_id, d.department_name, p.id as post_id, p.Post_name, q.id as question_id, q.question_name, q.Rating as question_rating, c.id as child_id, c.Child_question_name, c.rating as child_rating

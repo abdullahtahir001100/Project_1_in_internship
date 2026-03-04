@@ -4,7 +4,7 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["error" => "Only POST requests are allowed"]);

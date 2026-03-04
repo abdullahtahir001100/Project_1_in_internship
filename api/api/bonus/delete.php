@@ -5,7 +5,7 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: DELETE");
 header("Access-Control-Allow-Headers: Content-Type");
 
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 
 $input = json_decode(file_get_contents("php://input"), true);
 

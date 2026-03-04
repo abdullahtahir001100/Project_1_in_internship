@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 
 
 $sql = "SELECT Employs.*, departments.department_name AS department_name, Posts.Post_name AS post_name, ledgers.ledger_unique_id, ledgers.name AS ledger_name FROM Employs LEFT JOIN departments ON Employs.department_id = departments.id LEFT JOIN Posts ON Employs.post_id = Posts.id LEFT JOIN ledgers ON Employs.ledger_id = ledgers.id";

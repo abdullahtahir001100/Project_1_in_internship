@@ -4,7 +4,7 @@ header("Access-Control-Allow-Methods: PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 
 // handle preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {

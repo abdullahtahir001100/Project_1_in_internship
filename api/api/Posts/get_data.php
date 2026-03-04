@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $result = $conn->query("SELECT p.*, d.id as department_id, COALESCE(d.department_name, 'No Department') as department_name
  FROM Posts p

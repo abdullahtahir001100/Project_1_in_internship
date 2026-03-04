@@ -1,5 +1,26 @@
 <?php 
 
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+include "dbconfig/db_config";
+include "scheema/departments";
+include "scheema/Posts";
+include "scheema/Employs";
+include "scheema/questions";
+include "scheema/child_question";
+include "scheema/rating_table";
+include "scheema/bonus";
+include "scheema/deduction";
+include "scheema/bonus_employ";
+include "scheema/deduction_employ";
+include "scheema/bonusmain";
+include "scheema/bonuschild";
+include "scheema/payroll";
+include "scheema/reasons";
+include "scheema/ledgers";
+include "scheema/vouchers";
+include "scheema/leave_records";
+include "scheema/voucher_entries";
 
 // Get path after /api
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -31,26 +52,5 @@ if ($realFile && str_starts_with($realFile, $realBase) && file_exists($realFile)
 
 http_response_code(404);
 echo json_encode(["error" => "Route not found"]);
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json");
-include "dbconfig/db_config";
-include "scheema/departments";
-include "scheema/Posts";
-include "scheema/Employs";
-include "scheema/questions";
-include "scheema/child_question";
-include "scheema/rating_table";
-include "scheema/bonus";
-include "scheema/deduction";
-include "scheema/bonus_employ";
-include "scheema/deduction_employ";
-include "scheema/bonusmain";
-include "scheema/bonuschild";
-include "scheema/payroll";
-include "scheema/reasons";
-include "scheema/ledgers";
-include "scheema/vouchers";
-include "scheema/leave_records";
-include "scheema/voucher_entries";
 
 ?>

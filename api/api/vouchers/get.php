@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config";
+include_once __DIR__ . "/../../dbconfig/db_config.php";
 
 // ── Get all vouchers with their entries ─────────────────────────────
 $sql = "SELECT * FROM vouchers ORDER BY id DESC";
