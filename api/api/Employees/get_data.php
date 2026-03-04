@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 

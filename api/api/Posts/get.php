@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 
 $result = $conn->query("SELECT p.*, COALESCE(d.department_name, 'No Department') as department_name FROM Posts p LEFT JOIN departments d ON p.department_id = d.id");
 $posts = [];

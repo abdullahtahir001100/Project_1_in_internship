@@ -1,5 +1,5 @@
 <?php
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 
 // Order by date to ensure consistency
 $sql = "SELECT * FROM payroll ORDER BY created_at DESC";

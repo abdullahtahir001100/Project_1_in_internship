@@ -46,7 +46,7 @@ export default function Posts() {
     if (id) {
       setEditId(id);
       try {
-        const res = await axios.get(`http://localhost/react-backend/api/Posts/get_data.php?id=${id}`);
+        const res = await axios.get(`http://localhost/react-backend/api/Posts/get_data?id=${id}`);
         const postData = res.data[0];
         setPostName(postData?.Post_name ?? '');
         const matchedDept = depts.find(d => d.id == postData?.department_id);
@@ -66,7 +66,7 @@ export default function Posts() {
     if (selectedDept) fd.append('Department_id', selectedDept.id);
     if (editId) fd.append('id', editId);
 
-    const url = editId ? "update.php" : "create.php";
+    const url = editId ? "update" : "create";
     try {
       const res = await axios.post(`http://localhost/react-backend/api/Posts/${url}`, fd);
       closeModal(); // Success par modal reset aur close

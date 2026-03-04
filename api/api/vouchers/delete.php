@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);

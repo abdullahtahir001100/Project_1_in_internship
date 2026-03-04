@@ -25,7 +25,7 @@ export default function ResignationForm({ empId, onBack }) {
         async function fetchData() {
             try {
                 setLoading(true);
-                const empRes = await axios.get(`http://localhost/react-backend/api/Employees/get_data.php?id=${empId}`);
+                const empRes = await axios.get(`http://localhost/react-backend/api/Employees/get_data?id=${empId}`);
                 const emp = empRes.data;
                 setEmployee(emp);
             } catch (error) {

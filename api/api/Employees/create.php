@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["error" => "Only POST requests are allowed"]);

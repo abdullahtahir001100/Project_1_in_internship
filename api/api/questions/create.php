@@ -1,7 +1,7 @@
 <?php
 
 
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 
 
 

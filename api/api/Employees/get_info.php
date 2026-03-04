@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 
 $sql = "SELECT 
   d.id AS department_id,

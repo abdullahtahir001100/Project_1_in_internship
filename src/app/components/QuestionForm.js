@@ -110,7 +110,7 @@ export default function QuestionForm({ onCancel }) {
   async function fetch_the_exitting_post() {
    try {
     setLoading(true);
-    const res = await axios.get(`http://localhost/react-backend/api/questions/get.php?department_id=${selectedDept ? selectedDept?.department_id : ""}`);
+    const res = await axios.get(`http://localhost/react-backend/api/questions/get?department_id=${selectedDept ? selectedDept?.department_id : ""}`);
      setData(res?.data[0]?.posts.filter((post) => post.post_id == (selectedPost ? selectedPost.id : null))[0]?.questions || []);
    const post = res?.data?.[0]?.posts?.find(
   post => Number(post.post_id) === Number(selectedPost?.id)

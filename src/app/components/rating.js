@@ -187,7 +187,7 @@ const empOptions = emp.data.map(item => ({
     // console.log('Posting data with payload:', payload);
     try {
       setLoading(true);
-      const url = Updata ? "update.php" : "create.php";
+      const url = Updata ? "update" : "create";
       const req = await axios.post(`http://localhost/react-backend/api/bonusmain/${url}`, payload);
       setToast({ show: true, type: 'success', message: req?.data?.message });
     } catch (error) {
@@ -205,7 +205,7 @@ const empOptions = emp.data.map(item => ({
   try {
     setLoading(true);
    setUpdata(true);
-    const res = await axios.get(`http://localhost/react-backend/api/bonusmain/get_single.php?id=${id}`);
+    const res = await axios.get(`http://localhost/react-backend/api/bonusmain/get_single?id=${id}`);
     
     const bonusData = res.data; 
     
@@ -244,7 +244,7 @@ const empOptions = emp.data.map(item => ({
      setShowDeleteModal(true);
     try {
       setLoading(true);
-      const res = await axios.post(`http://localhost/react-backend/api/bonusmain/delete.php`, { id });
+      const res = await axios.post(`http://localhost/react-backend/api/bonusmain/delete`, { id });
       setToast({ show: true, type: 'success', message: res?.data?.message || 'Deleted successfully!' });
     }
     catch (err) {

@@ -1,6 +1,6 @@
 
 <?php
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 $input = $_GET['date'];
 
 $date = explode("-", $input)[0] . "-" . str_pad(explode("-", $input)[1], 2, "0", STR_PAD_LEFT);

@@ -45,7 +45,7 @@ const AttendanceCalendar = () => {
             setIsLoading(true);
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth() + 1;
-            let url = `http://localhost/react-backend/api/leave/l.php?year=${year}&month=${month}`;
+            let url = `http://localhost/react-backend/api/leave/l?year=${year}&month=${month}`;
             if (selectedEmployee) {
                 url += `&emp_id=${selectedEmployee.value}`;
             }
@@ -157,7 +157,7 @@ const AttendanceCalendar = () => {
         // if (!confirm('Are you sure you want to delete this record?')) return;
         try {
             setIsLoading(true);
-            await axios.delete(`http://localhost/react-backend/api/leave/l.php?id=${id}`);
+            await axios.delete(`http://localhost/react-backend/api/leave/l?id=${id}`);
             setToast({ show: true, type: 'success', message: 'Record deleted successfully.' });
             fetchLeaveData();
             setShowDetailsModal(false);

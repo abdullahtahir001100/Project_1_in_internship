@@ -1,6 +1,6 @@
 <?php
 
-include "../../dbconfig/db_config.php";
+include "../../dbconfig/db_config";
 
 $sql = "SELECT * FROM ledgers WHERE status = 'vendor' OR status = 'customer' ORDER BY id DESC";
 $result = $conn->query($sql);

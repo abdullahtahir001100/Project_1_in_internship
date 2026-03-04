@@ -165,7 +165,7 @@ export default function Employees() {
         setEditId(id);
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost/react-backend/api/Employees/get_data.php?id=${id}`);
+            const response = await axios.get(`http://localhost/react-backend/api/Employees/get_data?id=${id}`);
             const data = response.data;
             setEditdata(data);
             const rawDed = (data.deductions || []).map(d => ({
@@ -209,7 +209,7 @@ export default function Employees() {
 
     async function handleDelete(id) {
         try {
-            const response = await axios.delete(`http://localhost/react-backend/api/Employees/delete.php`, {
+            const response = await axios.delete(`http://localhost/react-backend/api/Employees/delete`, {
                 data: { id: id },
             });
             setShowDeleteModal(false);

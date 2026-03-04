@@ -139,7 +139,7 @@ export default function Voucher() {
     async function fetchVouchers() {
         try {
             setLoading(true);
-            const res = await axios.get(`${API_BASE}/get.php`);
+            const res = await axios.get(`${API_BASE}/get`);
             setVouchers(res.data || []);
         } catch (err) {
             setToast({ show: true, type: 'error', message: 'Failed to load vouchers.' });
@@ -154,7 +154,7 @@ export default function Voucher() {
     async function fetchSingleVoucher(id) {
         try {
             setLoading(true);
-            const res = await axios.get(`${API_BASE}/get_single.php?id=${id}`);
+            const res = await axios.get(`${API_BASE}/get_single?id=${id}`);
             return res.data;
         } catch (err) {
             setToast({ show: true, type: 'error', message: 'Failed to load voucher details.' });
@@ -171,7 +171,7 @@ export default function Voucher() {
         if (!deleteTargetId) return;
         try {
             setLoading(true);
-            const res = await axios.delete(`${API_BASE}/delete.php`, {
+            const res = await axios.delete(`${API_BASE}/delete`, {
                 data: { id: deleteTargetId },
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -375,8 +375,8 @@ export default function Voucher() {
             }
 
             const url = isUpdate
-                ? `${API_BASE}/update.php`
-                : `${API_BASE}/create.php`;
+                ? `${API_BASE}/update`
+                : `${API_BASE}/create`;
 
             const res = await axios.post(url, formData);
 

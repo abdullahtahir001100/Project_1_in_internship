@@ -56,7 +56,7 @@ export default function Departments() {
         setEditId(id);
         if (id) {
             try {
-                const res = await axios.get(`http://localhost/react-backend/api/departments/get.php?id=${id}`);
+                const res = await axios.get(`http://localhost/react-backend/api/departments/get?id=${id}`);
                 const department = res?.data?.[0] || {};
                 setDeptName(department.department_name || ''); // Ensure deptName is always a string
                 const statusValue = Number(department.status ?? 1);
@@ -81,7 +81,7 @@ export default function Departments() {
         fd.append('status', selectedStatus.id);
         if (editId) fd.append('id', editId);
 
-        const url = editId ? "update.php" : "create.php";
+        const url = editId ? "update" : "create";
         try {
             const res = await axios.post(`http://localhost/react-backend/api/departments/${url}`, fd);
 

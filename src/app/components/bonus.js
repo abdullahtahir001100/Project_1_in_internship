@@ -25,7 +25,7 @@ export default function Bonus() {
     async function handlePost() {
 
         try {
-            const url = editId ? "update.php" : "create.php";
+            const url = editId ? "update" : "create";
             const res = await axios.post(`http://localhost/react-backend/api/bonus/${url}`, payload);
             get_table_data();
             setIsOpen(false);
@@ -43,7 +43,7 @@ export default function Bonus() {
     };
     async function get_edit_data(id) {
         try {
-            const res = await axios.get(`http://localhost/react-backend/api/bonus/get.php?id=${id}`);
+            const res = await axios.get(`http://localhost/react-backend/api/bonus/get?id=${id}`);
             const bonusData = res.data[0];
 
             setPayload({
@@ -55,7 +55,7 @@ export default function Bonus() {
     }
     async function handleDelete(id) {
         try {
-            const res = await axios.post(`http://localhost/react-backend/api/bonus/delete.php`, { id });
+            const res = await axios.post(`http://localhost/react-backend/api/bonus/delete`, { id });
             setToast({ show: true, type: 'success', message: res?.data?.message || 'Bonus deleted!' });
             setIsDeleteOpen(false);
             get_table_data();
@@ -66,7 +66,7 @@ export default function Bonus() {
     }
     async function get_table_data() {
         try {
-            const res = await axios.get(`http://localhost/react-backend/api/bonus/get.php`);
+            const res = await axios.get(`http://localhost/react-backend/api/bonus/get`);
             setdata(res.data);
 
         }

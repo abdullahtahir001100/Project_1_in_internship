@@ -38,7 +38,7 @@ const PayrollProcessor = () => {
         try {
             setIsLoading(true);
             const dateToUse = dateParam || formattedDate;
-            const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all.php?duration=${dateToUse}`);
+            const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all?duration=${dateToUse}`);
 
             if (res.data.success) {
                 const fetchedData = res.data.data;
@@ -53,7 +53,7 @@ const PayrollProcessor = () => {
                 setEmpOptions([{ value: 'all', label: 'All Employees' }, ...emps]);
             }
 
-            const deptReq = await axios.get(`http://localhost/react-backend/api/Posts/get_department.php`);
+            const deptReq = await axios.get(`http://localhost/react-backend/api/Posts/get_department`);
             const deptData = deptReq.data || [];
             const formattedDepts = deptData.map(dept => ({
                 value: dept.id,
@@ -120,7 +120,7 @@ const PayrollProcessor = () => {
     async function handleProcessPayroll() {
         try {
             setIsLoading(true);
-            const res = await axios.post(`http://localhost/react-backend/api/payrool/create.php`, payload);
+            const res = await axios.post(`http://localhost/react-backend/api/payrool/create`, payload);
             setToast({ show: true, type: 'success', message: res.data.message || 'Payroll processed successfully!' });
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to process payroll.' });
@@ -133,7 +133,7 @@ const PayrollProcessor = () => {
 
     async function get() {
         try {
-            const res = await axios.get(`http://localhost/react-backend/api/payrool/get.php`);
+            const res = await axios.get(`http://localhost/react-backend/api/payrool/get`);
             setgeton(res.data);
             console.log(res.data);
             setToast({ show: true, type: 'success', message: res.data.message || 'Data fetched successfully!' });
@@ -162,7 +162,7 @@ const PayrollProcessor = () => {
                 const payrollRecord = geton.find(item => item.date === dateStr);
                 const processedIds = payrollRecord ? payrollRecord.employees.map(e => String(e.employee_id)) : [];
 
-                const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all.php?duration=${dateStr}`);
+                const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all?duration=${dateStr}`);
 
                 if (res.data.success) {
                     const fetchedData = res.data.data;
@@ -200,7 +200,7 @@ const PayrollProcessor = () => {
             const payrollRecord = geton.find(item => item.date === dateStr);
             const processedIds = payrollRecord ? payrollRecord.employees.map(e => String(e.employee_id)) : [];
 
-            const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all.php?duration=${dateStr}`);
+            const res = await axios.get(`http://localhost/react-backend/api/bonusmain/all?duration=${dateStr}`);
 
             if (!res.data.success || !res.data.data || res.data.data.length === 0) {
                 setToast({ show: true, type: 'error', message: 'No payroll data found for this date.' });
@@ -329,7 +329,7 @@ const PayrollProcessor = () => {
         console.log("Deleting payroll record for date:", dateStr);
         try {
             setIsLoading(true);
-            await axios.delete(`http://localhost/react-backend/api/payrool/delete.php?date=${dateStr}`);
+            await axios.delete(`http://localhost/react-backend/api/payrool/delete?date=${dateStr}`);
             setToast({ show: true, type: 'success', message: 'Payroll record deleted successfully!' });
             get();
         } catch (error) {
