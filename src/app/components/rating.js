@@ -89,13 +89,13 @@ const BonusManagement = () => {
 
     try {
       setLoading(true);
-      const req = await axios.get('http://localhost/react-backend/api/Posts/get_department);
+      const req = await axios.get('http://localhost/react-backend/api/Posts/get_department');
       setdepartments(req.data.map(dept => ({ value: dept.id, label: dept.department_name })))
-      const emp = await axios.get('http://localhost/react-backend/api/Employees/get);
-      const table =  await axios.get('http://localhost/react-backend/api/bonusmain/get);
+      const emp = await axios.get('http://localhost/react-backend/api/Employees/get');
+      const table =  await axios.get('http://localhost/react-backend/api/bonusmain/get');
       
       setTabledata(table.data);
-      // const table = await axios.get('http://localhost/react-backend/api/bonusmain/get);
+      // const table = await axios.get('http://localhost/react-backend/api/bonusmain/get');
 
 // Map previous bonus/fine per employee for quick lookup
 const bonusMap = {};

@@ -34,7 +34,7 @@ export default function Posts() {
     try {
       const resPosts = await axios.get('http://localhost/react-backend/api/Posts/get');
       setData(resPosts.data);
-      const resDepts = await axios.get('http://localhost/react-backend/api/Posts/get_department);
+      const resDepts = await axios.get('http://localhost/react-backend/api/Posts/get_department');
       setDepts(resDepts.data);
     } catch (err) { setToast({ show: true, type: 'error', message: 'Failed to load data.' }); }
     setLoading(false);
@@ -77,7 +77,7 @@ export default function Posts() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete('http://localhost/react-backend/api/Posts/delete, { data: { id: targetId } });
+      await axios.delete('http://localhost/react-backend/api/Posts/delete', { data: { id: targetId } });
       setShowDeleteModal(false);
       fetchAll();
     } catch (err) { setToast({ show: true, type: 'error', message: 'Delete failed' }); }

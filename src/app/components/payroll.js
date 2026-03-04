@@ -403,10 +403,7 @@ const PayrollProcessor = () => {
                                 <div style={{ display: 'flex', gap: '5px' }}>
                                     <DatePicker
                                         selected={selectedDate}
-                                        onChange={(date) => {
-                                            setSelectedDate(date);
-                                            // fetchPayrollData();
-                                        }}
+                                        onChange={(date) => setSelectedDate(date)}
                                         dateFormat="MM-yyyy"
                                         showMonthYearPicker
                                         placeholderText="Select month & year"

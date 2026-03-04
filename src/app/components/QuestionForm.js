@@ -92,7 +92,7 @@ export default function QuestionForm({ onCancel }) {
       try {
         setLoading(true);
         const res = await axios.get(
-          'http://localhost/react-backend/api/Employees/get_info
+          'http://localhost/react-backend/api/Employees/get_info'
         );
         setDepartments(res.data);
       } catch (error) {
@@ -177,7 +177,7 @@ const handleSubmit = async (e) => {
 
   try {
     const res = await axios.post(
-      'http://localhost/react-backend/api/questions/create,
+      'http://localhost/react-backend/api/questions/create',
       payload,
       {
         headers: {

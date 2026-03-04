@@ -57,7 +57,7 @@ export default function ResignationForm({ empId, onBack }) {
                 resignation_date: new Date().toISOString().split('T')[0]
             };
 
-            const res = await axios.post('http://localhost/react-backend/api/reasons/save, payload);
+            const res = await axios.post('http://localhost/react-backend/api/reasons/save', payload);
             setToast({ show: true, type: 'success', message: res.data.message || 'Resignation submitted successfully!' });
             
             setTimeout(() => {

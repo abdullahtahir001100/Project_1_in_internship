@@ -1,5 +1,5 @@
 <?php
-include 'dbconfig/db_config;
+include 'dbconfig/db_config';
 
 $sql = "CREATE TABLE IF NOT EXISTS Employee_Ratings (
     id INT AUTO_INCREMENT PRIMARY KEY,
