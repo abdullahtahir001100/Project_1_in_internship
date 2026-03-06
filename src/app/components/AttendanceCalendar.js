@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../context/ApiProvider';
 import dynamic from 'next/dynamic';
-import Loading from './loading.js';
+import { CardSkeleton } from './Skeleton';
 import ToastDisplay from './alert.js';
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
@@ -284,7 +284,6 @@ const AttendanceCalendar = () => {
 
     return (
         <div className="attendance-calendar-wrapper">
-            {isLoading && <Loading />}
             <ToastDisplay toast={toast} setToast={setToast} />
 
             {/* Header */}
@@ -335,6 +334,9 @@ const AttendanceCalendar = () => {
 
             {/* Calendar Table */}
             <div className="cal-table-container">
+                {isLoading ? (
+                    <CardSkeleton />
+                ) : (
                 <table className="cal-table">
                     <thead>
                         <tr>
@@ -347,6 +349,7 @@ const AttendanceCalendar = () => {
                         {renderCalendar()}
                     </tbody>
                 </table>
+                )}
             </div>
 
             {/* View Details Modal */}

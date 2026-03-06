@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
-import Loading from './loading.js';
+import { CardSkeleton, LoadingButton } from './Skeleton';
 
 export default function ResignationForm({ empId, onBack }) {
     const { axios } = useApi();
@@ -72,7 +72,21 @@ export default function ResignationForm({ empId, onBack }) {
         }
     }
 
-    if (loading) return <Loading />;
+    if (loading) return (
+        <div className="section-container">
+            <div className="section-header">
+                <div className="header-info">
+                    <h2 className="section-title">Employee Resignation</h2>
+                    <p className="section-subtitle">Submit resignation details</p>
+                </div>
+                <button className="btn-back" onClick={onBack}>← Back to Employees</button>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <CardSkeleton />
+                <CardSkeleton />
+            </div>
+        </div>
+    );
 
     return (
         <div className="section-container">

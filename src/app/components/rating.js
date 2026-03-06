@@ -5,7 +5,7 @@ import { useApi } from '../context/ApiProvider';
 import dynamic from 'next/dynamic';
 // import { set } from 'react-datepicker/dist/date_utils';
 import ToastDisplay from './alert.js';
-import Loading from './loading.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 
 const Select = dynamic(() => import('react-select'), { ssr: false });
@@ -262,7 +262,6 @@ const empOptions = emp.data.map(item => ({
 // console.log("Payload:", payload);
   return (
     <div className="payroll-page-container">
-      {loading && <Loading />}
       <ToastDisplay toast={toast} setToast={setToast} />
      {tab == true &&  <>
 
@@ -520,6 +519,9 @@ const empOptions = emp.data.map(item => ({
           </div>
 
           {/* Table Section */}
+          {loading ? (
+            <TableSkeleton rows={5} columns={7} showHeader={false} />
+          ) : (
           <div className="table-responsive">
             <table className="simple-table">
               <thead>
@@ -561,6 +563,7 @@ const empOptions = emp.data.map(item => ({
               </tbody>
             </table>
           </div>
+          )}
         </div>
 
       </>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import AlertCard from './AlertCard.js';
-import Loading from './loading.js';
+import { TableSkeleton } from './Skeleton';
 
 export default function Resignation() {
     const { axios } = useApi();
@@ -114,7 +114,6 @@ export default function Resignation() {
 
     return (
         <div className="section-container">
-            {loading && <Loading />}
             <div className="section-header">
                 <div className="header-info">
                     <h2 className="section-title">Resignations</h2>
@@ -123,6 +122,9 @@ export default function Resignation() {
             </div>
 
             {/* --- RESIGNATIONS TABLE --- */}
+            {loading ? (
+                <TableSkeleton rows={5} columns={7} showHeader={false} />
+            ) : (
             <div className="table-responsive">
                 <table className="simple-table">
                     <thead>
@@ -178,6 +180,7 @@ export default function Resignation() {
                     </tbody>
                 </table>
             </div>
+            )}
 
             {/* Edit Modal */}
             {editModal && (

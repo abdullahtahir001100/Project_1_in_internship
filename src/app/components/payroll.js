@@ -4,7 +4,7 @@ import React, { useState, useEffect, useId, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useApi } from '../context/ApiProvider';
 import DatePicker from "react-datepicker";
-import Loading from './loading.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 import ToastDisplay from './alert.js';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -347,7 +347,6 @@ const PayrollProcessor = () => {
         <>
             {render == true && <>
                 <div className="pr-compact-wrapper">
-                    {isLoading && <Loading />}
                     <ToastDisplay toast={toast} setToast={setToast} />
 
                     <div className="pr-header-area">
@@ -421,6 +420,9 @@ const PayrollProcessor = () => {
                     </div>
 
                     <div className="pr-table-container">
+                        {isLoading ? (
+                            <TableSkeleton rows={5} columns={12} showHeader={true} />
+                        ) : (
                         <table className="pr-table-main">
                             <thead>
                                 <tr className="pr-th-parent">
@@ -514,6 +516,7 @@ const PayrollProcessor = () => {
                                 )}
                             </tbody>
                         </table>
+                        )}
                     </div>
                 </div></>
             }

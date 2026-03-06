@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import { useApi } from '../context/ApiProvider';
-import Loading from "./loading.js";
+import { CardSkeleton, TableSkeleton } from './Skeleton';
 
 export default function DashboardPage() {
   const { axios } = useApi();
@@ -53,10 +53,17 @@ export default function DashboardPage() {
    
   return (
     <div className="dashboard-container">
-      {loading && <Loading />}
       <main className="main-content">
        
-
+        {loading ? (
+          <>
+            <div className="stats-grid">
+              {[1,2,3,4,5,6].map(i => <CardSkeleton key={i} />)}
+            </div>
+            <TableSkeleton rows={5} columns={8} showHeader={true} />
+          </>
+        ) : (
+        <>
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-icon employees">
@@ -154,6 +161,8 @@ export default function DashboardPage() {
           </table>
           <div className="table-summary"></div>
         </div>
+        </>
+        )}
       </main>
     </div>
   );
