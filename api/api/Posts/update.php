@@ -49,9 +49,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    $deptName = $_POST['Department_id'] ?? '';
-    $status = $_POST['Post_name'] ?? '';
-    $id = $_POST['id'] ?? 0;
+    $deptName = '';
+    $status = '';
+ $input = json_decode(file_get_contents('php://input'), true);
+    if ($input) {
+        $deptName = $input['Department_id'] ?? '';
+        $status = $input['Post_name'] ?? '';
+    } else {
+        $deptName = $_POST['Department_id'] ?? '';
+        $status = $_POST['Post_name'] ?? '';
+    }
 
     $stmt = $conn->prepare("UPDATE Posts SET Post_name = ?, department_id = ? WHERE id = ?");
     $stmt->bind_param("sii", $status, $deptName, $id);
