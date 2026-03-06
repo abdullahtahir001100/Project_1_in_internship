@@ -49,10 +49,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    $deptName = $_POST['Department_id'] ?? '';
-    $status = $_POST['Post_name'] ?? '';
-
-  
+     $deptName = '';
+    $status = '';  
+    $input = json_decode(file_get_contents('php://input'), true);
+    if ($input) {
+        $deptName = $input['Department_id'] ?? '';
+        $status = $input['Post_name'] ?? '';
+    } else {
+        $deptName = $_POST['Department_id'] ?? '';
+        $status = $_POST['Post_name'] ?? '';
+    }
+   
 
     $stmt = $conn->prepare("INSERT INTO Posts (Post_name, department_id) VALUES (?, ?)");
     $stmt->bind_param("si", $status,$deptName);

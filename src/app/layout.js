@@ -3,7 +3,7 @@ import "./globals.css";
 import "./styles/style.scss";
 import AuthWrapper from "./components/AuthWrapper.js";
 import { ApiProvider } from "./context/ApiProvider";
-
+import { Analytics } from "@vercel/analytics/next"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics/>
         <ApiProvider>
           <AuthWrapper>
             {children}
