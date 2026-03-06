@@ -45,7 +45,7 @@ export default function Bonus() {
     };
     async function get_edit_data(id) {
         try {
-            const res = await axios.get(`/bonus/get.php?id=${id}`);
+            const res = await axios.get(`/bonus/get?id=${id}`);
             const bonusData = res.data[0];
 
             setPayload({
@@ -68,7 +68,7 @@ export default function Bonus() {
     }
     async function get_table_data() {
         try {
-            const res = await axios.get(`/bonus/get.php`);
+            const res = await axios.get(`/bonus/get`);
             setdata(res.data);
 
         }
