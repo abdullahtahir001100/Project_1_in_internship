@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import AlertCard from './AlertCard.js';
-import Loading from './loading.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 const API_BASE = '/vouchers';
 
@@ -90,6 +90,8 @@ export default function Voucher() {
     // Delete confirmation
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteTargetId, setDeleteTargetId] = useState(null);
+    const [saving, setSaving] = useState(false);
+    const [deleting, setDeleting] = useState(false);
 
     // ---- Form state ----
     const [editId, setEditId] = useState(null);
@@ -172,7 +174,7 @@ export default function Voucher() {
     async function handleDelete() {
         if (!deleteTargetId) return;
         try {
-            setLoading(true);
+            setDeleting(true);
             const res = await axios.delete(`${API_BASE}/delete`, {
                 data: { id: deleteTargetId },
                 headers: { 'Content-Type': 'application/json' },
@@ -186,7 +188,7 @@ export default function Voucher() {
         } catch (err) {
             setToast({ show: true, type: 'error', message: 'Something went wrong while deleting!' });
         } finally {
-            setLoading(false);
+            setDeleting(false);
             setShowDeleteModal(false);
             setDeleteTargetId(null);
         }
@@ -368,7 +370,7 @@ export default function Voucher() {
         };
 
         try {
-            setLoading(true);
+            setSaving(true);
 
             const formData = new FormData();
             formData.append('payload', JSON.stringify(payload));
@@ -398,7 +400,7 @@ export default function Voucher() {
         } catch (err) {
             setToast({ show: true, type: 'error', message: 'Something went wrong while saving!' });
         } finally {
-            setLoading(false);
+            setSaving(false);
         }
     };
 
@@ -406,8 +408,6 @@ export default function Voucher() {
     if (view === 'list') {
         return (
             <div className="section-container">
-                {loading && <Loading />}
-
                 {showDeleteModal && (
                     <AlertCard
                         title="Delete Voucher"
@@ -428,48 +428,52 @@ export default function Voucher() {
                     </button>
                 </div>
 
-                <div className="table-responsive">
-                    <table className="simple-table">
-                        <thead>
-                            <tr>
-                                <th>JV Number</th>
-                                <th>Reference No</th>
-                                <th>Date</th>
-                                <th>Debit Total</th>
-                                <th>Credit Total</th>
-                                <th className="text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {vouchers.length === 0 ? (
+                {loading ? (
+                    <TableSkeleton rows={5} columns={6} showHeader={false} />
+                ) : (
+                    <div className="table-responsive">
+                        <table className="simple-table">
+                            <thead>
                                 <tr>
-                                    <td colSpan="6" style={{ textAlign: 'center', padding: '2rem', color: '#999' }}>
-                                        No vouchers yet. Click &quot;Create Voucher&quot; to add one.
-                                    </td>
+                                    <th>JV Number</th>
+                                    <th>Reference No</th>
+                                    <th>Date</th>
+                                    <th>Debit Total</th>
+                                    <th>Credit Total</th>
+                                    <th className="text-right">Actions</th>
                                 </tr>
-                            ) : (
-                                vouchers.map((v) => (
-                                    <tr key={v.id}>
-                                        <td>{v.jv_number}</td>
-                                        <td>{v.reference_no}</td>
-                                        <td>{v.date}</td>
-                                        <td>{Number(v.debit_total || 0).toLocaleString()}</td>
-                                        <td>{Number(v.credit_total || 0).toLocaleString()}</td>
-                                        <td className="text-right">
-                                            <div className="custom-dropdown">
-                                                <button className="drop-btn">Actions</button>
-                                                <div className="drop-content">
-                                                    <button onClick={() => openEdit(v.id)}>Edit</button>
-                                                    <button onClick={() => { setDeleteTargetId(v.id); setShowDeleteModal(true); }}>Delete</button>
-                                                </div>
-                                            </div>
+                            </thead>
+                            <tbody>
+                                {vouchers.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="6" style={{ textAlign: 'center', padding: '2rem', color: '#999' }}>
+                                            No vouchers yet. Click &quot;Create Voucher&quot; to add one.
                                         </td>
                                     </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                                ) : (
+                                    vouchers.map((v) => (
+                                        <tr key={v.id}>
+                                            <td>{v.jv_number}</td>
+                                            <td>{v.reference_no}</td>
+                                            <td>{v.date}</td>
+                                            <td>{Number(v.debit_total || 0).toLocaleString()}</td>
+                                            <td>{Number(v.credit_total || 0).toLocaleString()}</td>
+                                            <td className="text-right">
+                                                <div className="custom-dropdown">
+                                                    <button className="drop-btn">Actions</button>
+                                                    <div className="drop-content">
+                                                        <button onClick={() => openEdit(v.id)}>Edit</button>
+                                                        <button onClick={() => { setDeleteTargetId(v.id); setShowDeleteModal(true); }}>Delete</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
 
                 <ToastDisplay toast={toast} setToast={setToast} />
             </div>
@@ -481,7 +485,6 @@ export default function Voucher() {
 
     return (
         <div className="voucher-form-wrapper">
-            {loading && <Loading />}
 
             {/* Header */}
             <div className="vf-header">
@@ -734,9 +737,9 @@ export default function Voucher() {
             {/* ===== FOOTER ===== */}
             <div className="vf-footer">
                 <button className="btn-cancel" onClick={() => { resetForm(); setView('list'); }}>Cancel</button>
-                <button className="btn-save" onClick={handleSubmit}>
+                <LoadingButton className="btn-save" onClick={handleSubmit} loading={saving} loadingText="Saving...">
                     {isEditMode ? 'Update Voucher' : 'Save Voucher'}
-                </button>
+                </LoadingButton>
             </div>
 
             <ToastDisplay toast={toast} setToast={setToast} />

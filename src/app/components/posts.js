@@ -4,7 +4,7 @@ import { useApi } from '../context/ApiProvider';
 import { Listbox } from "@headlessui/react";
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
-import Loading from './loading.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 export default function Posts() {
   const { axios } = useApi();
@@ -18,6 +18,8 @@ export default function Posts() {
   const [targetId, setTargetId] = useState(null);
   const [selectedDept, setSelectedDept] = useState(null);
   const [toast, setToast] = useState({ show: false, type: '', message: '' });
+  const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const modalCheck = useRef(null);
   const formRef = useRef(null);
@@ -64,6 +66,7 @@ export default function Posts() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    setSaving(true);
     const fd = new FormData(formRef.current);
     if (selectedDept) fd.append('Department_id', selectedDept.id);
     if (editId) fd.append('id', editId);
@@ -75,19 +78,21 @@ export default function Posts() {
       fetchAll();
       setToast({ show: true, type: 'success', message: res.data.message });
     } catch (err) { setToast({ show: true, type: 'error', message: 'Error saving data' }); }
+    finally { setSaving(false); }
   };
 
   const handleDelete = async () => {
+    setDeleting(true);
     try {
       await axios.delete('/Posts/delete', { data: { id: targetId } });
       setShowDeleteModal(false);
       fetchAll();
     } catch (err) { setToast({ show: true, type: 'error', message: 'Delete failed' }); }
+    finally { setDeleting(false); }
   };
 
   return (
     <div className="section-container">
-      {loading && <Loading />}
       <div className="section-header">
         <div className="header-info">
           <h2 className="section-title">All Posts</h2>
@@ -135,7 +140,9 @@ export default function Posts() {
                 <div className="modal-footer">
                   {/* Cancel button par onClick add kiya */}
                   <button type="button" className="btn-cancel" onClick={closeModal}>Cancel</button>
-                  <button type="submit" className="btn-save">Save</button>
+                  <LoadingButton type="submit" className="btn-save" loading={saving} loadingText="Saving...">
+                    Save
+                  </LoadingButton>
                 </div>
               </form>
             </div>
@@ -143,38 +150,41 @@ export default function Posts() {
         </div>
       </div>
 
-      <div className="table-responsive">
-        <table className="simple-table">
-          <thead>
-            <tr>
-              <th>ID</th><th>Desination Name</th><th>Department</th><th className="text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data?.map(item => (
-              <tr key={item.id}>
-                <td>#P-{item.id}</td>
-                <td>{item.Post_name}</td>
-                <td>{item.department_name || "N/A"}</td>
-                <td className="text-right">
-                  <div className="custom-dropdown">
-                    <button className="drop-btn">Actions</button>
-                    <div className="drop-content">
-                      <button onClick={() => openModal(item.id)}>
-                        Edit Detail
-                      </button>
-                      <button onClick={() => { setTargetId(item.id); setShowDeleteModal(true); }}>
-                        Delete Detail
-                      </button>
-
-                    </div>
-                  </div>
-                </td>
+      {loading ? (
+        <TableSkeleton rows={5} columns={4} showHeader={false} />
+      ) : (
+        <div className="table-responsive">
+          <table className="simple-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Desination Name</th><th>Department</th><th className="text-right">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {data?.map(item => (
+                <tr key={item.id}>
+                  <td>#P-{item.id}</td>
+                  <td>{item.Post_name}</td>
+                  <td>{item.department_name || "N/A"}</td>
+                  <td className="text-right">
+                    <div className="custom-dropdown">
+                      <button className="drop-btn">Actions</button>
+                      <div className="drop-content">
+                        <button onClick={() => openModal(item.id)}>
+                          Edit Detail
+                        </button>
+                        <button onClick={() => { setTargetId(item.id); setShowDeleteModal(true); }}>
+                          Delete Detail
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {showDeleteModal && (
         <AlertCard

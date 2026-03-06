@@ -7,7 +7,7 @@ import ResignationForm from './ResignationForm';
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
 import Select from 'react-select';
-import Loading from './loading.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 export default function Employees() {
     const { axios } = useApi();
@@ -32,6 +32,9 @@ export default function Employees() {
     const [selery, setSelery] = useState(0);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [toast, setToast] = useState({ show: false, type: '', message: '' });
+    const [saving, setSaving] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const [ledgerSaving, setLedgerSaving] = useState(false);
 
     // Ledger states
     const [ledgers, setLedgers] = useState([]);
@@ -144,7 +147,7 @@ export default function Employees() {
         if (!name) { setLedgerError('First Name is required.'); return; }
 
         try {
-            setLoading(true);
+            setLedgerSaving(true);
             await axios.post('/ledgers/create',
                 { name, father_name, cnic, email, phone, salary, status: 'employ_simple' },
                 { headers: { 'Content-Type': 'application/json' } }
@@ -157,7 +160,7 @@ export default function Employees() {
         } catch (err) {
             setLedgerError(err?.response?.data?.message || 'Failed to create ledger.');
         } finally {
-            setLoading(false);
+            setLedgerSaving(false);
         }
     }
 
@@ -209,6 +212,7 @@ export default function Employees() {
 
     async function handleDelete(id) {
         try {
+            setDeleting(true);
             const response = await axios.delete(`/Employees/delete`, {
                 data: { id: id },
             });
@@ -217,6 +221,8 @@ export default function Employees() {
             get_all_info_table();
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to delete employee.' });
+        } finally {
+            setDeleting(false);
         }
     }
 
@@ -229,7 +235,7 @@ export default function Employees() {
         formData.append('deductions', JSON.stringify(selectedDeductions.map(d => d.value)));
         if (selectedLedger) formData.append('ledger_id', selectedLedger.value);
         try {
-            setLoading(true);
+            setSaving(true);
             if (editId) formData.append('id', editId);
             const url = editId ? 'update' : 'create';
             const response = await axios.post(`/Employees/${url}`, formData, {
@@ -253,7 +259,7 @@ export default function Employees() {
         } catch (error) {
             setToast({ show: true, type: 'error', message: error?.message || 'Error occurred' });
         } finally {
-            setLoading(false);
+            setSaving(false);
         }
     }
 
@@ -284,7 +290,6 @@ export default function Employees() {
 
     return (
         <div className="section-container">
-            {loading && <Loading />}
             <div className="section-header">
                 <div className="header-info">
                     <h2 className="section-title">Employee Directory</h2>
@@ -298,49 +303,53 @@ export default function Employees() {
                 </button>
             </div>
 
-            <div className="table-responsive">
-                <table className="simple-table">
-                    <thead>
-                        <tr>
-                            <th>Emp ID</th>
-                            <th>Employee</th>
-                            <th>Department</th>
-                            <th>Phone</th>
-                            <th>Status</th>
-                            <th className="text-right">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data?.map((emp) => (
-                            <tr key={emp.id}>
-                                <td>#EMP-00{emp.id}</td>
-                                <td>
-                                    <div className="user-info">
-                                        <span className="font-bold">{emp.first_name} {emp.last_name}</span>
-                                        <small className="text-light">{emp.email}</small>
-                                    </div>
-                                </td>
-                                <td>{emp.department_name}</td>
-                                <td>{emp.phone}</td>
-                                <td><span className="status-pill active-status">{emp.post_name}</span></td>
-                                <td className="text-right">
-                                    <div className="action-btns-group">
-                                        <div className="custom-dropdown">
-                                            <button className="drop-btn">Actions</button>
-                                            <div className="drop-content">
-                                                <button onClick={() => handleEdit(emp.id)}>Edit Employee Detail</button>
-                                                <button onClick={() => { setTargetId(emp.id); setShowDeleteModal(true); }}>Delete Employee</button>
-                                                <button onClick={() => setMarkEmpId(emp.id)}>Mark Questions</button>
-                                                <button onClick={() => setResignEmpId(emp.id)}>Resign Employee</button>
+            {loading ? (
+                <TableSkeleton rows={5} columns={6} showHeader={false} />
+            ) : (
+                <div className="table-responsive">
+                    <table className="simple-table">
+                        <thead>
+                            <tr>
+                                <th>Emp ID</th>
+                                <th>Employee</th>
+                                <th>Department</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th className="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data?.map((emp) => (
+                                <tr key={emp.id}>
+                                    <td>#EMP-00{emp.id}</td>
+                                    <td>
+                                        <div className="user-info">
+                                            <span className="font-bold">{emp.first_name} {emp.last_name}</span>
+                                            <small className="text-light">{emp.email}</small>
+                                        </div>
+                                    </td>
+                                    <td>{emp.department_name}</td>
+                                    <td>{emp.phone}</td>
+                                    <td><span className="status-pill active-status">{emp.post_name}</span></td>
+                                    <td className="text-right">
+                                        <div className="action-btns-group">
+                                            <div className="custom-dropdown">
+                                                <button className="drop-btn">Actions</button>
+                                                <div className="drop-content">
+                                                    <button onClick={() => handleEdit(emp.id)}>Edit Employee Detail</button>
+                                                    <button onClick={() => { setTargetId(emp.id); setShowDeleteModal(true); }}>Delete Employee</button>
+                                                    <button onClick={() => setMarkEmpId(emp.id)}>Mark Questions</button>
+                                                    <button onClick={() => setResignEmpId(emp.id)}>Resign Employee</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
             {showModal && (
                 <div className="emp-modal-overlay" onClick={() => setShowModal(false)}>
@@ -529,7 +538,9 @@ export default function Employees() {
                                     setEmpFirstName(''); setEmpLastName(''); setEmpEmail('');
                                     setEmpPhone(''); setEmpAddress(''); setEmpSalary(0);
                                 }}>Cancel</button>
-                                <button type="submit" className="btn-save">Save</button>
+                                <LoadingButton type="submit" className="btn-save" loading={saving} loadingText="Saving...">
+                                    Save
+                                </LoadingButton>
                             </div>
                         </form>
                     </div>
@@ -594,7 +605,9 @@ export default function Employees() {
                             </div>
                             <div className="emp-modal-footer">
                                 <button type="button" className="btn-cancel" onClick={() => setShowLedgerModal(false)}>Cancel</button>
-                                <button type="submit" className="btn-save">Create Ledger</button>
+                                <LoadingButton type="submit" className="btn-save" loading={ledgerSaving} loadingText="Creating...">
+                                    Create Ledger
+                                </LoadingButton>
                             </div>
                         </form>
                     </div>

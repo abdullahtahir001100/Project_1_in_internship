@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import AlertCard from './AlertCard.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 
 export default function deduction() {
@@ -14,7 +15,10 @@ export default function deduction() {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [toast, setToast] = useState({ show: false, type: '', message: '' });
     const [data, setdata] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [editId, setEditId] = useState(null);
+    const [saving, setSaving] = useState(false);
+    const [deleting, setDeleting] = useState(false);
     const [payload, setPayload] = useState({
         deduction_name: '',
         deduction_amount: '',
@@ -25,16 +29,17 @@ export default function deduction() {
 
 
     async function handlePost() {
-
+        setSaving(true);
         try {
             const url = editId ? "update" : "create";
             const res = await axios.post(`/deduction/${url}`, payload);
             get_table_data();
             setIsOpen(false);
             res?.data?.message ? setToast({ show: true, type: 'success', message: res.data.message }) : setToast({ show: true, type: 'error', message: editId ? 'Failed to update deduction!' : 'deduction created!' });
-
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to save deduction.' });
+        } finally {
+            setSaving(false);
         }
     }
     const handleEdit = (item) => {
@@ -56,6 +61,7 @@ export default function deduction() {
         } catch (err) { setToast({ show: true, type: 'error', message: 'Failed to load deduction data.' }); }
     }
     async function handleDelete(id) {
+        setDeleting(true);
         try {
             const res = await axios.post(`/deduction/delete`, { id });
             setToast({ show: true, type: 'success', message: res?.data?.message || 'deduction deleted!' });
@@ -64,15 +70,18 @@ export default function deduction() {
         }
         catch (err) {
             setToast({ show: true, type: 'error', message: 'Failed to delete deduction.' });
+        } finally {
+            setDeleting(false);
         }
     }
     async function get_table_data() {
+        setLoading(true);
         try {
             const res = await axios.get(`/deduction/get`);
             setdata(res.data);
-
         }
         catch (err) { setToast({ show: true, type: 'error', message: 'Failed to load deduction data.' }); }
+        finally { setLoading(false); }
     }
 
     useEffect(() => {
@@ -116,7 +125,9 @@ export default function deduction() {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn-cancel" onClick={() => setIsOpen(false)}>Cancel</button>
-                                    <button type="button" className="btn-save" onClick={handlePost}>{editId ? "Update" : "Save"}</button>
+                                    <LoadingButton type="button" className="btn-save" loading={saving} loadingText="Saving..." onClick={handlePost}>
+                                        {editId ? "Update" : "Save"}
+                                    </LoadingButton>
                                 </div>
                             </form>
                         </div>
@@ -125,40 +136,42 @@ export default function deduction() {
             </div>
 
             {/* Table with Mock Data */}
-            <div className="table-responsive">
-                <table className="simple-table">
-                    <thead>
-                        <tr><th>ID</th><th>deduction Name</th><th>Base Value</th><th className="text-right">Actions</th></tr>
-                    </thead>
-                    <tbody>
-                        {data.map(item => (
-                            <tr key={item.id}>
-                                <td>#BON-{item.id}</td>
-                                <td>{item.deduction_name}</td>
-                                <td>{item.deduction_amount}</td>
-
-                                <td className="text-right">
-                                    <div className="custom-dropdown">
-                                        <button className="drop-btn">Actions</button>
-                                        <div className="drop-content">
-                                            <button onClick={() => handleEdit(item)}>
-                                                Edit Detail
-                                            </button>
-                                            <button onClick={() => {
-                                                setDeleteId(item.id);
-                                                setIsDeleteOpen(true);
-                                            }}>
-                                                Delete Detail
-                                            </button>
-
+            {loading ? (
+                <TableSkeleton rows={5} columns={4} showHeader={false} />
+            ) : (
+                <div className="table-responsive">
+                    <table className="simple-table">
+                        <thead>
+                            <tr><th>ID</th><th>deduction Name</th><th>Base Value</th><th className="text-right">Actions</th></tr>
+                        </thead>
+                        <tbody>
+                            {data.map(item => (
+                                <tr key={item.id}>
+                                    <td>#BON-{item.id}</td>
+                                    <td>{item.deduction_name}</td>
+                                    <td>{item.deduction_amount}</td>
+                                    <td className="text-right">
+                                        <div className="custom-dropdown">
+                                            <button className="drop-btn">Actions</button>
+                                            <div className="drop-content">
+                                                <button onClick={() => handleEdit(item)}>
+                                                    Edit Detail
+                                                </button>
+                                                <button onClick={() => {
+                                                    setDeleteId(item.id);
+                                                    setIsDeleteOpen(true);
+                                                }}>
+                                                    Delete Detail
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
             {isDeleteOpen && (
                 <AlertCard
                     title="Delete?"

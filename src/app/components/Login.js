@@ -9,6 +9,7 @@ export default function Login({ onLogin }) {
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   // Pre-fill username from localStorage if remember was set
   useEffect(() => {
@@ -17,6 +18,9 @@ export default function Login({ onLogin }) {
       setUsername(saved);
       setRemember(true);
     }
+    // Simulate initial load
+    const timer = setTimeout(() => setInitialLoading(false), 800);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSubmit = (e) => {
@@ -45,10 +49,32 @@ export default function Login({ onLogin }) {
   return (
     <div className="login-overlay">
       <div className="login-card login-card--animate">
-        <div className="login-logo">
-          <div className="login-logo-icon">ACR</div>
-          <h2 className="login-logo-text">Employee <span>System</span></h2>
-        </div>
+        {initialLoading ? (
+          // Skeleton Loading UI
+          <div className="login-skeleton">
+            <div className="login-skeleton-logo">
+              <div className="login-skeleton-icon skeleton-pulse"></div>
+              <div className="login-skeleton-text skeleton-pulse"></div>
+            </div>
+            <div className="login-skeleton-form">
+              <div className="login-skeleton-group">
+                <div className="login-skeleton-label skeleton-pulse"></div>
+                <div className="login-skeleton-input skeleton-pulse"></div>
+              </div>
+              <div className="login-skeleton-group">
+                <div className="login-skeleton-label skeleton-pulse"></div>
+                <div className="login-skeleton-input skeleton-pulse"></div>
+              </div>
+              <div className="login-skeleton-remember skeleton-pulse"></div>
+              <div className="login-skeleton-btn skeleton-pulse"></div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="login-logo">
+              <div className="login-logo-icon">ACR</div>
+              <h2 className="login-logo-text">Employee <span>System</span></h2>
+            </div>
         {/* <p className="login-subtitle">Sign in to your account</p> */}
 
         <form onSubmit={handleSubmit} className="login-form">
@@ -117,6 +143,8 @@ export default function Login({ onLogin }) {
             ) : 'Sign In'}
           </button>
         </form>
+          </>
+        )}
       </div>
     </div>
   );

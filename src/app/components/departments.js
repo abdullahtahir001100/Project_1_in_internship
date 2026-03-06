@@ -4,7 +4,7 @@ import { useApi } from '../context/ApiProvider';
 import { Listbox } from "@headlessui/react";
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
-import Loading from './loading.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 export default function Departments() {
     const { axios } = useApi();
@@ -21,6 +21,8 @@ export default function Departments() {
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [targetId, setTargetId] = useState(null);
+    const [saving, setSaving] = useState(false);
+    const [deleting, setDeleting] = useState(false);
 
     const options = [
         {
@@ -79,6 +81,7 @@ export default function Departments() {
 
     const handleSave = async (e) => {
         e.preventDefault();
+        setSaving(true);
         const fd = new FormData(formRef.current);
         fd.append('status', selectedStatus.id);
         if (editId) fd.append('id', editId);
@@ -101,19 +104,25 @@ export default function Departments() {
                 type: "error",
                 message: "Error saving data"
             });
+        } finally {
+            setSaving(false);
         }
     };
 
     const handleDelete = async () => {
-        await axios.delete('/departments/delete', { data: { id: targetId } });
-        setShowDeleteModal(false);
-        fetchAll();
+        setDeleting(true);
+        try {
+            await axios.delete('/departments/delete', { data: { id: targetId } });
+            setShowDeleteModal(false);
+            fetchAll();
+        } finally {
+            setDeleting(false);
+        }
     };
 
     return (
         
         <div className="section-container">
-            {loading && <Loading />}
             <div className="section-header">
                 <div className="header-info">
                     <h2 className="section-title">Departments</h2>
@@ -148,7 +157,9 @@ export default function Departments() {
                                 </div>
                                 <div className="modal-footer">
                                     <label htmlFor="modal-toggle" className="btn-cancel">Cancel</label>
-                                    <button type="submit" className="btn-save">Save</button>
+                                    <LoadingButton type="submit" className="btn-save" loading={saving} loadingText="Saving...">
+                                        Save
+                                    </LoadingButton>
                                 </div>
                             </form>
                         </div>
@@ -157,36 +168,39 @@ export default function Departments() {
             </div>
 
             {/* --- Table --- */}
-            <div className="table-responsive">
-                <table className="simple-table">
-                    <thead>
-                        <tr><th>ID</th><th>Name</th><th>Status</th><th className="text-right">Actions</th></tr>
-                    </thead>
-                    <tbody>
-                        {data.map(item => (
-                            <tr key={item.id}>
-                                <td>#DEP-{item.id}</td>
-                                <td>{item.department_name}</td>
-                                <td><span className="status-pill">{item.status == 1 ? "Active" : "Inactive"}</span></td>
-                                <td className="text-right">
-                                    <div className="custom-dropdown">
-                                        <button className="drop-btn">Actions</button>
-                                        <div className="drop-content">
-                                            <button onClick={() => openModal(item.id)}>
-                                                Edit Detail
-                                            </button>
-                                            <button onClick={() => { setTargetId(item.id); setShowDeleteModal(true); }}>
-                                                Delete Detail
-                                            </button>
-
+            {loading ? (
+                <TableSkeleton rows={5} columns={4} showHeader={false} />
+            ) : (
+                <div className="table-responsive">
+                    <table className="simple-table">
+                        <thead>
+                            <tr><th>ID</th><th>Name</th><th>Status</th><th className="text-right">Actions</th></tr>
+                        </thead>
+                        <tbody>
+                            {data.map(item => (
+                                <tr key={item.id}>
+                                    <td>#DEP-{item.id}</td>
+                                    <td>{item.department_name}</td>
+                                    <td><span className="status-pill">{item.status == 1 ? "Active" : "Inactive"}</span></td>
+                                    <td className="text-right">
+                                        <div className="custom-dropdown">
+                                            <button className="drop-btn">Actions</button>
+                                            <div className="drop-content">
+                                                <button onClick={() => openModal(item.id)}>
+                                                    Edit Detail
+                                                </button>
+                                                <button onClick={() => { setTargetId(item.id); setShowDeleteModal(true); }}>
+                                                    Delete Detail
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
             {showDeleteModal && (
                 <AlertCard title="Delete?" message="Confirm delete department. This Task Not Be Undone" onCancel={() => setShowDeleteModal(false)} onContinue={handleDelete} />

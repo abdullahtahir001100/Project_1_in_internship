@@ -4,7 +4,7 @@ import { useApi } from '../context/ApiProvider';
 import Select from 'react-select';
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
-import Loading from './loading.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 const statusOptions = [
     { value: 'vendor', label: 'Vendor' },
@@ -21,6 +21,8 @@ export default function Ledger() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [targetId, setTargetId] = useState(null);
     const [toast, setToast] = useState({ show: false, type: '', message: '' });
+    const [saving, setSaving] = useState(false);
+    const [deleting, setDeleting] = useState(false);
 
     // Form fields
     const [formName, setFormName] = useState('');
@@ -90,7 +92,7 @@ export default function Ledger() {
         const method = editId ? 'put' : 'post';
 
         try {
-            setLoading(true);
+            setSaving(true);
             const res = await axios({
                 method: method,
                 url: `/ledgers/${url}`,
@@ -103,13 +105,14 @@ export default function Ledger() {
         } catch (err) {
             setFormError(err?.response?.data?.message || 'Failed to save ledger.');
         } finally {
+            setSaving(false);
             setLoading(false);
         }
     }
 
     async function handleDelete() {
         try {
-            setLoading(true);
+            setDeleting(true);
             await axios.delete('/ledgers/delete', {
                 data: { id: targetId }
             });
@@ -119,13 +122,13 @@ export default function Ledger() {
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to delete ledger.' });
         } finally {
+            setDeleting(false);
             setLoading(false);
         }
     }
 
     return (
         <div className="section-container">
-            {loading && <Loading />}
             <div className="section-header">
                 <div className="header-info">
                     <h2 className="section-title">Ledger Management</h2>
@@ -140,53 +143,57 @@ export default function Ledger() {
             </div>
 
             {/* --- LEDGER TABLE --- */}
-            <div className="table-responsive">
-                <table className="simple-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Unique ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Address</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Status</th>
-                            <th className="text-right">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.length === 0 && (
+            {loading ? (
+                <TableSkeleton rows={5} columns={9} showHeader={false} />
+            ) : (
+                <div className="table-responsive">
+                    <table className="simple-table">
+                        <thead>
                             <tr>
-                                <td colSpan="9" style={{ textAlign: 'center', padding: '2rem', color: '#999' }}>
-                                    No ledgers found.
-                                </td>
+                                <th>ID</th>
+                                <th>Unique ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Address</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th className="text-right">Actions</th>
                             </tr>
-                        )}
-                        {data?.map((item) => (
-                            <tr key={item.id}>
-                                <td>#{item.id}</td>
-                                <td><span className="status-pill active-status">{item.ledger_unique_id}</span></td>
-                                <td><span className="font-bold">{item.name}</span></td>
-                                <td>{item.father_name || '—'}</td>
-                                <td>{item.cnic || '—'}</td>
-                                <td>{item.email || '—'}</td>
-                                <td>{item.phone || '—'}</td>
-                                <td><span className="status-pill active-status">{item.status || '—'}</span></td>
-                                <td className="text-right">
-                                    <div className="custom-dropdown">
-                                        <button className="drop-btn">Actions</button>
-                                        <div className="drop-content">
-                                            <button onClick={() => openModal(item)}>Edit Ledger</button>
-                                            <button onClick={() => { setTargetId(item.id); setShowDeleteModal(true); }}>Delete Ledger</button>
+                        </thead>
+                        <tbody>
+                            {data.length === 0 && (
+                                <tr>
+                                    <td colSpan="9" style={{ textAlign: 'center', padding: '2rem', color: '#999' }}>
+                                        No ledgers found.
+                                    </td>
+                                </tr>
+                            )}
+                            {data?.map((item) => (
+                                <tr key={item.id}>
+                                    <td>#{item.id}</td>
+                                    <td><span className="status-pill active-status">{item.ledger_unique_id}</span></td>
+                                    <td><span className="font-bold">{item.name}</span></td>
+                                    <td>{item.father_name || '—'}</td>
+                                    <td>{item.cnic || '—'}</td>
+                                    <td>{item.email || '—'}</td>
+                                    <td>{item.phone || '—'}</td>
+                                    <td><span className="status-pill active-status">{item.status || '—'}</span></td>
+                                    <td className="text-right">
+                                        <div className="custom-dropdown">
+                                            <button className="drop-btn">Actions</button>
+                                            <div className="drop-content">
+                                                <button onClick={() => openModal(item)}>Edit Ledger</button>
+                                                <button onClick={() => { setTargetId(item.id); setShowDeleteModal(true); }}>Delete Ledger</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
             {/* --- ADD/EDIT LEDGER MODAL --- */}
             {showModal && (
@@ -249,7 +256,9 @@ export default function Ledger() {
                             </div>
                             <div className="emp-modal-footer">
                                 <button type="button" className="btn-cancel" onClick={() => setShowModal(false)}>Cancel</button>
-                                <button type="submit" className="btn-save">{editId ? 'Update' : 'Create'} Ledger</button>
+                                <LoadingButton type="submit" className="btn-save" loading={saving} loadingText="Saving...">
+                                    {editId ? 'Update' : 'Create'} Ledger
+                                </LoadingButton>
                             </div>
                         </form>
                     </div>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import AlertCard from './AlertCard.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 
 export default function Bonus() {
@@ -14,7 +15,10 @@ export default function Bonus() {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [toast, setToast] = useState({ show: false, type: '', message: '' });
     const [data, setdata] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [editId, setEditId] = useState(null);
+    const [saving, setSaving] = useState(false);
+    const [deleting, setDeleting] = useState(false);
     const [payload, setPayload] = useState({
         bonusName: '',
         baseValue: '',
@@ -25,7 +29,7 @@ export default function Bonus() {
 
 
     async function handlePost() {
-
+        setSaving(true);
         try {
             const url = editId ? "update.php" : "create.php";
             const res = await axios.post(`/bonus/${url}`, payload);
@@ -35,6 +39,8 @@ export default function Bonus() {
 
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to save bonus.' });
+        } finally {
+            setSaving(false);
         }
     }
     const handleEdit = (item) => {
@@ -56,6 +62,7 @@ export default function Bonus() {
         } catch (err) { setToast({ show: true, type: 'error', message: 'Failed to load bonus data.' }); }
     }
     async function handleDelete(id) {
+        setDeleting(true);
         try {
             const res = await axios.post(`/bonus/delete.php`, { id });
             setToast({ show: true, type: 'success', message: res?.data?.message || 'Bonus deleted!' });
@@ -64,15 +71,18 @@ export default function Bonus() {
         }
         catch (err) {
             setToast({ show: true, type: 'error', message: 'Failed to delete bonus.' });
+        } finally {
+            setDeleting(false);
         }
     }
     async function get_table_data() {
+        setLoading(true);
         try {
             const res = await axios.get(`/bonus/get`);
             setdata(res.data);
-
         }
         catch (err) { setToast({ show: true, type: 'error', message: 'Failed to load bonus data.' }); }
+        finally { setLoading(false); }
     }
 
     useEffect(() => {
@@ -116,7 +126,9 @@ export default function Bonus() {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn-cancel" onClick={() => setIsOpen(false)}>Cancel</button>
-                                    <button type="button" className="btn-save" onClick={handlePost}>{editId ? "Update" : "Save"}</button>
+                                    <LoadingButton type="button" className="btn-save" loading={saving} loadingText="Saving..." onClick={handlePost}>
+                                        {editId ? "Update" : "Save"}
+                                    </LoadingButton>
                                 </div>
                             </form>
                         </div>
@@ -125,40 +137,42 @@ export default function Bonus() {
             </div>
 
             {/* Table with Mock Data */}
-            <div className="table-responsive">
-                <table className="simple-table">
-                    <thead>
-                        <tr><th>ID</th><th>Allowances Name</th><th>Base Value</th><th className="text-right">Actions</th></tr>
-                    </thead>
-                    <tbody>
-                        {data.map(item => (
-                            <tr key={item.id}>
-                                <td>#BON-{item.id}</td>
-                                <td>{item.bonusName}</td>
-                                <td>{item.baseValue}</td>
-
-                                <td className="text-right">
-                                    <div className="custom-dropdown">
-                                        <button className="drop-btn">Actions</button>
-                                        <div className="drop-content">
-                                            <button onClick={() => handleEdit(item)}>
-                                                Edit Detail
-                                            </button>
-                                            <button onClick={() => {
-                                                setDeleteId(item.id);
-                                                setIsDeleteOpen(true);
-                                            }}>
-                                                Delete Detail
-                                            </button>
-
+            {loading ? (
+                <TableSkeleton rows={5} columns={4} showHeader={false} />
+            ) : (
+                <div className="table-responsive">
+                    <table className="simple-table">
+                        <thead>
+                            <tr><th>ID</th><th>Allowances Name</th><th>Base Value</th><th className="text-right">Actions</th></tr>
+                        </thead>
+                        <tbody>
+                            {data.map(item => (
+                                <tr key={item.id}>
+                                    <td>#BON-{item.id}</td>
+                                    <td>{item.bonusName}</td>
+                                    <td>{item.baseValue}</td>
+                                    <td className="text-right">
+                                        <div className="custom-dropdown">
+                                            <button className="drop-btn">Actions</button>
+                                            <div className="drop-content">
+                                                <button onClick={() => handleEdit(item)}>
+                                                    Edit Detail
+                                                </button>
+                                                <button onClick={() => {
+                                                    setDeleteId(item.id);
+                                                    setIsDeleteOpen(true);
+                                                }}>
+                                                    Delete Detail
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
             {isDeleteOpen && (
                 <AlertCard
                     title="Delete?"
