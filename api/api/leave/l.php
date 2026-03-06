@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 $servername = "gateway01.eu-central-1.prod.aws.tidbcloud.com";
 $port = 4000;
 $username = "3AEZrv2kzEmLLGp.root";
-$password = "qOakZjYjWqhDR7G4";
+$password = "IZS8gZtNqECsqPry";
 $database = "test";
 // ho gi ha 
 $conn = mysqli_init();
