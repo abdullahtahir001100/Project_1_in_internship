@@ -4,7 +4,7 @@ import React, { useState, useEffect, use } from 'react';
 import { Listbox } from "@headlessui/react";
 import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
-import Loading from './loading.js';
+import { TableSkeleton, LoadingButton } from './Skeleton';
 
 export default function QuestionForm({ onCancel }) {
   const { axios } = useApi();
@@ -206,7 +206,6 @@ const handleSubmit = async (e) => {
 
   return (
     <div className="question-form-wrapper">
-      {loading && <Loading />}
 
       <div className="qf-header">
         <div>
@@ -301,6 +300,9 @@ const handleSubmit = async (e) => {
 
       {/* Questions Table */}
       <div className="qf-questions-area">
+        {loading ? (
+          <TableSkeleton rows={4} columns={4} showHeader={true} />
+        ) : (
         <table className="qf-table">
 
           <thead>
@@ -418,6 +420,7 @@ const handleSubmit = async (e) => {
           </tbody>
 
         </table>
+        )}
 
         <button
           className="qf-add-btn"
