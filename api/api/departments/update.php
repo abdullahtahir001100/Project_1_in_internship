@@ -49,12 +49,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    $deptName = $_POST['Department_name'] ?? '';
-    $status = $_POST['status'] ?? '';
-
-  
-
-    $id = $_POST['id'] ?? 0;
+    // Handle both JSON and form data
+    $input = json_decode(file_get_contents('php://input'), true);
+    if ($input) {
+        $deptName = $input['Department_name'] ?? '';
+        $status = $input['status'] ?? '';
+        $id = $input['id'] ?? 0;
+    } else {
+        $deptName = $_POST['Department_name'] ?? '';
+        $status = $_POST['status'] ?? '';
+        $id = $_POST['id'] ?? 0;
+    }
 
     $stmt = $conn->prepare("UPDATE departments SET department_name = ?, status = ?, created_at = NOW() WHERE id = ?");
     $stmt->bind_param("sii", $deptName, $status, $id);

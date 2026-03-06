@@ -49,10 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    $deptName = $_POST['Department_name'] ?? '';
-    $status = $_POST['status'] ?? '';
-
-  
+    // Handle both JSON and form data
+    $input = json_decode(file_get_contents('php://input'), true);
+    if ($input) {
+        $deptName = $input['Department_name'] ?? '';
+        $status = $input['status'] ?? '';
+    } else {
+        $deptName = $_POST['Department_name'] ?? '';
+        $status = $_POST['status'] ?? '';
+    }
 
     $stmt = $conn->prepare("INSERT INTO departments (department_name, status, created_at) VALUES (?, ?, NOW())");
     $stmt->bind_param("si", $deptName, $status);
