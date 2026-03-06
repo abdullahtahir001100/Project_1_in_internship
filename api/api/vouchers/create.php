@@ -182,8 +182,8 @@ try {
     $conn->rollback();
 
     // Remove uploaded image if transaction failed
-    if ($imagePath && file_exists(__DIR__ . '/../../' . $imagePath)) {
-        unlink(__DIR__ . '/../../' . $imagePath);
+    if ($imagePath && file_exists($imagePath)) {
+        unlink($imagePath);
     }
 
     http_response_code(500);

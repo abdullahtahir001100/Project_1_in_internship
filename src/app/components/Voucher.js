@@ -328,82 +328,106 @@ export default function Voucher() {
         if (fileRef.current) fileRef.current.value = '';
     };
 
-    // =============================
-    // CREATE / UPDATE SUBMIT
-    // =============================
-    const handleSubmit = async () => {
-        // Validation
-        if (!referenceNo.trim()) {
-            setToast({ show: true, type: 'warning', message: 'Please enter a reference number.' });
-            return;
-        }
-        if (debitRows.some((r) => !r.ledger || !r.amount)) {
-            setToast({ show: true, type: 'warning', message: 'Please fill all debit rows (ledger & amount).' });
-            return;
-        }
-        if (creditRows.some((r) => !r.ledger || !r.amount)) {
-            setToast({ show: true, type: 'warning', message: 'Please fill all credit rows (ledger & amount).' });
-            return;
-        }
-        if (debitTotal !== creditTotal) {
-            setToast({ show: true, type: 'warning', message: 'Please fill all credit and debts equally' });
-            return;
-        }
+   // =============================
+// CREATE / UPDATE SUBMIT
+// =============================
+const handleSubmit = async () => {
+    // Validation
+    if (!referenceNo.trim()) {
+        setToast({ show: true, type: 'warning', message: 'Please enter a reference number.' });
+        return;
+    }
+    if (debitRows.some((r) => !r.ledger || !r.amount)) {
+        setToast({ show: true, type: 'warning', message: 'Please fill all debit rows (ledger & amount).' });
+        return;
+    }
+    if (creditRows.some((r) => !r.ledger || !r.amount)) {
+        setToast({ show: true, type: 'warning', message: 'Please fill all credit rows (ledger & amount).' });
+        return;
+    }
+    if (debitTotal !== creditTotal) {
+        setToast({ show: true, type: 'warning', message: 'Please fill all credit and debts equally' });
+        return;
+    }
 
-        const isUpdate = view === 'edit' && editId;
+    const isUpdate = view === 'edit' && editId;
 
-        const payload = {
-            ...(isUpdate ? { id: editId } : {}),
-            jv_number: jvNumber,
-            reference_no: referenceNo,
-            date: `${dateYear}-${dateMonth}-${dateDay}`,
-            debit_entries: debitRows.map((r) => ({
-                ledger_id: r.ledger.value,
-                description: r.description,
-                amount: Number(r.amount),
-            })),
-            credit_entries: creditRows.map((r) => ({
-                ledger_id: r.ledger.value,
-                description: r.description,
-                amount: Number(r.amount),
-            })),
-            narration: narration,
-        };
+    const payload = {
+        ...(isUpdate ? { id: editId } : {}),
+        jv_number: jvNumber,
+        reference_no: referenceNo,
+        date: `${dateYear}-${dateMonth}-${dateDay}`,
+        debit_entries: debitRows.map((r) => ({
+            ledger_id: r.ledger.value,
+            description: r.description,
+            amount: Number(r.amount),
+        })),
+        credit_entries: creditRows.map((r) => ({
+            ledger_id: r.ledger.value,
+            description: r.description,
+            amount: Number(r.amount),
+        })),
+        narration: narration,
 
-        try {
-            setSaving(true);
-
-            const formData = new FormData();
-            formData.append('payload', JSON.stringify(payload));
-            if (attachment) {
-                formData.append('attachment', attachment);
-            }
-
-            const url = isUpdate
-                ? `${API_BASE}/update`
-                : `${API_BASE}/create`;
-
-            const res = await axios.post(url, formData);
-
-            if (res.data.success) {
-                setToast({
-                    show: true,
-                    type: 'success',
-                    message: isUpdate ? 'Voucher updated successfully!' : 'Voucher saved successfully!',
-                });
-                resetForm();
-                fetchVouchers();
-                setView('list');
-                generateJVNumber('gen'); // Increment JV number for next entry
-            } else {
-                setToast({ show: true, type: 'error', message: res.data.message || res.data.error || 'Failed to save voucher.' });
-            }
-        } catch (err) {
-            setToast({ show: true, type: 'error', message: 'Something went wrong while saving!' });
-        } finally {
-            setSaving(false);
-        }
+        // important for update
+        ...(existingImage && !attachment ? { existing_image: existingImage } : {})
     };
+
+    try {
+        setSaving(true);
+
+        const formData = new FormData();
+
+        formData.append('payload', JSON.stringify(payload));
+
+        if (attachment) {
+            formData.append('attachment', attachment);
+        }
+
+        const url = isUpdate
+            ? `${API_BASE}/update`
+            : `${API_BASE}/create`;
+
+        const res = await axios.post(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
+        if (res.data.success) {
+            setToast({
+                show: true,
+                type: 'success',
+                message: isUpdate ? 'Voucher updated successfully!' : 'Voucher saved successfully!',
+            });
+
+            resetForm();
+            fetchVouchers();
+            setView('list');
+
+            // generate next JV
+            generateJVNumber('gen');
+
+        } else {
+            setToast({
+                show: true,
+                type: 'error',
+                message: res.data.message || res.data.error || 'Failed to save voucher.'
+            });
+        }
+
+    } catch (err) {
+
+        setToast({
+            show: true,
+            type: 'error',
+            message: 'Something went wrong while saving!'
+        });
+
+    } finally {
+        setSaving(false);
+    }
+};
 
     // ---- LIST VIEW ----
     if (view === 'list') {
