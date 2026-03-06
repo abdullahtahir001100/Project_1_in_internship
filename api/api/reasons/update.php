@@ -75,7 +75,7 @@ try {
     $stmt = $conn->prepare("UPDATE reasons
                             SET reason_type = ?,
                                 reason = ?,
-                                resignation_date = NOW(),
+                                -- resignation_date = NOW(),
                             WHERE id = ?");
     $stmt->bind_param("sssi", $reason_type, $reason, $resignation_date, $id);
 
