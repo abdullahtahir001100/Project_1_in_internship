@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 // Listbox removed as requested
 import MarkQuestions from './MarkQuestions';
 import ResignationForm from './ResignationForm';
@@ -10,6 +10,7 @@ import Select from 'react-select';
 import Loading from './loading.js';
 
 export default function Employees() {
+    const { axios } = useApi();
 
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -60,7 +61,7 @@ export default function Employees() {
 
     async function get_b_d() {
         try {
-            const res = await axios.get('http://localhost/react-backend/api/bonus/get');
+            const res = await axios.get('/bonus/get');
             const data = res.data;
             const formattedData = data.map(item => ({
                 value: String(item.id),
@@ -68,7 +69,7 @@ export default function Employees() {
                 price: item.baseValue
             }));
 
-            const req = await axios.get('http://localhost/react-backend/api/deduction/get');
+            const req = await axios.get('/deduction/get');
             const dat1a = req.data;
             const formattedData1 = dat1a.map(item => ({
                 value: String(item.id),
@@ -91,9 +92,8 @@ export default function Employees() {
         async function get_all_info() {
             try {
                 setLoading(true);
-                const response = await axios.get('http://localhost/react-backend/api/Employees/get_info');
-                const data = response.data;
-                setOptions(data);
+                const response = await axios.get('/Employees/get_info');
+                setOptions(response.data);
             } catch (error) {
                 setToast({ show: true, type: 'error', message: 'Failed to load departments.' });
             } finally {
@@ -105,7 +105,7 @@ export default function Employees() {
 
     async function fetchLedgers() {
         try {
-            const res = await axios.get('http://localhost/react-backend/api/ledgers/get');
+            const res = await axios.get('/ledgers/get');
             const data = res.data || [];
             setLedgers(data.map(item => ({
                 value: item.id,
@@ -145,7 +145,7 @@ export default function Employees() {
 
         try {
             setLoading(true);
-            await axios.post('http://localhost/react-backend/api/ledgers/create',
+            await axios.post('/ledgers/create',
                 { name, father_name, cnic, email, phone, salary, status: 'employ_simple' },
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -165,7 +165,7 @@ export default function Employees() {
         setEditId(id);
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost/react-backend/api/Employees/get_data?id=${id}`);
+            const response = await axios.get(`/Employees/get_data?id=${id}`);
             const data = response.data;
             setEditdata(data);
             const rawDed = (data.deductions || []).map(d => ({
@@ -209,7 +209,7 @@ export default function Employees() {
 
     async function handleDelete(id) {
         try {
-            const response = await axios.delete(`http://localhost/react-backend/api/Employees/delete`, {
+            const response = await axios.delete(`/Employees/delete`, {
                 data: { id: id },
             });
             setShowDeleteModal(false);
@@ -232,7 +232,7 @@ export default function Employees() {
             setLoading(true);
             if (editId) formData.append('id', editId);
             const url = editId ? 'update' : 'create';
-            const response = await axios.post(`http://localhost/react-backend/api/Employees/${url}`, formData, {
+            const response = await axios.post(`/Employees/${url}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             const data = response.data;
@@ -260,7 +260,7 @@ export default function Employees() {
     async function get_all_info_table() {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost/react-backend/api/Employees/get');
+            const response = await axios.get('/Employees/get');
             const data = response.data;
             setdata(data);
         } catch (error) {

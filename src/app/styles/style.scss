@@ -1,5 +1,385 @@
-// Variables - Minimal clean design
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
+
+/* ---------- Colors ---------- */
 @use "sass:color";
+
+$color-1: #000;
+$color-2: #000000;
+$color-3: #00695c;
+$color-4: #0ea5e9;
+$color-5: #111827;
+$color-6: #166534;
+$color-7: #16a34a;
+$color-8: #1976d2;
+$color-9: #1d4ed8;
+$color-10: #1e293b;
+$color-11: #1f2937;
+$color-12: #222;
+$color-13: #2563eb;
+$color-14: #27ae60;
+$color-15: #2e7d32;
+$color-16: #3182ce;
+$color-17: #333;
+$color-18: #374151;
+$color-19: #3b82f6;
+$color-20: #475569;
+$color-21: #4b5563;
+$color-22: #555;
+$color-23: #64748b;
+$color-24: #666;
+$color-25: #6b7280;
+$color-26: #718096;
+$color-27: #777;
+$color-28: #7b1fa2;
+$color-29: #818181;
+$color-30: #878787;
+$color-31: #888;
+$color-32: #9333ea;
+$color-33: #999;
+$color-34: #9ca3af;
+$color-35: #a0aec0;
+$color-36: #acc;
+$color-37: #bbf7d0;
+$color-38: #c00;
+$color-39: #c53030;
+$color-40: #c62828;
+$color-41: #c6c6c6;
+$color-42: #c82333;
+$color-43: #ccc;
+$color-44: #d1d5db;
+$color-45: #d32f2f;
+$color-46: #dc2626;
+$color-47: #dc3545;
+$color-48: #ddd;
+$color-49: #e0f2f1;
+$color-50: #e2e8f0;
+$color-51: #e3f2fd;
+$color-52: #e53e3e;
+$color-53: #e5e7eb;
+$color-54: #e74c3c;
+$color-55: #e8cccc;
+$color-56: #e8f5e9;
+$color-57: #e9e9e9;
+$color-58: #ed6c02;
+$color-59: #eee;
+$color-60: #ef4444;
+$color-61: #ef6c00;
+$color-62: #f0f0f0;
+$color-63: #f0fdf4;
+$color-64: #f1f1f1;
+$color-65: #f1f5f9;
+$color-66: #f3e5f5;
+$color-67: #f3f4f6;
+$color-68: #f59e0b;
+$color-69: #f5f5f5;
+$color-70: #f7f7f7;
+$color-71: #f8f9fa;
+$color-72: #f8fafc;
+$color-73: #f9f9f9;
+$color-74: #fafafa;
+$color-75: #fecaca;
+$color-76: #ffebee;
+$color-77: #fff;
+$color-78: #fff3e0;
+$color-79: #fff5f5;
+$color-80: #ffffff;
+
+/* ---------- PX Sizes ---------- */
+$size-px-1: 0px;
+$size-px-2: 1000px;
+$size-px-3: 100px;
+$size-px-4: 10px;
+$size-px-5: 1100px;
+$size-px-6: 110px;
+$size-px-7: 11px;
+$size-px-8: 1200px;
+$size-px-9: 120px;
+$size-px-10: 1250px;
+$size-px-11: 12px;
+$size-px-12: 13px;
+$size-px-13: 140px;
+$size-px-14: 14px;
+$size-px-15: 150px;
+$size-px-16: 15px;
+$size-px-17: 160px;
+$size-px-18: 16px;
+$size-px-19: 17px;
+$size-px-20: 180px;
+$size-px-21: 18px;
+$size-px-22: 1px;
+$size-px-23: 200px;
+$size-px-24: 20px;
+$size-px-25: 22px;
+$size-px-26: 240px;
+$size-px-27: 24px;
+$size-px-28: 250px;
+$size-px-29: 25px;
+$size-px-30: 26px;
+$size-px-31: 28px;
+$size-px-32: 2px;
+$size-px-33: 300px;
+$size-px-34: 30px;
+$size-px-35: 32px;
+$size-px-36: 350px;
+$size-px-37: 360px;
+$size-px-38: 36px;
+$size-px-39: 38px;
+$size-px-40: 3px;
+$size-px-41: 40px;
+$size-px-42: 42px;
+$size-px-43: 440px;
+$size-px-44: 44px;
+$size-px-45: 450px;
+$size-px-46: 480px;
+$size-px-47: 48px;
+$size-px-48: 4px;
+$size-px-49: 500px;
+$size-px-50: 50px;
+$size-px-51: 550px;
+$size-px-52: 55px;
+$size-px-53: 576px;
+$size-px-54: 5px;
+$size-px-55: 60px;
+$size-px-56: 65px;
+$size-px-57: 6px;
+$size-px-58: 70px;
+$size-px-59: 768px;
+$size-px-60: 80px;
+$size-px-61: 8px;
+$size-px-62: 90px;
+$size-px-63: 992px;
+$size-px-64: 9px;
+
+/* ---------- REM Sizes ---------- */
+$size-rem-1: 0.25rem;
+$size-rem-2: 0.4rem;
+$size-rem-3: 0.55rem;
+$size-rem-4: 0.5rem;
+$size-rem-5: 0.65rem;
+$size-rem-6: 0.6rem;
+$size-rem-7: 0.75rem;
+$size-rem-8: 0.78rem;
+$size-rem-9: 0.7rem;
+$size-rem-10: 0.82rem;
+$size-rem-11: 0.85rem;
+$size-rem-12: 0.875rem;
+$size-rem-13: 0.88rem;
+$size-rem-14: 0.8rem;
+$size-rem-15: 0.95rem;
+$size-rem-16: 0.9rem;
+$size-rem-17: 1.125rem;
+$size-rem-18: 1.1rem;
+$size-rem-19: 1.25rem;
+$size-rem-20: 1.2rem;
+$size-rem-21: 1.3rem;
+$size-rem-22: 1.5rem;
+$size-rem-23: 1.75rem;
+$size-rem-24: 1.875rem;
+$size-rem-25: 1rem;
+$size-rem-26: 2.4rem;
+$size-rem-27: 2.5rem;
+$size-rem-28: 2rem;
+$size-rem-29: 36rem;
+$size-rem-30: 3rem;
+$size-rem-31: 4rem;
+$size-rem-32: 55rem;
+
+/* ---------- Percent Sizes ---------- */
+$size-percent-1: 0%;
+$size-percent-2: 10%;
+$size-percent-3: 100%;
+$size-percent-4: 110%;
+$size-percent-5: 15%;
+$size-percent-6: 40%;
+$size-percent-7: 5%;
+$size-percent-8: 50%;
+$size-percent-9: 85%;
+$size-percent-10: 90%;
+$size-percent-11: 95%;
+
+
+/* =====================================================
+   MIXINS
+===================================================== */
+
+@mixin flex($justify: flex-start, $align: stretch, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
+@mixin transition($property: all, $duration: 0.3s, $ease: ease-in-out) {
+  transition: $property $duration $ease;
+}
+
+@mixin responsive($max) {
+  @media (max-width: $max) {
+    @content;
+  }
+}
+
+/* =====================================================
+   ORIGINAL PROJECT STYLES (COMMENTED BY SECTIONS)
+===================================================== */
+
+
+/* ---------------- Section 1 ---------------- */
+/* =====================================================
+   DESIGN SYSTEM — TOKENS
+===================================================== */
+/* ---------- Color Palette ---------- */
+$color-primary: #2563eb;
+$color-primary-light: #3b82f6;
+$color-primary-dark: #1d4ed8;
+
+/* ---------------- Section 3 ---------------- */
+$color-secondary: #9333ea;
+$color-success: #16a34a;
+$color-danger: #dc2626;
+$color-warning: #f59e0b;
+$color-info: #0ea5e9;
+
+/* ---------------- Section 5 ---------------- */
+$color-white: #ffffff;
+$color-black: #000000;
+$color-gray-100: #f3f4f6;
+$color-gray-200: #e5e7eb;
+$color-gray-300: #d1d5db;
+$color-gray-400: #9ca3af;
+$color-gray-500: #6b7280;
+$color-gray-600: #4b5563;
+$color-gray-700: #374151;
+$color-gray-800: #1f2937;
+$color-gray-900: #111827;
+
+/* ---------------- Section 7 ---------------- */
+/* ---------- Typography Scale ---------- */
+$font-family-base: 'Inter', sans-serif;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+
+/* ---------------- Section 9 ---------------- */
+/* ---------- Spacing Scale (8px system) ---------- */
+$space-0: 0;
+$space-1: 0.25rem;   // 4px
+$space-2: 0.5rem;    // 8px
+$space-3: 0.75rem;   // 12px
+$space-4: 1rem;      // 16px
+$space-5: 1.25rem;   // 20px
+$space-6: 1.5rem;    // 24px
+$space-8: 2rem;      // 32px
+$space-10: 2.5rem;   // 40px
+$space-12: 3rem;     // 48px
+
+/* ---------------- Section 11 ---------------- */
+/* ---------- Border Radius ---------- */
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+
+/* ---------------- Section 13 ---------------- */
+/* ---------- Shadows ---------- */
+$shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+$shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+$shadow-lg: 0 10px 15px rgba(0,0,0,0.15);
+
+/* ---------------- Section 15 ---------------- */
+/* ---------- Breakpoints ---------- */
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+/* ---------------- Section 17 ---------------- */
+/* =====================================================
+   MIXINS
+===================================================== */
+
+/* ---------------- Section 19 ---------------- */
+@mixin flex($justify: flex-start, $align: stretch, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
+/* ---------------- Section 21 ---------------- */
+@mixin grid($columns: 2, $gap: $space-4) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+/* ---------------- Section 23 ---------------- */
+@mixin text-style($size: $font-size-base, $weight: 400, $color: $color-gray-800) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
+/* ---------------- Section 25 ---------------- */
+@mixin button-base {
+  padding: $space-2 $space-4;
+  border-radius: $radius-md;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* ---------------- Section 27 ---------------- */
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+  @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @else if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) { @content; }
+  }
+}
+
+/* ---------------- Section 29 ---------------- */
+/* =====================================================
+   BASE / RESET
+===================================================== */
+
+/* ---------------- Section 31 ---------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ---------------- Section 33 ---------------- */
+body {
+  margin: 0;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  background-color: $color-gray-100;
+  color: $color-gray-900;
+}
+
+/* ---------------- Section 35 ---------------- */
+/* =====================================================
+   PROJECT STYLES (ORIGINAL - STRUCTURE PRESERVED)
+===================================================== */
+
+/* ---------------- Section 37 ---------------- */
+// Variables - Minimal clean design
+// @use "sass:color";
 $primary-color: #555;
 $text-dark: #222;
 $text-light: #666;
@@ -14,6 +394,7 @@ $radius: 1px;
 $table-border: #ddd;
 $table-head-bg: #fafafa;
 
+/* ---------------- Section 39 ---------------- */
 // Variables (Duplicate as per your request)
 $sidebar-width: 240px;
 $sidebar-collapsed: 70px;
@@ -23,59 +404,62 @@ $bg-white: #ffffff;
 $text-dark: #222;
 $border-color: #ddd;
 $transition: all 0.2s ease;
+*{
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
 
-* {
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-  }
+/* ---------------- Section 41 ---------------- */
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
 }
-
 .dashboard-wrapper {
   display: flex;
   background: $bg-light;
   min-height: 100vh;
 }
 
+/* ---------------- Section 43 ---------------- */
 // --- SIDEBAR COLLAPSE LOGIC ---
 #sidebar-collapse-check:checked {
   ~.sidebar {
     width: $sidebar-collapsed;
 
+/* ---------------- Section 45 ---------------- */
     .logo-text,
     .nav-text {
       display: none;
     }
 
+/* ---------------- Section 47 ---------------- */
     .nav-link {
       justify-content: center;
       padding: 1rem 0;
     }
 
+/* ---------------- Section 49 ---------------- */
     .logo {
       justify-content: center;
     }
-
     // Force all subtabs closed and chevrons reset when sidebar is collapsed
     .subtab-list {
       max-height: 0 !important;
     }
-
     .chevron-icon {
       transform: none !important;
     }
   }
 
+/* ---------------- Section 51 ---------------- */
   ~.content-area,
   ~.app-header {
     margin-left: $sidebar-collapsed;
   }
 }
 
+/* ---------------- Section 53 ---------------- */
 // Sidebar Style
 .sidebar {
   width: $sidebar-width;
@@ -87,6 +471,7 @@ $transition: all 0.2s ease;
   z-index: 10;
 }
 
+/* ---------------- Section 55 ---------------- */
 .nav-link {
   display: flex;
   align-items: center;
@@ -95,6 +480,7 @@ $transition: all 0.2s ease;
   transition: $transition;
   white-space: nowrap;
 
+/* ---------------- Section 57 ---------------- */
   .nav-icon {
     width: 20px;
     height: 20px;
@@ -102,17 +488,20 @@ $transition: all 0.2s ease;
     stroke: #888;
   }
 
+/* ---------------- Section 59 ---------------- */
   .nav-text {
     margin-left: 12px;
     font-size: 14px;
     color: #666;
   }
 
+/* ---------------- Section 61 ---------------- */
   &:hover {
     background: $bg-hover;
   }
 }
 
+/* ---------------- Section 63 ---------------- */
 // Header
 .app-header {
   position: fixed;
@@ -130,6 +519,7 @@ $transition: all 0.2s ease;
   padding: 0 20px;
 }
 
+/* ---------------- Section 65 ---------------- */
 .burger-btn {
   cursor: pointer;
   display: flex;
@@ -137,6 +527,7 @@ $transition: all 0.2s ease;
   margin-right: 15px;
 }
 
+/* ---------------- Section 67 ---------------- */
 // --- TAB DISPLAY LOGIC ---
 .content-area {
   margin-top: 60px;
@@ -147,6 +538,7 @@ $transition: all 0.2s ease;
   transition: $transition;
 }
 
+/* ---------------- Section 69 ---------------- */
 // Logic to show specific view when radio is checked
 #tab-acr:checked~.acr-view,
 #tab-bonus:checked~.bonus-view,
@@ -168,10 +560,12 @@ $transition: all 0.2s ease;
   display: block;
 }
 
+/* ---------------- Section 71 ---------------- */
 // ==========================================
 // SUBTAB / COLLAPSIBLE GROUP STYLES
 // ==========================================
 
+/* ---------------- Section 73 ---------------- */
 // Subtab list hidden by default
 .subtab-list {
   list-style: none;
@@ -182,6 +576,7 @@ $transition: all 0.2s ease;
   transition: max-height 0.25s ease;
 }
 
+/* ---------------- Section 75 ---------------- */
 // Chevron icon in parent nav
 .chevron-icon {
   width: 16px;
@@ -192,126 +587,115 @@ $transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
+/* ---------------- Section 77 ---------------- */
 // ===== DEPARTMENT GROUP =====
-#dept-toggle:checked~.sidebar .dept-subtabs {
+#dept-toggle:checked ~ .sidebar .dept-subtabs {
   max-height: 200px;
 }
-
-#tab-departments:checked~.sidebar .dept-subtabs,
-#tab-posts:checked~.sidebar .dept-subtabs,
-#tab-questions:checked~.sidebar .dept-subtabs {
+#tab-departments:checked ~ .sidebar .dept-subtabs,
+#tab-posts:checked ~ .sidebar .dept-subtabs,
+#tab-questions:checked ~ .sidebar .dept-subtabs {
   max-height: 200px;
 }
-
-#dept-toggle:checked~.sidebar .nav-item-dept-group .chevron-icon {
+#dept-toggle:checked ~ .sidebar .nav-item-dept-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-departments:checked ~ .sidebar .nav-item-dept-group .chevron-icon,
+#tab-posts:checked ~ .sidebar .nav-item-dept-group .chevron-icon,
+#tab-questions:checked ~ .sidebar .nav-item-dept-group .chevron-icon {
   transform: rotate(180deg);
 }
 
-#tab-departments:checked~.sidebar .nav-item-dept-group .chevron-icon,
-#tab-posts:checked~.sidebar .nav-item-dept-group .chevron-icon,
-#tab-questions:checked~.sidebar .nav-item-dept-group .chevron-icon {
-  transform: rotate(180deg);
-}
-
+/* ---------------- Section 79 ---------------- */
 // ===== BONUS & FINE GROUP =====
-#bonus-toggle:checked~.sidebar .bonus-subtabs {
+#bonus-toggle:checked ~ .sidebar .bonus-subtabs {
   max-height: 200px;
 }
-
-#tab-bonus:checked~.sidebar .bonus-subtabs,
-#tab-deductions:checked~.sidebar .bonus-subtabs,
-#tab-rating:checked~.sidebar .bonus-subtabs {
+#tab-bonus:checked ~ .sidebar .bonus-subtabs,
+#tab-deductions:checked ~ .sidebar .bonus-subtabs,
+#tab-rating:checked ~ .sidebar .bonus-subtabs {
   max-height: 200px;
 }
-
-#bonus-toggle:checked~.sidebar .nav-item-bonus-group .chevron-icon {
+#bonus-toggle:checked ~ .sidebar .nav-item-bonus-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-bonus:checked ~ .sidebar .nav-item-bonus-group .chevron-icon,
+#tab-deductions:checked ~ .sidebar .nav-item-bonus-group .chevron-icon,
+#tab-rating:checked ~ .sidebar .nav-item-bonus-group .chevron-icon {
   transform: rotate(180deg);
 }
 
-#tab-bonus:checked~.sidebar .nav-item-bonus-group .chevron-icon,
-#tab-deductions:checked~.sidebar .nav-item-bonus-group .chevron-icon,
-#tab-rating:checked~.sidebar .nav-item-bonus-group .chevron-icon {
-  transform: rotate(180deg);
-}
-
+/* ---------------- Section 81 ---------------- */
 // ===== PAYROLL & FINANCE GROUP =====
-#payroll-toggle:checked~.sidebar .payroll-subtabs {
+#payroll-toggle:checked ~ .sidebar .payroll-subtabs {
   max-height: 200px;
 }
-
-#tab-reports:checked~.sidebar .payroll-subtabs,
-#tab-ledger:checked~.sidebar .payroll-subtabs,
-#tab-voucher:checked~.sidebar .payroll-subtabs {
+#tab-reports:checked ~ .sidebar .payroll-subtabs,
+#tab-ledger:checked ~ .sidebar .payroll-subtabs,
+#tab-voucher:checked ~ .sidebar .payroll-subtabs {
   max-height: 200px;
 }
-
-#payroll-toggle:checked~.sidebar .nav-item-payroll-group .chevron-icon {
+#payroll-toggle:checked ~ .sidebar .nav-item-payroll-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-reports:checked ~ .sidebar .nav-item-payroll-group .chevron-icon,
+#tab-ledger:checked ~ .sidebar .nav-item-payroll-group .chevron-icon,
+#tab-voucher:checked ~ .sidebar .nav-item-payroll-group .chevron-icon {
   transform: rotate(180deg);
 }
 
-#tab-reports:checked~.sidebar .nav-item-payroll-group .chevron-icon,
-#tab-ledger:checked~.sidebar .nav-item-payroll-group .chevron-icon,
-#tab-voucher:checked~.sidebar .nav-item-payroll-group .chevron-icon {
-  transform: rotate(180deg);
-}
-
+/* ---------------- Section 83 ---------------- */
 // ===== HR MANAGEMENT GROUP =====
-#hr-toggle:checked~.sidebar .hr-subtabs {
+#hr-toggle:checked ~ .sidebar .hr-subtabs {
   max-height: 200px;
 }
-
-#tab-attendance:checked~.sidebar .hr-subtabs,
-#tab-resignation:checked~.sidebar .hr-subtabs {
+#tab-attendance:checked ~ .sidebar .hr-subtabs,
+#tab-resignation:checked ~ .sidebar .hr-subtabs {
   max-height: 200px;
 }
-
-#hr-toggle:checked~.sidebar .nav-item-hr-group .chevron-icon {
+#hr-toggle:checked ~ .sidebar .nav-item-hr-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-attendance:checked ~ .sidebar .nav-item-hr-group .chevron-icon,
+#tab-resignation:checked ~ .sidebar .nav-item-hr-group .chevron-icon {
   transform: rotate(180deg);
 }
 
-#tab-attendance:checked~.sidebar .nav-item-hr-group .chevron-icon,
-#tab-resignation:checked~.sidebar .nav-item-hr-group .chevron-icon {
-  transform: rotate(180deg);
-}
-
+/* ---------------- Section 85 ---------------- */
 // ===== ACCOUNTS GROUP =====
-#accounts-toggle:checked~.sidebar .accounts-subtabs {
+#accounts-toggle:checked ~ .sidebar .accounts-subtabs {
   max-height: 200px;
 }
-
-#tab-expenses:checked~.sidebar .accounts-subtabs,
-#tab-invoices:checked~.sidebar .accounts-subtabs {
+#tab-expenses:checked ~ .sidebar .accounts-subtabs,
+#tab-invoices:checked ~ .sidebar .accounts-subtabs {
   max-height: 200px;
 }
-
-#accounts-toggle:checked~.sidebar .nav-item-accounts-group .chevron-icon {
+#accounts-toggle:checked ~ .sidebar .nav-item-accounts-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-expenses:checked ~ .sidebar .nav-item-accounts-group .chevron-icon,
+#tab-invoices:checked ~ .sidebar .nav-item-accounts-group .chevron-icon {
   transform: rotate(180deg);
 }
 
-#tab-expenses:checked~.sidebar .nav-item-accounts-group .chevron-icon,
-#tab-invoices:checked~.sidebar .nav-item-accounts-group .chevron-icon {
-  transform: rotate(180deg);
-}
-
+/* ---------------- Section 87 ---------------- */
 // ===== SYSTEM GROUP =====
-#system-toggle:checked~.sidebar .system-subtabs {
+#system-toggle:checked ~ .sidebar .system-subtabs {
   max-height: 200px;
 }
-
-#tab-settings:checked~.sidebar .system-subtabs,
-#tab-audit:checked~.sidebar .system-subtabs {
+#tab-settings:checked ~ .sidebar .system-subtabs,
+#tab-audit:checked ~ .sidebar .system-subtabs {
   max-height: 200px;
 }
-
-#system-toggle:checked~.sidebar .nav-item-system-group .chevron-icon {
+#system-toggle:checked ~ .sidebar .nav-item-system-group .chevron-icon {
+  transform: rotate(180deg);
+}
+#tab-settings:checked ~ .sidebar .nav-item-system-group .chevron-icon,
+#tab-audit:checked ~ .sidebar .nav-item-system-group .chevron-icon {
   transform: rotate(180deg);
 }
 
-#tab-settings:checked~.sidebar .nav-item-system-group .chevron-icon,
-#tab-audit:checked~.sidebar .nav-item-system-group .chevron-icon {
-  transform: rotate(180deg);
-}
-
+/* ---------------- Section 89 ---------------- */
 // Subtab link style
 .subtab-link {
   display: block;
@@ -323,6 +707,7 @@ $transition: all 0.2s ease;
   border-radius: $radius;
   position: relative;
 
+/* ---------------- Section 91 ---------------- */
   &::before {
     content: '';
     position: absolute;
@@ -336,94 +721,105 @@ $transition: all 0.2s ease;
     transition: $transition;
   }
 
+/* ---------------- Section 93 ---------------- */
   &:hover {
     background: $bg-hover;
     color: $text-dark;
 
+/* ---------------- Section 95 ---------------- */
     &::before {
       background: $text-dark;
     }
   }
 }
 
+/* ---------------- Section 97 ---------------- */
 // ==========================================
 // ACTIVE NAV ITEM LOGIC (Class-based selectors)
 // ==========================================
 // Top-level nav items (ACR, Employees only)
-#tab-acr:checked~.sidebar .nav-item-acr .nav-link,
-#tab-employees:checked~.sidebar .nav-item-employees .nav-link {
+#tab-acr:checked ~ .sidebar .nav-item-acr .nav-link,
+#tab-employees:checked ~ .sidebar .nav-item-employees .nav-link {
   background: $bg-light;
   border-right: 3px solid $primary-color;
 
+/* ---------------- Section 99 ---------------- */
   .nav-icon {
     stroke: $primary-color;
   }
 
+/* ---------------- Section 101 ---------------- */
   .nav-text {
     color: $text-dark;
     font-weight: 600;
   }
 }
 
+/* ---------------- Section 103 ---------------- */
 // Highlight parent group when any subtab inside is active
 // Department group
-#tab-departments:checked~.sidebar .nav-item-dept-group>.nav-link,
-#tab-posts:checked~.sidebar .nav-item-dept-group>.nav-link,
-#tab-questions:checked~.sidebar .nav-item-dept-group>.nav-link,
+#tab-departments:checked ~ .sidebar .nav-item-dept-group > .nav-link,
+#tab-posts:checked ~ .sidebar .nav-item-dept-group > .nav-link,
+#tab-questions:checked ~ .sidebar .nav-item-dept-group > .nav-link,
 // Bonus & Fine group
-#tab-bonus:checked~.sidebar .nav-item-bonus-group>.nav-link,
-#tab-deductions:checked~.sidebar .nav-item-bonus-group>.nav-link,
-#tab-rating:checked~.sidebar .nav-item-bonus-group>.nav-link,
+#tab-bonus:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
+#tab-deductions:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
+#tab-rating:checked ~ .sidebar .nav-item-bonus-group > .nav-link,
 // Payroll & Finance group
-#tab-reports:checked~.sidebar .nav-item-payroll-group>.nav-link,
-#tab-ledger:checked~.sidebar .nav-item-payroll-group>.nav-link,
-#tab-voucher:checked~.sidebar .nav-item-payroll-group>.nav-link,
+#tab-reports:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
+#tab-ledger:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
+#tab-voucher:checked ~ .sidebar .nav-item-payroll-group > .nav-link,
 // HR Management group
-#tab-attendance:checked~.sidebar .nav-item-hr-group>.nav-link,
-#tab-resignation:checked~.sidebar .nav-item-hr-group>.nav-link,
+#tab-attendance:checked ~ .sidebar .nav-item-hr-group > .nav-link,
+#tab-resignation:checked ~ .sidebar .nav-item-hr-group > .nav-link,
 // Accounts group
-#tab-expenses:checked~.sidebar .nav-item-accounts-group>.nav-link,
-#tab-invoices:checked~.sidebar .nav-item-accounts-group>.nav-link,
+#tab-expenses:checked ~ .sidebar .nav-item-accounts-group > .nav-link,
+#tab-invoices:checked ~ .sidebar .nav-item-accounts-group > .nav-link,
 // System group
-#tab-settings:checked~.sidebar .nav-item-system-group>.nav-link,
-#tab-audit:checked~.sidebar .nav-item-system-group>.nav-link {
+#tab-settings:checked ~ .sidebar .nav-item-system-group > .nav-link,
+#tab-audit:checked ~ .sidebar .nav-item-system-group > .nav-link {
   background: $bg-light;
 
+/* ---------------- Section 105 ---------------- */
   .nav-icon {
     stroke: $primary-color;
   }
 
+/* ---------------- Section 107 ---------------- */
   .nav-text {
     color: $text-dark;
     font-weight: 600;
   }
 }
 
+/* ---------------- Section 109 ---------------- */
 // Active subtab links
-#tab-departments:checked~.sidebar .subtab-item-departments .subtab-link,
-#tab-posts:checked~.sidebar .subtab-item-posts .subtab-link,
-#tab-questions:checked~.sidebar .subtab-item-questions .subtab-link,
-#tab-bonus:checked~.sidebar .subtab-item-bonus .subtab-link,
-#tab-deductions:checked~.sidebar .subtab-item-deductions .subtab-link,
-#tab-rating:checked~.sidebar .subtab-item-rating .subtab-link,
-#tab-reports:checked~.sidebar .subtab-item-reports .subtab-link,
-#tab-ledger:checked~.sidebar .subtab-item-ledger .subtab-link,
-#tab-voucher:checked~.sidebar .subtab-item-voucher .subtab-link,
-#tab-attendance:checked~.sidebar .subtab-item-attendance .subtab-link,
-#tab-resignation:checked~.sidebar .subtab-item-resignation .subtab-link,
-#tab-expenses:checked~.sidebar .subtab-item-expenses .subtab-link,
-#tab-invoices:checked~.sidebar .subtab-item-invoices .subtab-link,
-#tab-settings:checked~.sidebar .subtab-item-settings .subtab-link,
-#tab-audit:checked~.sidebar .subtab-item-audit .subtab-link {
+#tab-departments:checked ~ .sidebar .subtab-item-departments .subtab-link,
+#tab-posts:checked ~ .sidebar .subtab-item-posts .subtab-link,
+#tab-questions:checked ~ .sidebar .subtab-item-questions .subtab-link,
+#tab-bonus:checked ~ .sidebar .subtab-item-bonus .subtab-link,
+#tab-deductions:checked ~ .sidebar .subtab-item-deductions .subtab-link,
+#tab-rating:checked ~ .sidebar .subtab-item-rating .subtab-link,
+#tab-reports:checked ~ .sidebar .subtab-item-reports .subtab-link,
+#tab-ledger:checked ~ .sidebar .subtab-item-ledger .subtab-link,
+#tab-voucher:checked ~ .sidebar .subtab-item-voucher .subtab-link,
+#tab-attendance:checked ~ .sidebar .subtab-item-attendance .subtab-link,
+#tab-resignation:checked ~ .sidebar .subtab-item-resignation .subtab-link,
+#tab-expenses:checked ~ .sidebar .subtab-item-expenses .subtab-link,
+#tab-invoices:checked ~ .sidebar .subtab-item-invoices .subtab-link,
+#tab-settings:checked ~ .sidebar .subtab-item-settings .subtab-link,
+#tab-audit:checked ~ .sidebar .subtab-item-audit .subtab-link {
   color: $text-dark;
   font-weight: 600;
   background: $bg-hover;
 
+/* ---------------- Section 111 ---------------- */
   &::before {
     background: $primary-color;
   }
 }
 
+/* ---------------- Section 113 ---------------- */
 // Simple Active State
 %active-nav {
   background-color: $bg-light;
@@ -432,11 +828,13 @@ $transition: all 0.2s ease;
   border-right: 2px solid $text-dark;
   border-radius: 0;
 
+/* ---------------- Section 115 ---------------- */
   .nav-icon {
     stroke: $text-dark;
   }
 }
 
+/* ---------------- Section 117 ---------------- */
 .sidebar {
   width: $sidebar-width;
   height: 100vh;
@@ -448,24 +846,29 @@ $transition: all 0.2s ease;
   z-index: 1;
   padding: 0; // Removed extra padding for a flush look
 
+/* ---------------- Section 119 ---------------- */
   .sidebar-header {
     padding: 1.5rem;
     border-bottom: 1px solid $border-color;
     margin-bottom: 1rem;
 
+/* ---------------- Section 121 ---------------- */
     .logo {
       display: flex;
       align-items: center;
       gap: 8px;
 
+/* ---------------- Section 123 ---------------- */
       .logo-icon {
         font-size: 24px;
         color: $text-dark;
         font-weight: 800;
       }
 
+/* ---------------- Section 125 ---------------- */
       .logo-text {
 
+/* ---------------- Section 127 ---------------- */
         font-weight: 700;
         font-size: 10px;
         position: relative;
@@ -476,6 +879,7 @@ $transition: all 0.2s ease;
         letter-spacing: 0.5px;
         margin: 0;
 
+/* ---------------- Section 129 ---------------- */
         span {
           color: $text-dark;
         }
@@ -483,23 +887,26 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 131 ---------------- */
   .sidebar-nav {
     padding: 0 0.75rem;
-    overflow: scroll;
+    overflow: scroll; 
+     &::-webkit-scrollbar {
+    display: none;
+  }
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+/* ---------------- Section 133 ---------------- */
+  -ms-overflow-style: none;
+  scrollbar-width: none;// Padding on the sides of nav list
 
-    -ms-overflow-style: none;
-    scrollbar-width: none; // Padding on the sides of nav list
-
+/* ---------------- Section 135 ---------------- */
     .nav-list {
       list-style: none;
       padding: 0;
       margin: 0;
     }
 
+/* ---------------- Section 137 ---------------- */
     .nav-link {
       cursor: pointer;
       display: flex;
@@ -513,16 +920,19 @@ $transition: all 0.2s ease;
       text-decoration: none;
       font-size: 0.9rem;
 
+/* ---------------- Section 139 ---------------- */
       .nav-icon {
         width: 18px;
         height: 18px;
         stroke: $text-light;
       }
 
+/* ---------------- Section 141 ---------------- */
       &:hover {
         background: $bg-hover;
         color: $text-dark;
 
+/* ---------------- Section 143 ---------------- */
         .nav-icon {
           stroke: $text-dark;
         }
@@ -531,13 +941,14 @@ $transition: all 0.2s ease;
   }
 }
 
-
+/* ---------------- Section 145 ---------------- */
 .section-container {
   background: $bg-white;
   border: 1px solid $border-color;
   border-radius: $radius;
 }
 
+/* ---------------- Section 147 ---------------- */
 .section-header {
   padding: 1.5rem;
   display: flex;
@@ -545,12 +956,14 @@ $transition: all 0.2s ease;
   align-items: center;
   border-bottom: 1px solid $border-color;
 
+/* ---------------- Section 149 ---------------- */
   .section-title {
     font-size: 1.25rem;
     margin: 0;
     color: $text-dark;
   }
 
+/* ---------------- Section 151 ---------------- */
   .section-subtitle {
     font-size: 0.85rem;
     color: $text-light;
@@ -558,6 +971,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 153 ---------------- */
 // Simple Add Button
 .btn-add {
   background-color: $primary-color;
@@ -573,23 +987,25 @@ $transition: all 0.2s ease;
   cursor: pointer;
   transition: opacity 0.2s;
 
+/* ---------------- Section 155 ---------------- */
   &:hover {
     opacity: 0.9;
   }
 
+/* ---------------- Section 157 ---------------- */
   .btn-icon {
     width: 16px;
     height: 16px;
   }
 }
 
-
-
+/* ---------------- Section 159 ---------------- */
 .simple-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 
+/* ---------------- Section 161 ---------------- */
   th {
     background-color: $table-head-bg;
     color: $text-light;
@@ -602,24 +1018,29 @@ $transition: all 0.2s ease;
     letter-spacing: 0.5px;
   }
 
+/* ---------------- Section 163 ---------------- */
   td {
     padding: 12px 15px;
     border-bottom: 1px solid $table-border;
     color: $text-dark;
   }
 
+/* ---------------- Section 165 ---------------- */
   tr:last-child td {
     border-bottom: none;
   }
 
+/* ---------------- Section 167 ---------------- */
   .font-bold {
     font-weight: 600;
   }
 
+/* ---------------- Section 169 ---------------- */
   .text-right {
     text-align: right;
   }
 
+/* ---------------- Section 171 ---------------- */
   // Simple Status Pill
   .status-pill {
     background: $bg-light;
@@ -630,6 +1051,7 @@ $transition: all 0.2s ease;
     border: 1px solid $border-color;
   }
 
+/* ---------------- Section 173 ---------------- */
   // Action Button
   .btn-text {
     background: transparent;
@@ -639,16 +1061,19 @@ $transition: all 0.2s ease;
     cursor: pointer;
     text-decoration: underline;
 
+/* ---------------- Section 175 ---------------- */
     &:hover {
       // color: darken($primary-color, 15%);
     }
   }
 }
 
+/* ---------------- Section 177 ---------------- */
 .custom-select-container {
   position: relative;
   width: 100%;
 
+/* ---------------- Section 179 ---------------- */
   .select-trigger {
     width: 100%;
     background: $bg-white;
@@ -663,11 +1088,13 @@ $transition: all 0.2s ease;
     color: $text-dark;
     text-align: left;
 
+/* ---------------- Section 181 ---------------- */
     &:focus {
       outline: none;
       border-color: $primary-color;
     }
 
+/* ---------------- Section 183 ---------------- */
     .chevron-icon {
       width: 20px;
       height: 20px;
@@ -675,6 +1102,7 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 185 ---------------- */
   .select-options {
     position: absolute;
     z-index: 50;
@@ -689,6 +1117,7 @@ $transition: all 0.2s ease;
     max-height: 200px;
     overflow-y: auto;
 
+/* ---------------- Section 187 ---------------- */
     .option-item {
       padding: 0.6rem 1rem;
       font-size: 0.9rem;
@@ -696,6 +1125,7 @@ $transition: all 0.2s ease;
       cursor: pointer;
       transition: $transition;
 
+/* ---------------- Section 189 ---------------- */
       &.active {
         background: $bg-light;
         color: $primary-color;
@@ -704,6 +1134,7 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 191 ---------------- */
   &.open-up {
     .select-options {
       top: auto;
@@ -713,6 +1144,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 193 ---------------- */
 // Modal Logic
 .modal-overlay {
   position: fixed;
@@ -727,11 +1159,13 @@ $transition: all 0.2s ease;
   z-index: 2000;
 }
 
+/* ---------------- Section 195 ---------------- */
 // Show modal when checkbox is checked
 #modal-toggle:checked~.modal-overlay {
   display: flex;
 }
 
+/* ---------------- Section 197 ---------------- */
 .modal-content {
   background: $bg-white;
   width: 100%;
@@ -740,6 +1174,7 @@ $transition: all 0.2s ease;
   border: 1px solid $border-color;
 }
 
+/* ---------------- Section 199 ---------------- */
 .modal-header {
   padding: 1.25rem;
   border-bottom: 1px solid $border-color;
@@ -747,34 +1182,41 @@ $transition: all 0.2s ease;
   justify-content: space-between;
   align-items: center;
 
+/* ---------------- Section 201 ---------------- */
   .modal-title {
     font-size: 1.1rem;
     font-weight: 700;
     margin: 0;
   }
 
+/* ---------------- Section 203 ---------------- */
   .close-icon {
     cursor: pointer;
     width: 20px;
     height: 20px;
     color: $text-light;
 
+/* ---------------- Section 205 ---------------- */
     &:hover {
       color: $text-dark;
     }
   }
 }
 
+/* ---------------- Section 207 ---------------- */
 .modal-form {
   padding: 1.25rem;
 
+/* ---------------- Section 209 ---------------- */
   .form-group {
     margin-bottom: 1.25rem;
 
+/* ---------------- Section 211 ---------------- */
     &:nth-last-child(1) {
       width: 100%;
     }
 
+/* ---------------- Section 213 ---------------- */
     label {
       display: block;
       font-size: 0.85rem;
@@ -784,6 +1226,7 @@ $transition: all 0.2s ease;
       color: $text-dark;
     }
 
+/* ---------------- Section 215 ---------------- */
     input,
     select {
       width: 100%;
@@ -793,6 +1236,7 @@ $transition: all 0.2s ease;
       border-radius: $radius;
       font-size: 0.9rem;
 
+/* ---------------- Section 217 ---------------- */
       &:focus {
         outline: none;
         border-color: $primary-color;
@@ -801,15 +1245,17 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 219 ---------------- */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 1.5rem;
 
-
+/* ---------------- Section 221 ---------------- */
 }
 
+/* ---------------- Section 223 ---------------- */
 // Specific Unique Logic for Post Modal
 .post-modal-wrapper {
   #post-modal-toggle:checked~.post-modal-overlay {
@@ -817,6 +1263,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 225 ---------------- */
 .post-modal-overlay {
   position: fixed;
   inset: 0;
@@ -828,6 +1275,7 @@ $transition: all 0.2s ease;
   backdrop-filter: blur(1px);
 }
 
+/* ---------------- Section 227 ---------------- */
 .post-modal-content {
   background: $bg-white;
   width: 95%;
@@ -837,6 +1285,7 @@ $transition: all 0.2s ease;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
+/* ---------------- Section 229 ---------------- */
 .post-modal-header {
   padding: 1.25rem;
   border-bottom: 1px solid $border-color;
@@ -844,6 +1293,7 @@ $transition: all 0.2s ease;
   justify-content: space-between;
   align-items: center;
 
+/* ---------------- Section 231 ---------------- */
   .post-modal-title {
     font-size: 1.1rem;
     font-weight: 700;
@@ -851,6 +1301,7 @@ $transition: all 0.2s ease;
     margin: 0;
   }
 
+/* ---------------- Section 233 ---------------- */
   .post-close-icon {
     cursor: pointer;
     width: 20px;
@@ -858,18 +1309,22 @@ $transition: all 0.2s ease;
     color: $text-light;
     transition: $transition;
 
+/* ---------------- Section 235 ---------------- */
     &:hover {
       color: $text-dark;
     }
   }
 }
 
+/* ---------------- Section 237 ---------------- */
 .post-modal-form {
   padding: 1.5rem;
 
+/* ---------------- Section 239 ---------------- */
   .post-form-group {
     margin-bottom: 1.25rem;
 
+/* ---------------- Section 241 ---------------- */
     label {
       display: block;
       font-size: 0.85rem;
@@ -879,6 +1334,7 @@ $transition: all 0.2s ease;
       text-align: left;
     }
 
+/* ---------------- Section 243 ---------------- */
     input,
     select {
       width: 100%;
@@ -888,6 +1344,7 @@ $transition: all 0.2s ease;
       font-size: 0.9rem;
       background-color: $bg-white;
 
+/* ---------------- Section 245 ---------------- */
       &:focus {
         outline: none;
         border-color: $primary-color;
@@ -897,6 +1354,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 247 ---------------- */
 .post-modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -906,6 +1364,7 @@ $transition: all 0.2s ease;
   margin-top: 0.5rem;
 }
 
+/* ---------------- Section 249 ---------------- */
 .btn-cancel {
   cursor: pointer;
   padding: 0.6rem 1.2rem;
@@ -915,11 +1374,13 @@ $transition: all 0.2s ease;
   background: $bg-light;
   border-radius: $radius;
 
+/* ---------------- Section 251 ---------------- */
   &:hover {
     background: color.adjust($bg-light, $lightness: -5%);
   }
 }
 
+/* ---------------- Section 253 ---------------- */
 .btn-save {
   cursor: pointer;
   padding: 0.6rem 1.2rem;
@@ -930,22 +1391,26 @@ $transition: all 0.2s ease;
   border: none;
   border-radius: $radius;
 
+/* ---------------- Section 255 ---------------- */
   &:hover {
     opacity: 0.9;
   }
 }
 
+/* ---------------- Section 257 ---------------- */
 .btn-icon-only,
 .btn-action-icon {
   width: 17px;
 }
 
+/* ---------------- Section 259 ---------------- */
 // Form Wrapper
 .form-wrapper {
   padding: 2rem;
   background: $bg-white;
 }
 
+/* ---------------- Section 261 ---------------- */
 .soft-form {
   .form-row {
     display: grid;
@@ -954,17 +1419,20 @@ $transition: all 0.2s ease;
     margin-bottom: 1.5rem;
   }
 
+/* ---------------- Section 263 ---------------- */
   .form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
 
+/* ---------------- Section 265 ---------------- */
     label {
       font-size: 0.85rem;
       font-weight: 600;
       color: $text-dark;
     }
 
+/* ---------------- Section 267 ---------------- */
     input,
     select {
       padding: 0.75rem;
@@ -975,6 +1443,7 @@ $transition: all 0.2s ease;
       background-color: #fff;
       transition: $transition;
 
+/* ---------------- Section 269 ---------------- */
       &:focus {
         outline: none;
         border-color: $primary-color;
@@ -984,6 +1453,7 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 271 ---------------- */
   .form-actions {
     display: flex;
     justify-content: flex-end;
@@ -993,32 +1463,37 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 273 ---------------- */
 // User Info Cell in Table
 .user-info {
   display: flex;
   flex-direction: column;
 
+/* ---------------- Section 275 ---------------- */
   .display-block {
     display: block;
   }
 
+/* ---------------- Section 277 ---------------- */
   small {
     font-size: 0.8rem;
   }
 }
 
+/* ---------------- Section 279 ---------------- */
 // Helper utility for status
 .active-status {
   background-color: $bg-light !important;
   color: $text-dark !important;
 }
 
-
+/* ---------------- Section 281 ---------------- */
 .pro-question-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 
+/* ---------------- Section 283 ---------------- */
   th {
     padding: 10px;
     font-size: 0.7rem;
@@ -1028,12 +1503,14 @@ $transition: all 0.2s ease;
     text-align: left;
   }
 
+/* ---------------- Section 285 ---------------- */
   td {
     padding: 10px;
     background: $bg-white;
     border-bottom: 1px solid $border-color;
   }
 
+/* ---------------- Section 287 ---------------- */
   .parent-row {
     td {
       background: $bg-white;
@@ -1041,6 +1518,7 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 289 ---------------- */
   .sub-row {
     td {
       background: $bg-light;
@@ -1048,6 +1526,7 @@ $transition: all 0.2s ease;
       padding-bottom: 6px;
     }
 
+/* ---------------- Section 291 ---------------- */
     .sub-input-wrapper {
       padding-left: 20px;
       border-left: 1px solid $border-color;
@@ -1055,11 +1534,13 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 293 ---------------- */
   .q-no {
     font-weight: 600;
     color: $text-dark;
     font-size: 0.85rem;
 
+/* ---------------- Section 295 ---------------- */
     &.sub-no {
       color: $text-light;
       font-size: 0.8rem;
@@ -1068,6 +1549,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 297 ---------------- */
 .btn-sub {
   background: $bg-light;
   color: $text-light;
@@ -1078,6 +1560,7 @@ $transition: all 0.2s ease;
   font-weight: 600;
   cursor: pointer;
 
+/* ---------------- Section 299 ---------------- */
   &:hover {
     background: $text-dark;
     color: white;
@@ -1085,6 +1568,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 301 ---------------- */
 .btn-add-main {
   width: 100%;
   margin-top: 1.5rem;
@@ -1096,23 +1580,27 @@ $transition: all 0.2s ease;
   border-radius: $radius;
   cursor: pointer;
 
+/* ---------------- Section 303 ---------------- */
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 305 ---------------- */
 .form-footer {
   padding: 1.5rem;
   display: flex;
   justify-content: flex-end;
 
+/* ---------------- Section 307 ---------------- */
   .btn-large {
     padding: 0.75rem 2rem;
     font-size: 0.9rem;
   }
 }
 
+/* ---------------- Section 309 ---------------- */
 .form-top-selectors {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1122,9 +1610,11 @@ $transition: all 0.2s ease;
   border-bottom: 1px solid $border-color;
 }
 
+/* ---------------- Section 311 ---------------- */
 .dynamic-rows-container {
   padding: 1rem;
 
+/* ---------------- Section 313 ---------------- */
   .flat-input {
     width: 100%;
     border: 1px solid $border-color;
@@ -1132,18 +1622,22 @@ $transition: all 0.2s ease;
     border-radius: $radius;
     font-size: 0.85rem;
 
+/* ---------------- Section 315 ---------------- */
     &:focus {
       border-color: $text-dark;
       outline: none;
     }
   }
 
+/* ---------------- Section 317 ---------------- */
   .sub-question-row {
     background-color: $bg-light;
 
+/* ---------------- Section 319 ---------------- */
     td:nth-child(2) {
       position: relative;
 
+/* ---------------- Section 321 ---------------- */
       &::before {
         content: "↳";
         position: absolute;
@@ -1155,6 +1649,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 323 ---------------- */
 .btn-add-row {
   background: transparent;
   border: 1px dashed $border-color;
@@ -1167,6 +1662,7 @@ $transition: all 0.2s ease;
   font-weight: 500;
   transition: $transition;
 
+/* ---------------- Section 325 ---------------- */
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
@@ -1174,6 +1670,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 327 ---------------- */
 .form-footer-actions {
   display: flex;
   flex-direction: column;
@@ -1181,6 +1678,7 @@ $transition: all 0.2s ease;
   margin-top: 1rem;
 }
 
+/* ---------------- Section 329 ---------------- */
 // Employee Modal
 .emp-modal-overlay {
   position: fixed;
@@ -1192,6 +1690,7 @@ $transition: all 0.2s ease;
   z-index: 2000;
 }
 
+/* ---------------- Section 331 ---------------- */
 .emp-modal-content {
   background: $bg-white;
   width: 90%;
@@ -1201,14 +1700,17 @@ $transition: all 0.2s ease;
   border: 1px solid $border-color;
   border-radius: $radius;
 
+/* ---------------- Section 333 ---------------- */
   &::-webkit-scrollbar {
     display: none;
   }
 
+/* ---------------- Section 335 ---------------- */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
+/* ---------------- Section 337 ---------------- */
 .emp-modal-header {
   padding: 1rem 1.25rem;
   border-bottom: 1px solid $border-color;
@@ -1216,6 +1718,7 @@ $transition: all 0.2s ease;
   justify-content: space-between;
   align-items: center;
 
+/* ---------------- Section 339 ---------------- */
   .emp-modal-title {
     font-size: 1rem;
     font-weight: 600;
@@ -1223,6 +1726,7 @@ $transition: all 0.2s ease;
     margin: 0;
   }
 
+/* ---------------- Section 341 ---------------- */
   .close-btn {
     background: none;
     border: none;
@@ -1232,10 +1736,12 @@ $transition: all 0.2s ease;
     color: $text-light;
     padding: 0;
 
+/* ---------------- Section 343 ---------------- */
     &:hover {
       color: $text-dark;
     }
 
+/* ---------------- Section 345 ---------------- */
     svg {
       width: 100%;
       height: 100%;
@@ -1243,13 +1749,16 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 347 ---------------- */
 .emp-modal-form {
   padding: 1.25rem;
 
+/* ---------------- Section 349 ---------------- */
   .form-section {
     margin-bottom: 1.25rem;
   }
 
+/* ---------------- Section 351 ---------------- */
   .form-section-title {
     font-size: 0.8rem;
     font-weight: 600;
@@ -1261,28 +1770,33 @@ $transition: all 0.2s ease;
     border-bottom: 1px solid $border-color;
   }
 
+/* ---------------- Section 353 ---------------- */
   .form-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
   }
 
+/* ---------------- Section 355 ---------------- */
   .form-group {
     display: flex;
     flex-direction: column;
     width: calc(50% - 0.5rem);
     gap: 4px;
 
+/* ---------------- Section 357 ---------------- */
     &.full-width {
       grid-column: span 2;
     }
 
+/* ---------------- Section 359 ---------------- */
     label {
       font-size: 0.8rem;
       font-weight: 500;
       color: $text-dark;
     }
 
+/* ---------------- Section 361 ---------------- */
     input,
     select {
       padding: 0.5rem 0.75rem;
@@ -1292,6 +1806,7 @@ $transition: all 0.2s ease;
       color: $text-dark;
       background: $bg-white;
 
+/* ---------------- Section 363 ---------------- */
       &:focus {
         outline: none;
         border-color: $text-dark;
@@ -1300,6 +1815,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 365 ---------------- */
 .emp-modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -1308,11 +1824,13 @@ $transition: all 0.2s ease;
   border-top: 1px solid $border-color;
 }
 
+/* ---------------- Section 367 ---------------- */
 // Question Form Styles
 .question-form-wrapper {
   background: $bg-white;
 }
 
+/* ---------------- Section 369 ---------------- */
 .qf-header {
   padding: 1.25rem;
   display: flex;
@@ -1320,6 +1838,7 @@ $transition: all 0.2s ease;
   align-items: flex-start;
   border-bottom: 1px solid $border-color;
 
+/* ---------------- Section 371 ---------------- */
   .qf-title {
     font-size: 1.1rem;
     font-weight: 600;
@@ -1327,6 +1846,7 @@ $transition: all 0.2s ease;
     margin: 0 0 4px 0;
   }
 
+/* ---------------- Section 373 ---------------- */
   .qf-subtitle {
     font-size: 0.8rem;
     color: $text-light;
@@ -1334,6 +1854,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 375 ---------------- */
 .btn-back {
   background: none;
   border: 1px solid $border-color;
@@ -1343,12 +1864,14 @@ $transition: all 0.2s ease;
   cursor: pointer;
   border-radius: $radius;
 
+/* ---------------- Section 377 ---------------- */
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 379 ---------------- */
 .qf-filters {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1357,17 +1880,20 @@ $transition: all 0.2s ease;
   background: $bg-light;
   border-bottom: 1px solid $border-color;
 
+/* ---------------- Section 381 ---------------- */
   .qf-filter-group {
     display: flex;
     flex-direction: column;
     gap: 4px;
 
+/* ---------------- Section 383 ---------------- */
     label {
       font-size: 0.75rem;
       font-weight: 500;
       color: $text-light;
     }
 
+/* ---------------- Section 385 ---------------- */
     select {
       padding: 0.5rem;
       border: 1px solid $border-color;
@@ -1376,6 +1902,7 @@ $transition: all 0.2s ease;
       background: $bg-white;
       color: $text-dark;
 
+/* ---------------- Section 387 ---------------- */
       &:focus {
         outline: none;
         border-color: $text-dark;
@@ -1384,15 +1911,18 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 389 ---------------- */
 .qf-questions-area {
   padding: 1.25rem;
 }
 
+/* ---------------- Section 391 ---------------- */
 .qf-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
 
+/* ---------------- Section 393 ---------------- */
   th {
     text-align: left;
     padding: 0.5rem;
@@ -1403,6 +1933,7 @@ $transition: all 0.2s ease;
     border-bottom: 1px solid $border-color;
   }
 
+/* ---------------- Section 395 ---------------- */
   td {
     padding: 0.5rem;
     border-bottom: 1px solid $border-color;
@@ -1410,18 +1941,22 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 397 ---------------- */
 .qf-main-row {
   background: $bg-white;
 
+/* ---------------- Section 399 ---------------- */
   .qf-num {
     font-weight: 600;
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 401 ---------------- */
 .qf-sub-row {
   background: $bg-light;
 
+/* ---------------- Section 403 ---------------- */
   .qf-sub-num {
     color: $text-light;
     font-size: 0.8rem;
@@ -1429,6 +1964,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 405 ---------------- */
 .qf-input {
   width: 100%;
   padding: 0.4rem 0.5rem;
@@ -1437,23 +1973,27 @@ $transition: all 0.2s ease;
   font-size: 0.85rem;
   color: $text-dark;
 
+/* ---------------- Section 407 ---------------- */
   &:focus {
     outline: none;
     border-color: $text-dark;
   }
 
+/* ---------------- Section 409 ---------------- */
   &.qf-rating {
     width: 60px;
     text-align: center;
   }
 }
 
+/* ---------------- Section 411 ---------------- */
 .qf-actions {
   display: flex;
   gap: 4px;
   justify-content: flex-end;
 }
 
+/* ---------------- Section 413 ---------------- */
 .qf-btn-sub {
   background: $bg-light;
   border: 1px solid $border-color;
@@ -1464,12 +2004,14 @@ $transition: all 0.2s ease;
   cursor: pointer;
   border-radius: $radius;
 
+/* ---------------- Section 415 ---------------- */
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 417 ---------------- */
 .qf-btn-del {
   background: none;
   border: 1px solid $border-color;
@@ -1483,12 +2025,14 @@ $transition: all 0.2s ease;
   align-items: center;
   justify-content: center;
 
+/* ---------------- Section 419 ---------------- */
   &:hover {
     border-color: #c00;
     color: #c00;
   }
 }
 
+/* ---------------- Section 421 ---------------- */
 .qf-add-btn {
   width: 100%;
   margin-top: 1rem;
@@ -1501,12 +2045,14 @@ $transition: all 0.2s ease;
   cursor: pointer;
   border-radius: $radius;
 
+/* ---------------- Section 423 ---------------- */
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 425 ---------------- */
 .qf-footer {
   padding: 1rem 1.25rem;
   display: flex;
@@ -1515,6 +2061,7 @@ $transition: all 0.2s ease;
   border-top: 1px solid $border-color;
 }
 
+/* ---------------- Section 427 ---------------- */
 // Updated button styles
 .btn-cancel {
   cursor: pointer;
@@ -1526,12 +2073,14 @@ $transition: all 0.2s ease;
   border: 1px solid $border-color;
   border-radius: $radius;
 
+/* ---------------- Section 429 ---------------- */
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 431 ---------------- */
 .btn-save {
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -1542,11 +2091,13 @@ $transition: all 0.2s ease;
   border: 1px solid $text-dark;
   border-radius: $radius;
 
+/* ---------------- Section 433 ---------------- */
   &:hover {
     background: #333;
   }
 }
 
+/* ---------------- Section 435 ---------------- */
 // Minimal Alert Styles
 .alert-box {
   max-width: 440px;
@@ -1559,22 +2110,26 @@ $transition: all 0.2s ease;
   z-index: 999;
   right: 10px;
 
+/* ---------------- Section 437 ---------------- */
 }
 
-
+/* ---------------- Section 439 ---------------- */
 .alert-inner {
   display: flex;
   flex-direction: column;
   padding: 24px;
 }
 
+/* ---------------- Section 441 ---------------- */
 .alert-layout {
   display: flex;
   align-items: flex-start;
 
+/* ---------------- Section 443 ---------------- */
   .alert-icon-box {
     flex-shrink: 0;
 
+/* ---------------- Section 445 ---------------- */
     svg {
       width: 22px;
       height: 22px;
@@ -1582,9 +2137,11 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 447 ---------------- */
   .alert-content {
     margin-left: 16px;
 
+/* ---------------- Section 449 ---------------- */
     .alert-head {
       font-size: 1rem;
       font-weight: 600;
@@ -1593,6 +2150,7 @@ $transition: all 0.2s ease;
       letter-spacing: -0.2px;
     }
 
+/* ---------------- Section 451 ---------------- */
     .alert-desc {
       margin-top: 8px;
       font-size: 0.85rem;
@@ -1602,12 +2160,14 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 453 ---------------- */
 .alert-bar {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
 
+/* ---------------- Section 455 ---------------- */
   button {
     padding: 8px 16px;
     font-size: 0.8rem;
@@ -1619,21 +2179,25 @@ $transition: all 0.2s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 
+/* ---------------- Section 457 ---------------- */
     &.btn-flat-light {
       background-color: $bg-light;
       color: $text-light;
       border-color: $border-color;
 
+/* ---------------- Section 459 ---------------- */
       &:hover {
         background-color: $bg-hover;
         color: $text-dark;
       }
     }
 
+/* ---------------- Section 461 ---------------- */
     &.btn-flat-dark {
       background-color: $primary-color; // #555
       color: $text-white;
 
+/* ---------------- Section 463 ---------------- */
       &:hover {
         background-color: $text-dark; // #222
       }
@@ -1641,6 +2205,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 465 ---------------- */
 .overlay {
   position: fixed;
   top: 0;
@@ -1649,11 +2214,13 @@ $transition: all 0.2s ease;
   height: 100%;
   background: rgba(0, 0, 0, 0.4); // Simple dim
 
+/* ---------------- Section 467 ---------------- */
   align-items: center;
   justify-content: center;
   z-index: 200;
 }
 
+/* ---------------- Section 469 ---------------- */
 .No_available {
   background: transparent;
   background-color: none;
@@ -1664,10 +2231,12 @@ $transition: all 0.2s ease;
   font-size: 10px;
 }
 
+/* ---------------- Section 471 ---------------- */
 .custom-dropdown {
   position: relative;
   display: inline-block;
 
+/* ---------------- Section 473 ---------------- */
   .drop-btn {
     background: $bg-white;
     border: 1px solid $border-color;
@@ -1678,12 +2247,14 @@ $transition: all 0.2s ease;
     cursor: pointer;
     transition: $transition;
 
+/* ---------------- Section 475 ---------------- */
     &:hover {
       background: $bg-hover;
       // border-color: darken($border-color, 10%);
     }
   }
 
+/* ---------------- Section 477 ---------------- */
   .drop-content {
     visibility: hidden;
     opacity: 0;
@@ -1700,6 +2271,7 @@ $transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
 
+/* ---------------- Section 479 ---------------- */
     button {
       background: none;
       border: none;
@@ -1710,10 +2282,12 @@ $transition: all 0.2s ease;
       cursor: pointer;
       transition: $transition;
 
+/* ---------------- Section 481 ---------------- */
       &:not(:last-child) {
         border-bottom: 1px solid $table-border;
       }
 
+/* ---------------- Section 483 ---------------- */
       &:hover {
         background: $bg-hover;
         color: $text-dark;
@@ -1721,6 +2295,7 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 485 ---------------- */
   // Show menu on hover
   &:hover .drop-content {
     visibility: visible;
@@ -1729,12 +2304,15 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 487 ---------------- */
 .app-header {
   background: $bg-white;
   position: fixed;
 
+/* ---------------- Section 489 ---------------- */
   z-index: 1;
 
+/* ---------------- Section 491 ---------------- */
   right: 0;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid $border-color;
@@ -1742,64 +2320,63 @@ $transition: all 0.2s ease;
   justify-content: space-between;
   align-items: center;
 
+/* ---------------- Section 493 ---------------- */
   .header-title {
     font-size: 1.25rem;
     font-weight: 600;
     color: $text-dark;
 
+/* ---------------- Section 495 ---------------- */
     margin: 0;
   }
 
+/* ---------------- Section 497 ---------------- */
   .header-subtitle {
     font-size: 0.85rem;
     color: $text-light;
     margin: 0;
   }
 
-
-
+/* ---------------- Section 499 ---------------- */
   .flexbox {
     width: 100%;
-    display: flex;
+     display: flex;
     justify-content: space-between;
     width: 100%;
     gap: 4px;
-
-    .col {
-      &:first-child {
+      .col {
+   &:first-child {
         display: flex;
-        justify-content: space-between;
-        width: 50%;
-      }
-
-
-
+    justify-content: space-between;
+    width: 50%;
     }
+
+/* ---------------- Section 501 ---------------- */
+  }
   }
 }
-
-.header-actions {
-  border: 1px solid $border-color;
-  padding: 8px 10px 0 10px;
-  transition: all ease 0.15s;
-  cursor: pointer;
-
-  &:hover {
-    // border-color: $text-dark;
-    background: rgba(183, 1, 43, 0.071);
-  }
-}
-
+  .header-actions{
+      border: 1px solid $border-color;
+      padding: 8px 10px 0 10px;
+      transition: all ease 0.15s;
+      cursor: pointer;
+      &:hover{
+        // border-color: $text-dark;
+        background: rgba(183, 1, 43, 0.071);
+      }
+    }
 main {
   padding-top: 4rem !important;
 }
 
+/* ---------------- Section 503 ---------------- */
 // Mark Questions Page
 .mark-emp-details {
   padding: 1.25rem;
   border-bottom: 3px solid $text-dark;
 }
 
+/* ---------------- Section 505 ---------------- */
 .mark-emp-heading {
   font-size: 0.9rem;
   font-weight: 700;
@@ -1811,12 +2388,14 @@ main {
   border-bottom: 2px solid $text-dark;
 }
 
+/* ---------------- Section 507 ---------------- */
 .mark-emp-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
 }
 
+/* ---------------- Section 509 ---------------- */
 .mark-emp-item {
   display: flex;
   flex-direction: column;
@@ -1824,6 +2403,7 @@ main {
   margin: 20px;
 }
 
+/* ---------------- Section 511 ---------------- */
 .mark-emp-label {
   font-size: 0.7rem;
   font-weight: 600;
@@ -1832,34 +2412,41 @@ main {
   letter-spacing: 0.5px;
 }
 
+/* ---------------- Section 513 ---------------- */
 .mark-emp-value {
   font-size: 0.9rem;
   font-weight: 500;
   color: $text-dark;
 }
 
+/* ---------------- Section 515 ---------------- */
 .mark-questions-area {
   padding: 1.25rem;
 }
 
+/* ---------------- Section 517 ---------------- */
 .mark-parent-row {
   background: $bg-light;
 
+/* ---------------- Section 519 ---------------- */
   td {
     font-weight: 600;
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 521 ---------------- */
 .mark-child-row {
   background: $bg-white;
 
+/* ---------------- Section 523 ---------------- */
   .mark-child-num {
     padding-left: 1.5rem;
     color: $text-light;
     font-size: 0.8rem;
   }
 
+/* ---------------- Section 525 ---------------- */
   .mark-child-text {
     padding-left: 1.5rem;
     color: $text-light;
@@ -1867,10 +2454,12 @@ main {
   }
 }
 
+/* ---------------- Section 527 ---------------- */
 .app-title {
   font-size: 18px;
   font-weight: 800;
 
+/* ---------------- Section 529 ---------------- */
   span {
     font-size: 9px;
     color: #818181;
@@ -1878,6 +2467,7 @@ main {
   }
 }
 
+/* ---------------- Section 531 ---------------- */
 // Toast Notifications
 @keyframes toast-slide-in {
   0% {
@@ -1885,12 +2475,14 @@ main {
     transform: translateX(100%);
   }
 
+/* ---------------- Section 533 ---------------- */
   100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
+/* ---------------- Section 535 ---------------- */
 .toast-container {
   display: flex;
   flex-direction: column;
@@ -1902,6 +2494,7 @@ main {
   z-index: 99999;
 }
 
+/* ---------------- Section 537 ---------------- */
 .toast-item {
   display: flex;
   align-items: center;
@@ -1915,6 +2508,7 @@ main {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   animation: toast-slide-in 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
+/* ---------------- Section 539 ---------------- */
   .toast-icon {
     display: inline-flex;
     align-items: center;
@@ -1924,12 +2518,14 @@ main {
     height: 20px;
     margin-right: 12px;
 
+/* ---------------- Section 541 ---------------- */
     svg {
       width: 100%;
       height: 100%;
     }
   }
 
+/* ---------------- Section 543 ---------------- */
   .toast-message {
     flex: 1;
     font-size: 0.85rem;
@@ -1937,6 +2533,7 @@ main {
     font-weight: 500;
   }
 
+/* ---------------- Section 545 ---------------- */
   .toast-close {
     margin-left: 12px;
     background: none;
@@ -1949,44 +2546,53 @@ main {
     border-radius: 2px;
     transition: all 0.15s ease;
 
+/* ---------------- Section 547 ---------------- */
     &:hover {
       background-color: $bg-hover;
       color: $text-dark;
     }
 
+/* ---------------- Section 549 ---------------- */
     svg {
       width: 10px;
       height: 10px;
     }
   }
 
+/* ---------------- Section 551 ---------------- */
   // Type-specific styles
   &.success {
     border-left: 3px solid #2e7d32;
 
+/* ---------------- Section 553 ---------------- */
     .toast-icon {
       color: #2e7d32;
     }
   }
 
+/* ---------------- Section 555 ---------------- */
   &.danger,
   &.error {
     border-left: 3px solid #d32f2f;
 
+/* ---------------- Section 557 ---------------- */
     .toast-icon {
       color: #d32f2f;
     }
   }
 
+/* ---------------- Section 559 ---------------- */
   &.warning {
     border-left: 3px solid #ed6c02;
 
+/* ---------------- Section 561 ---------------- */
     .toast-icon {
       color: #ed6c02;
     }
   }
 }
 
+/* ---------------- Section 563 ---------------- */
 .bonus-multi-select {
   .select__control {
     background-color: $bg-white;
@@ -1996,16 +2602,19 @@ main {
     min-height: 38px;
     box-shadow: none;
 
+/* ---------------- Section 565 ---------------- */
     &:hover {
       border-color: $primary-color;
     }
 
+/* ---------------- Section 567 ---------------- */
     &--is-focused {
       border-color: $primary-color !important;
       outline: none;
     }
   }
 
+/* ---------------- Section 569 ---------------- */
   .select__menu {
     background-color: $bg-white;
     border: 1px solid $border-color;
@@ -2014,6 +2623,7 @@ main {
     z-index: 99;
   }
 
+/* ---------------- Section 571 ---------------- */
   .select__option {
     color: $text-dark;
     background-color: $bg-white;
@@ -2022,32 +2632,38 @@ main {
     cursor: pointer;
     padding: 10px 12px;
 
+/* ---------------- Section 573 ---------------- */
     &--is-focused {
       background-color: $bg-hover;
     }
 
+/* ---------------- Section 575 ---------------- */
     &--is-selected {
       background-color: $primary-color;
       color: $text-white;
     }
   }
 
+/* ---------------- Section 577 ---------------- */
   .select__multi-value {
     background-color: $bg-light;
     border: 1px solid $border-color;
     border-radius: $radius;
     margin: 2px;
 
+/* ---------------- Section 579 ---------------- */
     &__label {
       color: $text-dark;
       padding: 2px 6px;
       font-size: 13px;
     }
 
+/* ---------------- Section 581 ---------------- */
     &__remove {
       color: $text-light;
       cursor: pointer;
 
+/* ---------------- Section 583 ---------------- */
       &:hover {
         background-color: $primary-color;
         color: $text-white;
@@ -2055,28 +2671,32 @@ main {
     }
   }
 
+/* ---------------- Section 585 ---------------- */
   .select__placeholder {
     color: $text-light;
     font-size: 14px;
   }
 
+/* ---------------- Section 587 ---------------- */
   .select__indicator-separator {
     display: none; // Minimal design - remove separator
   }
 }
 
-
+/* ---------------- Section 589 ---------------- */
 .main-content {
   flex: 1;
   padding: 0 0 20px 0;
   padding-top: 0 !important;
 
+/* ---------------- Section 591 ---------------- */
   .header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
 
+/* ---------------- Section 593 ---------------- */
     .date-filter {
       display: flex;
       align-items: center;
@@ -2087,6 +2707,7 @@ main {
       color: $text-light;
       border-radius: $radius;
 
+/* ---------------- Section 595 ---------------- */
       svg {
         width: 16px;
         height: 16px;
@@ -2097,12 +2718,14 @@ main {
   }
 }
 
+/* ---------------- Section 597 ---------------- */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 12px;
   margin-bottom: 40px;
 
+/* ---------------- Section 599 ---------------- */
   .stat-card {
     background: $bg-white;
     border: 1px solid $border-color;
@@ -2113,10 +2736,12 @@ main {
     align-items: center;
     gap: 12px;
 
+/* ---------------- Section 601 ---------------- */
     &:hover {
       border-color: $primary-color;
     }
 
+/* ---------------- Section 603 ---------------- */
     .stat-icon {
       width: 38px;
       height: 38px;
@@ -2126,43 +2751,51 @@ main {
       justify-content: center;
       flex-shrink: 0;
 
+/* ---------------- Section 605 ---------------- */
       svg {
         width: 20px;
         height: 20px;
       }
 
+/* ---------------- Section 607 ---------------- */
       // Icon Colors
       &.employees {
         background: #e3f2fd;
         color: #1976d2;
       }
 
+/* ---------------- Section 609 ---------------- */
       &.departments {
         background: #f3e5f5;
         color: #7b1fa2;
       }
 
+/* ---------------- Section 611 ---------------- */
       &.designations {
         background: #e8f5e9;
         color: #2e7d32;
       }
 
+/* ---------------- Section 613 ---------------- */
       &.bonus {
         background: #fff3e0;
         color: #ef6c00;
       }
 
+/* ---------------- Section 615 ---------------- */
       &.deductions {
         background: #ffebee;
         color: #c62828;
       }
 
+/* ---------------- Section 617 ---------------- */
       &.salary {
         background: #e0f2f1;
         color: #00695c;
       }
     }
 
+/* ---------------- Section 619 ---------------- */
     .stat-info {
       label {
         display: block;
@@ -2173,6 +2806,7 @@ main {
         margin: 0;
       }
 
+/* ---------------- Section 621 ---------------- */
       .value {
         display: block;
         font-size: 16px;
@@ -2184,16 +2818,19 @@ main {
   }
 }
 
+/* ---------------- Section 623 ---------------- */
 .report-table-wrapper {
   background: $bg-white;
   border: 1px solid $border-color;
   border-radius: $radius; // Added radius for consistency
   overflow: hidden;
 
+/* ---------------- Section 625 ---------------- */
   table {
     width: 100%;
     border-collapse: collapse;
 
+/* ---------------- Section 627 ---------------- */
     th {
       background: $table-head-bg;
       text-align: left;
@@ -2204,21 +2841,25 @@ main {
       border-bottom: 1px solid $table-border;
     }
 
+/* ---------------- Section 629 ---------------- */
     td {
       padding: 14px 15px;
       font-size: 14px;
       border-bottom: 1px solid $table-border;
     }
 
+/* ---------------- Section 631 ---------------- */
     tr:last-child td {
       border-bottom: none;
     }
 
+/* ---------------- Section 633 ---------------- */
     tr:hover {
       background: $bg-hover;
     }
   }
 
+/* ---------------- Section 635 ---------------- */
   .table-summary {
     padding: 15px;
     text-align: right;
@@ -2230,37 +2871,45 @@ main {
   }
 }
 
+/* ---------------- Section 637 ---------------- */
 .status-tag {
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 11px;
   font-weight: 600;
 
+/* ---------------- Section 639 ---------------- */
   &.filled {
     background: #e8f5e9;
     color: #2e7d32;
   }
 
+/* ---------------- Section 641 ---------------- */
   &.pending {
     background: #fff3e0;
     color: #ef6c00;
   }
 
+/* ---------------- Section 643 ---------------- */
   // Changed to orange for 'Pending'
 }
 
+/* ---------------- Section 645 ---------------- */
 .select-wrapper {
   width: 100%;
   max-width: 100% !important;
 }
 
+/* ---------------- Section 647 ---------------- */
 .payroll-container {
   width: 100%;
 
+/* ---------------- Section 649 ---------------- */
   .form-group {
     margin-bottom: 20px;
     width: 100%;
 
+/* ---------------- Section 651 ---------------- */
     label {
       font-weight: 600;
       color: $text-dark;
@@ -2269,9 +2918,11 @@ main {
     }
   }
 
+/* ---------------- Section 653 ---------------- */
   .custom-select-container {
     max-width: 100% !important;
 
+/* ---------------- Section 655 ---------------- */
     // Base Select Styling
     .select__control {
       background: $bg-white;
@@ -2279,11 +2930,13 @@ main {
       border-radius: $radius;
       box-shadow: none;
 
+/* ---------------- Section 657 ---------------- */
       &:hover {
         border-color: $primary-color;
       }
     }
 
+/* ---------------- Section 659 ---------------- */
     .select__menu {
       background: $bg-white;
       border: 1px solid $border-color;
@@ -2291,20 +2944,24 @@ main {
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
+/* ---------------- Section 661 ---------------- */
     .select__option {
       color: $text-light;
 
+/* ---------------- Section 663 ---------------- */
       &--is-focused {
         background: $bg-hover;
         color: $text-dark;
       }
 
+/* ---------------- Section 665 ---------------- */
       &--is-selected {
         background: $primary-color;
         color: $text-white;
       }
     }
 
+/* ---------------- Section 667 ---------------- */
     // Price inside dropdown
     .row-option {
       display: flex;
@@ -2312,6 +2969,7 @@ main {
       width: 100%;
       margin-right: 5px;
 
+/* ---------------- Section 669 ---------------- */
       .item-price {
         font-weight: 600;
         color: $text-dark;
@@ -2319,6 +2977,7 @@ main {
     }
   }
 
+/* ---------------- Section 671 ---------------- */
   .payroll-summary {
     max-width: 350px;
     margin-top: 25px;
@@ -2327,6 +2986,7 @@ main {
     border: 1px solid $border-color;
     border-radius: $radius;
 
+/* ---------------- Section 673 ---------------- */
     .summary-line {
       display: flex;
       justify-content: space-between;
@@ -2334,12 +2994,14 @@ main {
       color: $text-light;
       font-size: 0.9rem;
 
+/* ---------------- Section 675 ---------------- */
       .summary-value {
         color: $text-dark;
         font-weight: 500;
       }
     }
 
+/* ---------------- Section 677 ---------------- */
     .summary-total {
       position: relative;
       top: 26px;
@@ -2353,30 +3015,37 @@ main {
   }
 }
 
+/* ---------------- Section 679 ---------------- */
 .css-v7duua:hover {
   background-color: #c6c6c6 !important;
   color: #000 !important;
 }
 
+/* ---------------- Section 681 ---------------- */
 .form-group {
   position: relative;
 }
 
+/* ---------------- Section 683 ---------------- */
 .summary-line {
   position: absolute;
 
+/* ---------------- Section 685 ---------------- */
   right: 0;
   top: 0;
 
+/* ---------------- Section 687 ---------------- */
   span {
     margin: 0 5px;
   }
 }
 
+/* ---------------- Section 689 ---------------- */
 // Variables (Ensure these match your top variables)
 $sidebar-width: 240px;
 $sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
 
+/* ---------------- Section 691 ---------------- */
 // --- SIDEBAR BASE STYLE ---
 .sidebar {
   width: $sidebar-width;
@@ -2393,6 +3062,7 @@ $sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
   overflow: hidden; // Taaki collapsed state mein text bahar na nikalay
 }
 
+/* ---------------- Section 693 ---------------- */
 // --- CONTENT AREA BASE STYLE ---
 .content-area {
   margin-top: 60px;
@@ -2403,6 +3073,7 @@ $sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
   box-sizing: border-box;
 }
 
+/* ---------------- Section 695 ---------------- */
 .app-header {
   position: fixed;
   top: 0;
@@ -2416,38 +3087,45 @@ $sidebar-collapsed: 70px; // Isko 70px hi rehne dein standard ke liye
   z-index: 90;
 }
 
+/* ---------------- Section 697 ---------------- */
 // --- COLLAPSE LOGIC (The "Fix") ---
 #sidebar-collapse-check:checked {
   ~.sidebar {
     width: $sidebar-collapsed !important; // Force 70px
 
+/* ---------------- Section 699 ---------------- */
     .logo-text,
     .nav-text {
       display: none !important; // Text bilkul gayab
     }
 
+/* ---------------- Section 701 ---------------- */
     .nav-link {
       justify-content: center;
       padding: 1rem 0;
     }
   }
 
+/* ---------------- Section 703 ---------------- */
   // Content aur Header ko shift karein
   ~.content-area {
     margin-left: $sidebar-collapsed !important;
     width: calc(100% - #{$sidebar-collapsed}) !important;
   }
 
+/* ---------------- Section 705 ---------------- */
   ~.app-header {
     margin-left: $sidebar-collapsed !important;
   }
 }
 
+/* ---------------- Section 707 ---------------- */
 // Variables
 $pr-primary: #555;
 $pr-border: #ddd;
 $pr-bg-light: #fafafa;
 
+/* ---------------- Section 709 ---------------- */
 .pr-compact-wrapper {
   padding: 12px; // Reduced padding
   width: 100%;
@@ -2456,12 +3134,14 @@ $pr-bg-light: #fafafa;
   // This makes 100% look like 85% zoom for extra compactness
   font-size: 0.85rem;
 
+/* ---------------- Section 711 ---------------- */
   .pr-header-area {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
 
+/* ---------------- Section 713 ---------------- */
     .pr-page-title {
       font-size: 15px;
       font-weight: 600;
@@ -2469,6 +3149,7 @@ $pr-bg-light: #fafafa;
       margin: 0;
     }
 
+/* ---------------- Section 715 ---------------- */
     .pr-make-btn {
       background: #222;
       color: white;
@@ -2482,34 +3163,41 @@ $pr-bg-light: #fafafa;
     }
   }
 
+/* ---------------- Section 717 ---------------- */
   .pr-card-filter {
     border: 1px solid $pr-border;
     background: #fff;
     padding: 10px;
     margin-bottom: 15px;
 
+/* ---------------- Section 719 ---------------- */
     .pr-flex-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: flex-end;
 
+/* ---------------- Section 721 ---------------- */
       .pr-grp {
         flex: 1 1 150px;
         display: flex;
         flex-direction: column;
         gap: 4px;
 
+/* ---------------- Section 723 ---------------- */
         &.id-field {
           flex: 0 0 100px;
         }
 
+/* ---------------- Section 725 ---------------- */
         &.period-field {
           flex: 1 1 200px;
         }
 
+/* ---------------- Section 727 ---------------- */
         // Combined Month-Year width
 
+/* ---------------- Section 729 ---------------- */
         label {
           font-size: 10px;
           font-weight: 700;
@@ -2517,12 +3205,14 @@ $pr-bg-light: #fafafa;
           text-transform: uppercase;
         }
 
+/* ---------------- Section 731 ---------------- */
         input {
           height: 30px; // Shorter height
           border: 1px solid $pr-border;
           padding: 0 8px;
           font-size: 12px;
 
+/* ---------------- Section 733 ---------------- */
           &:disabled {
             background: #f5f5f5;
             color: #999;
@@ -2530,6 +3220,7 @@ $pr-bg-light: #fafafa;
         }
       }
 
+/* ---------------- Section 735 ---------------- */
       .pr-btn-search {
         height: 30px;
         background: $pr-primary;
@@ -2544,6 +3235,7 @@ $pr-bg-light: #fafafa;
         font-size: 12px; // Reduced from 14px
         transition: $transition;
 
+/* ---------------- Section 737 ---------------- */
         &:hover {
           background-color: $text-dark;
         }
@@ -2551,16 +3243,19 @@ $pr-bg-light: #fafafa;
     }
   }
 
+/* ---------------- Section 739 ---------------- */
   .pr-table-container {
     width: 100%;
     overflow-x: auto;
     border: 1px solid $pr-border;
 
+/* ---------------- Section 741 ---------------- */
     .pr-table-main {
       width: 100%;
       min-width: 1200px; // Compact width
       border-collapse: collapse;
 
+/* ---------------- Section 743 ---------------- */
       th {
         border: 1px solid $pr-border;
         padding: 6px 8px; // Very compact padding
@@ -2570,17 +3265,20 @@ $pr-bg-light: #fafafa;
         white-space: nowrap;
       }
 
+/* ---------------- Section 745 ---------------- */
       .pr-th-parent th {
         text-align: center;
         background: #e9e9e9;
         font-weight: 800;
       }
 
+/* ---------------- Section 747 ---------------- */
       .pr-th-child th {
         background: #fafafa;
         font-weight: 600;
       }
 
+/* ---------------- Section 749 ---------------- */
       td {
         border: 1px solid $pr-border;
         padding: 6px 8px;
@@ -2588,17 +3286,20 @@ $pr-bg-light: #fafafa;
         vertical-align: middle;
       }
 
+/* ---------------- Section 751 ---------------- */
       .pr-emp-name {
         font-weight: 600;
         color: #000;
       }
 
+/* ---------------- Section 753 ---------------- */
       .pr-small-text {
         font-size: 10px;
         color: #777;
         line-height: 1.2;
       }
 
+/* ---------------- Section 755 ---------------- */
       .pr-hint {
         display: block;
         font-size: 9px;
@@ -2606,6 +3307,7 @@ $pr-bg-light: #fafafa;
         margin-top: 2px;
       }
 
+/* ---------------- Section 757 ---------------- */
       .pr-input-small {
         width: 65px;
         padding: 3px;
@@ -2613,24 +3315,27 @@ $pr-bg-light: #fafafa;
         font-size: 11px;
       }
 
+/* ---------------- Section 759 ---------------- */
       .pr-bold {
         font-weight: 700;
       }
 
+/* ---------------- Section 761 ---------------- */
       .pr-green {
         color: green;
         font-size: 10px;
       }
-
       .pr-red {
         color: red;
         font-size: 10px;
       }
 
+/* ---------------- Section 763 ---------------- */
       .pr-payout-final {
         background: #f9f9f9;
         text-align: right;
 
+/* ---------------- Section 765 ---------------- */
         strong {
           font-size: 13px;
           color: #000;
@@ -2640,6 +3345,7 @@ $pr-bg-light: #fafafa;
   }
 }
 
+/* ---------------- Section 767 ---------------- */
 // Compact React Select
 .pr-select__control {
   min-height: 30px !important;
@@ -2649,15 +3355,18 @@ $pr-bg-light: #fafafa;
   font-size: 12px !important;
   box-shadow: none !important;
 
+/* ---------------- Section 769 ---------------- */
   .pr-select__value-container {
     padding: 0 8px !important;
   }
 
+/* ---------------- Section 771 ---------------- */
   .pr-select__indicators {
     height: 28px !important;
   }
 }
 
+/* ---------------- Section 773 ---------------- */
 // Variables Integration
 $primary-color: #555;
 $text-dark: #222;
@@ -2671,6 +3380,7 @@ $radius: 1px;
 $table-head-bg: #fafafa;
 $transition: all 0.2s ease;
 
+/* ---------------- Section 775 ---------------- */
 .payroll-page-container {
   padding: 12px; // Reduced from 20px
   background-color: $bg-white;
@@ -2679,35 +3389,42 @@ $transition: all 0.2s ease;
   // overflow: hidden; 
   font-size: 0.9rem; // Zoom-out effect base
 
+/* ---------------- Section 777 ---------------- */
   .filter-section-card {
     .qf-header {
       margin-bottom: 2rem;
     }
 
+/* ---------------- Section 779 ---------------- */
     border: 1px solid $border-color;
     background-color: $bg-white;
     padding: 10px; // Reduced from 15px
     margin-bottom: 12px; // Reduced from 20px
     border-radius: $radius;
 
+/* ---------------- Section 781 ---------------- */
     .filter-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: flex-end;
 
+/* ---------------- Section 783 ---------------- */
       .input-field {
         flex: 1 1 150px; // Reduced from 180px
         display: flex;
         flex-direction: column;
         gap: 3px;
 
+/* ---------------- Section 785 ---------------- */
         &.sm {
           flex: 1 1 90px;
         }
 
+/* ---------------- Section 787 ---------------- */
         // Reduced from 110px
 
+/* ---------------- Section 789 ---------------- */
         label {
           font-size: 10px; // Reduced from 11px
           font-weight: 700;
@@ -2716,6 +3433,7 @@ $transition: all 0.2s ease;
           letter-spacing: 0.3px;
         }
 
+/* ---------------- Section 791 ---------------- */
         .react-select__control {
           border-radius: $radius;
           border-color: $border-color;
@@ -2724,20 +3442,24 @@ $transition: all 0.2s ease;
           box-shadow: none;
           font-size: 12px;
 
+/* ---------------- Section 793 ---------------- */
           &:hover {
             border-color: $primary-color;
           }
         }
 
+/* ---------------- Section 795 ---------------- */
         .react-select__indicators {
           height: 30px;
         }
 
+/* ---------------- Section 797 ---------------- */
         .react-select__value-container {
           padding: 0 8px;
         }
       }
 
+/* ---------------- Section 799 ---------------- */
       .search-action-btn {
         height: 32px; // Reduced from 38px
         padding: 0 15px;
@@ -2752,6 +3474,7 @@ $transition: all 0.2s ease;
         font-size: 12px; // Reduced from 14px
         transition: $transition;
 
+/* ---------------- Section 801 ---------------- */
         &:hover {
           background-color: $text-dark;
         }
@@ -2759,6 +3482,7 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 803 ---------------- */
   .table-wrapper {
     width: 100%;
     overflow-x: auto;
@@ -2766,20 +3490,24 @@ $transition: all 0.2s ease;
     border-radius: $radius;
     background: $bg-white;
 
+/* ---------------- Section 805 ---------------- */
     &::-webkit-scrollbar {
       height: 4px;
     }
 
+/* ---------------- Section 807 ---------------- */
     &::-webkit-scrollbar-thumb {
       background: #ccc;
       border-radius: 10px;
     }
 
+/* ---------------- Section 809 ---------------- */
     .payroll-main-table {
       width: 100%;
       min-width: 1000px;
       border-collapse: collapse;
 
+/* ---------------- Section 811 ---------------- */
       th {
         background-color: $table-head-bg;
         color: $text-dark;
@@ -2791,6 +3519,7 @@ $transition: all 0.2s ease;
         white-space: nowrap;
       }
 
+/* ---------------- Section 813 ---------------- */
       td {
         padding: 8px 10px; // Reduced padding
         border-bottom: 1px solid $border-color;
@@ -2799,6 +3528,7 @@ $transition: all 0.2s ease;
         vertical-align: top;
       }
 
+/* ---------------- Section 815 ---------------- */
       .emp-cell,
       .contact-cell,
       .dept-cell {
@@ -2806,11 +3536,13 @@ $transition: all 0.2s ease;
         flex-direction: column;
         gap: 2px;
 
+/* ---------------- Section 817 ---------------- */
         .name {
           font-weight: 600;
           font-size: 12px;
         }
 
+/* ---------------- Section 819 ---------------- */
         .sub-text {
           font-size: 10px;
           color: $text-light;
@@ -2819,17 +3551,20 @@ $transition: all 0.2s ease;
           gap: 4px;
         }
 
+/* ---------------- Section 821 ---------------- */
         .dept-tag {
           font-weight: 600;
           font-size: 11px;
         }
 
+/* ---------------- Section 823 ---------------- */
         .post-tag {
           font-size: 10px;
           color: $text-light;
         }
       }
 
+/* ---------------- Section 825 ---------------- */
       .table-inline-input {
         width: 65px; // Reduced from 80px
         padding: 4px 6px;
@@ -2838,20 +3573,24 @@ $transition: all 0.2s ease;
         border-radius: $radius;
         outline: none;
 
+/* ---------------- Section 827 ---------------- */
         &:focus {
           border-color: $primary-color;
         }
       }
 
+/* ---------------- Section 829 ---------------- */
       .final-total-col {
         background-color: $bg-light;
         text-align: right;
         font-weight: bold;
 
+/* ---------------- Section 831 ---------------- */
         strong {
           font-size: 13px;
         }
 
+/* ---------------- Section 833 ---------------- */
         .allowences {
           text-align: left;
         }
@@ -2860,6 +3599,7 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 835 ---------------- */
 .allowences {
   font-size: 9px; // Reduced from 10px
   margin: 2px 0;
@@ -2867,29 +3607,34 @@ $transition: all 0.2s ease;
   line-height: 1.2;
 }
 
+/* ---------------- Section 837 ---------------- */
 // Variables
 $pr-primary: #555;
 $pr-border: #ddd;
 $pr-bg-light: #fafafa;
 
+/* ---------------- Section 839 ---------------- */
 .pr-compact-wrapper {
   padding: 12px;
   width: 100%;
   box-sizing: border-box;
   font-size: 0.88rem; // Overall zoom-out effect
 
+/* ---------------- Section 841 ---------------- */
   .pr-header-area {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
 
+/* ---------------- Section 843 ---------------- */
     .pr-page-title {
       font-size: 15px;
       font-weight: 600;
       color: #222;
     }
 
+/* ---------------- Section 845 ---------------- */
     .pr-make-btn {
       background: #222;
       color: white;
@@ -2903,32 +3648,38 @@ $pr-bg-light: #fafafa;
     }
   }
 
+/* ---------------- Section 847 ---------------- */
   .pr-card-filter {
     border: 1px solid $pr-border;
     background: #fff;
     padding: 10px;
     margin-bottom: 15px;
 
+/* ---------------- Section 849 ---------------- */
     .pr-flex-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: flex-end;
 
+/* ---------------- Section 851 ---------------- */
       .pr-grp {
         flex: 1 1 140px;
         display: flex;
         flex-direction: column;
         gap: 4px;
 
+/* ---------------- Section 853 ---------------- */
         &.id-field {
           flex: 0 0 100px;
         }
 
+/* ---------------- Section 855 ---------------- */
         &.period-field {
           flex: 1 1 180px;
         }
 
+/* ---------------- Section 857 ---------------- */
         label {
           font-size: 10px;
           font-weight: 700;
@@ -2936,12 +3687,14 @@ $pr-bg-light: #fafafa;
           text-transform: uppercase;
         }
 
+/* ---------------- Section 859 ---------------- */
         input {
           height: 30px;
           border: 1px solid $pr-border;
           padding: 0 8px;
           font-size: 12px;
 
+/* ---------------- Section 861 ---------------- */
           &:disabled {
             background: #f5f5f5;
             color: #999;
@@ -2949,6 +3702,7 @@ $pr-bg-light: #fafafa;
         }
       }
 
+/* ---------------- Section 863 ---------------- */
       .pr-btn-search {
         height: 30px;
         background: $pr-primary;
@@ -2963,6 +3717,7 @@ $pr-bg-light: #fafafa;
         font-size: 12px; // Reduced from 14px
         transition: $transition;
 
+/* ---------------- Section 865 ---------------- */
         &:hover {
           background-color: $text-dark;
         }
@@ -2970,31 +3725,37 @@ $pr-bg-light: #fafafa;
     }
   }
 
+/* ---------------- Section 867 ---------------- */
   .pr-table-container {
     width: 100%;
     overflow-x: auto;
     border: 1px solid $pr-border;
     background: #fff;
 
+/* ---------------- Section 869 ---------------- */
     // --- CUSTOM SCROLLBAR ADDED HERE ---
     &::-webkit-scrollbar {
       height: 6px;
     }
 
+/* ---------------- Section 871 ---------------- */
     &::-webkit-scrollbar-thumb {
       background: #ddd;
       border-radius: 10px;
     }
 
+/* ---------------- Section 873 ---------------- */
     &::-webkit-scrollbar-track {
       background: #f9f9f9;
     }
 
+/* ---------------- Section 875 ---------------- */
     .pr-table-main {
       width: 100%;
       min-width: 1250px; // Ensures scrolling is active
       border-collapse: collapse;
 
+/* ---------------- Section 877 ---------------- */
       th {
         border: 1px solid $pr-border;
         padding: 6px 10px;
@@ -3004,17 +3765,20 @@ $pr-bg-light: #fafafa;
         white-space: nowrap;
       }
 
+/* ---------------- Section 879 ---------------- */
       .pr-th-parent th {
         text-align: center;
         background: #e9e9e9;
         font-weight: 800;
       }
 
+/* ---------------- Section 881 ---------------- */
       .pr-th-child th {
         background: #fafafa;
         font-weight: 600;
       }
 
+/* ---------------- Section 883 ---------------- */
       td {
         border: 1px solid $pr-border;
         padding: 8px 10px;
@@ -3022,17 +3786,20 @@ $pr-bg-light: #fafafa;
         vertical-align: middle;
       }
 
+/* ---------------- Section 885 ---------------- */
       .pr-emp-name {
         font-weight: 600;
         color: #000;
       }
 
+/* ---------------- Section 887 ---------------- */
       .pr-small-text {
         font-size: 10px;
         color: #777;
         line-height: 1.2;
       }
 
+/* ---------------- Section 889 ---------------- */
       .pr-hint {
         display: block;
         font-size: 9px;
@@ -3040,6 +3807,7 @@ $pr-bg-light: #fafafa;
         margin-top: 2px;
       }
 
+/* ---------------- Section 891 ---------------- */
       .pr-input-small {
         width: 65px;
         padding: 3px;
@@ -3047,19 +3815,23 @@ $pr-bg-light: #fafafa;
         font-size: 11px;
       }
 
+/* ---------------- Section 893 ---------------- */
       .pr-bold {
         font-weight: 700;
       }
 
+/* ---------------- Section 895 ---------------- */
       .pr-green {
         color: green;
         font-size: 10px;
       }
 
+/* ---------------- Section 897 ---------------- */
       .pr-payout-final {
         background: #f9f9f9;
         text-align: right;
 
+/* ---------------- Section 899 ---------------- */
         strong {
           font-size: 13px;
           color: #000;
@@ -3069,6 +3841,7 @@ $pr-bg-light: #fafafa;
   }
 }
 
+/* ---------------- Section 901 ---------------- */
 // Compact Select Adjustments
 .pr-select__control {
   min-height: 30px !important;
@@ -3078,15 +3851,18 @@ $pr-bg-light: #fafafa;
   font-size: 12px !important;
   box-shadow: none !important;
 
+/* ---------------- Section 903 ---------------- */
   .pr-select__value-container {
     padding: 0 8px !important;
   }
 
+/* ---------------- Section 905 ---------------- */
   .pr-select__indicators {
     height: 28px !important;
   }
 }
 
+/* ---------------- Section 907 ---------------- */
 /* Root container - removing the bulk */
 .react-datepicker {
   font-family: inherit;
@@ -3098,6 +3874,7 @@ $pr-bg-light: #fafafa;
   display: inline-block;
 }
 
+/* ---------------- Section 909 ---------------- */
 /* Header - making it slim */
 .react-datepicker__header {
   background-color: $bg-light !important;
@@ -3106,6 +3883,7 @@ $pr-bg-light: #fafafa;
   border-radius: 0 !important;
 }
 
+/* ---------------- Section 911 ---------------- */
 .react-datepicker__current-month {
   color: $text-dark !important;
   font-size: 13px !important;
@@ -3114,12 +3892,14 @@ $pr-bg-light: #fafafa;
   letter-spacing: 0.5px;
 }
 
+/* ---------------- Section 913 ---------------- */
 /* Month Grid - The "Large" Fix */
 .react-datepicker__month-container {
   width: 240px !important; // Tightening the width
   padding: 8px !important;
 }
 
+/* ---------------- Section 915 ---------------- */
 .react-datepicker__month-text {
   display: inline-block !important;
   width: 50px !important; // Narrower columns
@@ -3130,12 +3910,14 @@ $pr-bg-light: #fafafa;
   color: $text-light !important;
   transition: $transition;
 
+/* ---------------- Section 917 ---------------- */
   &:hover {
     background-color: $bg-hover !important;
     color: $text-dark !important;
     cursor: pointer;
   }
 
+/* ---------------- Section 919 ---------------- */
   /* Your #555 Selection Style */
   &--selected,
   &--keyboard-selected {
@@ -3145,10 +3927,12 @@ $pr-bg-light: #fafafa;
   }
 }
 
+/* ---------------- Section 921 ---------------- */
 /* Navigation - Tiny & Sharp */
 .react-datepicker__navigation {
   top: 12px !important;
 
+/* ---------------- Section 923 ---------------- */
   &-icon::before {
     border-color: $text-light !important;
     border-width: 1px 1px 0 0 !important;
@@ -3156,16 +3940,19 @@ $pr-bg-light: #fafafa;
     width: 6px !important;
   }
 
+/* ---------------- Section 925 ---------------- */
   &:hover &-icon::before {
     border-color: $primary-color !important;
   }
 }
 
+/* ---------------- Section 927 ---------------- */
 /* Removing the default pointer triangle */
 .react-datepicker__triangle {
   display: none !important;
 }
 
+/* ---------------- Section 929 ---------------- */
 /* The Input Field itself */
 .react-datepicker-input {
   width: 100%;
@@ -3177,12 +3964,14 @@ $pr-bg-light: #fafafa;
   color: $text-dark;
   transition: $transition;
 
+/* ---------------- Section 931 ---------------- */
   &:focus {
     outline: none;
     border-color: $primary-color;
   }
 }
 
+/* ---------------- Section 933 ---------------- */
 .full-body-loader {
   position: fixed;
   top: 0;
@@ -3197,6 +3986,7 @@ $pr-bg-light: #fafafa;
   backdrop-filter: blur(2px); // Modern touch
 }
 
+/* ---------------- Section 935 ---------------- */
 .loader-content {
   display: flex;
   flex-direction: column;
@@ -3204,6 +3994,7 @@ $pr-bg-light: #fafafa;
   gap: 16px;
 }
 
+/* ---------------- Section 937 ---------------- */
 /* Sharp, Minimalist Spinner */
 .spinner {
   width: 40px;
@@ -3214,6 +4005,7 @@ $pr-bg-light: #fafafa;
   animation: spin 0.8s linear infinite;
 }
 
+/* ---------------- Section 939 ---------------- */
 .loader-message {
   color: $text-dark;
   font-size: 14px;
@@ -3223,17 +4015,20 @@ $pr-bg-light: #fafafa;
   margin: 0;
 }
 
+/* ---------------- Section 941 ---------------- */
 /* Spin Animation */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
 
+/* ---------------- Section 943 ---------------- */
   100% {
     transform: rotate(360deg);
   }
 }
 
+/* ---------------- Section 945 ---------------- */
 // Your Variables
 $primary-color: #555;
 $text-dark: #222;
@@ -3248,22 +4043,26 @@ $table-border: #ddd;
 $table-head-bg: #fafafa;
 $transition: all 0.2s ease;
 
+/* ---------------- Section 947 ---------------- */
 .section-container {
   padding: 20px;
   background-color: $bg-white;
 
+/* ---------------- Section 949 ---------------- */
   .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 
+/* ---------------- Section 951 ---------------- */
     .section-title {
       font-size: 1.25rem;
       color: $text-dark;
       margin: 0;
     }
 
+/* ---------------- Section 953 ---------------- */
     .btn-add {
       background-color: $primary-color;
       color: $text-white;
@@ -3274,40 +4073,46 @@ $transition: all 0.2s ease;
       border-radius: $radius;
       transition: $transition;
 
+/* ---------------- Section 955 ---------------- */
       &:hover {
         opacity: 0.9;
       }
     }
   }
 
+/* ---------------- Section 957 ---------------- */
   .table-responsive {
 
+/* ---------------- Section 959 ---------------- */
     border: 1px solid $table-border;
     border-radius: $radius;
-
-    &::-webkit-scrollbar {
+   &::-webkit-scrollbar {
       height: 4px;
     }
 
+/* ---------------- Section 961 ---------------- */
     &::-webkit-scrollbar-thumb {
       background: #ccc;
       border-radius: 10px;
     }
 
-
+/* ---------------- Section 963 ---------------- */
     .simple-table {
       width: 100%;
       // min-width: 1100px;
       border-collapse: collapse;
       text-align: left;
 
+/* ---------------- Section 965 ---------------- */
       thead {
         background-color: $table-head-bg;
 
+/* ---------------- Section 967 ---------------- */
         tr {
           border-bottom: 1px solid $table-border;
         }
 
+/* ---------------- Section 969 ---------------- */
         th {
           padding: 12px 15px;
           color: $primary-color;
@@ -3317,20 +4122,24 @@ $transition: all 0.2s ease;
         }
       }
 
+/* ---------------- Section 971 ---------------- */
       tbody {
         tr {
           border-bottom: 1px solid $table-border;
           transition: $transition;
 
+/* ---------------- Section 973 ---------------- */
           &:hover {
             background: $bg-hover;
           }
 
+/* ---------------- Section 975 ---------------- */
           &:last-child {
             border-bottom: none;
           }
         }
 
+/* ---------------- Section 977 ---------------- */
         td {
           padding: 12px 15px;
           color: $text-light;
@@ -3339,6 +4148,7 @@ $transition: all 0.2s ease;
       }
     }
 
+/* ---------------- Section 979 ---------------- */
     .delete-btn {
       background: none;
       border: 1px solid $border-color;
@@ -3349,6 +4159,7 @@ $transition: all 0.2s ease;
       font-size: 0.8rem;
       transition: $transition;
 
+/* ---------------- Section 981 ---------------- */
       &:hover {
         background-color: $primary-color;
         color: $text-white;
@@ -3357,24 +4168,29 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 983 ---------------- */
 .react-datepicker-wrapper {
   width: 100%;
 }
 
+/* ---------------- Section 985 ---------------- */
 // .pr-make-btn {
 //   display: none !important;
 // }
 
+/* ---------------- Section 987 ---------------- */
 // ========================================
 // ATTENDANCE CALENDAR STYLES
 // ========================================
 
+/* ---------------- Section 989 ---------------- */
 .attendance-calendar-wrapper {
   width: 100%;
   min-height: calc(100vh - 60px);
   padding: 20px;
   background: $bg-light;
 
+/* ---------------- Section 991 ---------------- */
   .cal-header {
     display: flex;
     justify-content: space-between;
@@ -3383,6 +4199,7 @@ $transition: all 0.2s ease;
     flex-wrap: wrap;
     gap: 15px;
 
+/* ---------------- Section 993 ---------------- */
     .cal-title-section {
       .cal-title {
         font-size: 1.5rem;
@@ -3391,6 +4208,7 @@ $transition: all 0.2s ease;
         margin: 0;
       }
 
+/* ---------------- Section 995 ---------------- */
       .cal-subtitle {
         font-size: 0.85rem;
         color: $text-light;
@@ -3398,33 +4216,39 @@ $transition: all 0.2s ease;
       }
     }
 
+/* ---------------- Section 997 ---------------- */
     .cal-employee-select {
       display: flex;
       align-items: center;
       gap: 10px;
 
+/* ---------------- Section 999 ---------------- */
       label {
         font-size: 0.9rem;
         color: $text-dark;
         white-space: nowrap;
       }
 
+/* ---------------- Section 1001 ---------------- */
       .cal-select__control {
         min-width: 250px;
         border-color: $border-color;
         box-shadow: none;
 
+/* ---------------- Section 1003 ---------------- */
         &:hover {
           border-color: $primary-color;
         }
       }
 
+/* ---------------- Section 1005 ---------------- */
       .cal-select__menu {
         z-index: 100;
       }
     }
   }
 
+/* ---------------- Section 1007 ---------------- */
   .cal-nav {
     display: flex;
     align-items: center;
@@ -3432,6 +4256,7 @@ $transition: all 0.2s ease;
     gap: 15px;
     margin-bottom: 15px;
 
+/* ---------------- Section 1009 ---------------- */
     .cal-nav-btn {
       background: $bg-white;
       border: 1px solid $border-color;
@@ -3443,24 +4268,29 @@ $transition: all 0.2s ease;
       align-items: center;
       justify-content: center;
 
+/* ---------------- Section 1011 ---------------- */
       &:hover {
         background: $primary-color;
         border-color: $primary-color;
 
+/* ---------------- Section 1013 ---------------- */
         svg {
           stroke: $text-white;
         }
       }
 
+/* ---------------- Section 1015 ---------------- */
       svg {
         stroke: $text-dark;
       }
     }
 
+/* ---------------- Section 1017 ---------------- */
     .cal-current-month {
       text-align: center;
       min-width: 180px;
 
+/* ---------------- Section 1019 ---------------- */
       .month-name {
         font-size: 1.3rem;
         font-weight: 600;
@@ -3468,12 +4298,14 @@ $transition: all 0.2s ease;
         margin-right: 8px;
       }
 
+/* ---------------- Section 1021 ---------------- */
       .year {
         font-size: 1.1rem;
         color: $text-light;
       }
     }
 
+/* ---------------- Section 1023 ---------------- */
     .cal-today-btn {
       background: $primary-color;
       color: $text-white;
@@ -3484,12 +4316,14 @@ $transition: all 0.2s ease;
       font-size: 0.85rem;
       transition: $transition;
 
+/* ---------------- Section 1025 ---------------- */
       &:hover {
         background: color.scale($primary-color, $lightness: -15%);
       }
     }
   }
 
+/* ---------------- Section 1027 ---------------- */
   .cal-legend {
     display: flex;
     justify-content: center;
@@ -3497,6 +4331,7 @@ $transition: all 0.2s ease;
     margin-bottom: 15px;
     flex-wrap: wrap;
 
+/* ---------------- Section 1029 ---------------- */
     .legend-item {
       display: flex;
       align-items: center;
@@ -3504,19 +4339,23 @@ $transition: all 0.2s ease;
       font-size: 0.85rem;
       color: $text-dark;
 
+/* ---------------- Section 1031 ---------------- */
       .legend-dot {
         width: 12px;
         height: 12px;
         border-radius: 2px;
 
+/* ---------------- Section 1033 ---------------- */
         &.leave {
           background: #3182ce;
         }
 
+/* ---------------- Section 1035 ---------------- */
         &.absent {
           background: #e53e3e;
         }
 
+/* ---------------- Section 1037 ---------------- */
         &.sunday {
           background: #a0aec0;
         }
@@ -3524,6 +4363,7 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 1039 ---------------- */
   .cal-table-container {
     background: $bg-white;
     border: 1px solid $border-color;
@@ -3531,11 +4371,13 @@ $transition: all 0.2s ease;
     overflow: hidden;
   }
 
+/* ---------------- Section 1041 ---------------- */
   .cal-table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
 
+/* ---------------- Section 1043 ---------------- */
     thead {
       th {
         background: $table-head-bg;
@@ -3546,12 +4388,14 @@ $transition: all 0.2s ease;
         color: $text-dark;
         border-bottom: 1px solid $border-color;
 
+/* ---------------- Section 1045 ---------------- */
         &.sunday-header {
           color: #e53e3e;
         }
       }
     }
 
+/* ---------------- Section 1047 ---------------- */
     tbody {
       .cal-day {
         border: 1px solid $border-color;
@@ -3560,21 +4404,26 @@ $transition: all 0.2s ease;
         padding: 0;
         transition: $transition;
 
+/* ---------------- Section 1049 ---------------- */
         &:hover:not(.empty-day):not(.sunday) {
           background: $bg-hover;
         }
 
+/* ---------------- Section 1051 ---------------- */
         &.empty-day {
           background: #f7f7f7;
         }
 
+/* ---------------- Section 1053 ---------------- */
         &.sunday {
           background: #f0f0f0;
 
+/* ---------------- Section 1055 ---------------- */
           .day-number {
             color: #e53e3e;
           }
 
+/* ---------------- Section 1057 ---------------- */
           .sunday-label {
             display: block;
             font-size: 0.7rem;
@@ -3584,17 +4433,20 @@ $transition: all 0.2s ease;
           }
         }
 
+/* ---------------- Section 1059 ---------------- */
         &.today {
           .day-actions {
-            opacity: 1 !important;
+           opacity: 1 !important;
           }
 
+/* ---------------- Section 1061 ---------------- */
           .day-number {
             background: $primary-color;
             color: $text-white;
           }
         }
 
+/* ---------------- Section 1063 ---------------- */
         .day-content {
           padding: 8px;
           height: 100%;
@@ -3602,6 +4454,7 @@ $transition: all 0.2s ease;
           flex-direction: column;
           position: relative;
 
+/* ---------------- Section 1065 ---------------- */
           .day-number {
             font-size: 0.95rem;
             font-weight: 600;
@@ -3614,12 +4467,14 @@ $transition: all 0.2s ease;
             // border-radius: 50%;
           }
 
+/* ---------------- Section 1067 ---------------- */
           .day-indicators {
             display: flex;
             gap: 4px;
             margin-top: 6px;
             flex-wrap: wrap;
 
+/* ---------------- Section 1069 ---------------- */
             .indicator {
               font-size: 0.65rem;
               font-weight: 600;
@@ -3627,20 +4482,24 @@ $transition: all 0.2s ease;
               border-radius: 2px;
               color: $text-white;
 
+/* ---------------- Section 1071 ---------------- */
               &.leave-indicator {
                 background: #3182ce;
               }
 
+/* ---------------- Section 1073 ---------------- */
               &.absent-indicator {
                 background: #e53e3e;
               }
 
+/* ---------------- Section 1075 ---------------- */
               &.count-indicator {
                 background: #718096;
               }
             }
           }
 
+/* ---------------- Section 1077 ---------------- */
           .day-actions {
             display: flex;
             gap: 4px;
@@ -3649,6 +4508,7 @@ $transition: all 0.2s ease;
             opacity: 0;
             transition: $transition;
 
+/* ---------------- Section 1079 ---------------- */
             button {
               padding: 4px 6px;
               border: 1px solid $border-color;
@@ -3660,15 +4520,18 @@ $transition: all 0.2s ease;
               align-items: center;
               justify-content: center;
 
+/* ---------------- Section 1081 ---------------- */
               &:hover {
                 background: $primary-color;
                 border-color: $primary-color;
 
+/* ---------------- Section 1083 ---------------- */
                 svg {
                   stroke: $text-white;
                 }
               }
 
+/* ---------------- Section 1085 ---------------- */
               svg {
                 stroke: $text-dark;
               }
@@ -3676,6 +4539,7 @@ $transition: all 0.2s ease;
           }
         }
 
+/* ---------------- Section 1087 ---------------- */
         &:hover .day-actions {
           opacity: 1;
         }
@@ -3683,6 +4547,7 @@ $transition: all 0.2s ease;
     }
   }
 
+/* ---------------- Section 1089 ---------------- */
   // Modal styles
   .cal-modal-overlay {
     position: fixed;
@@ -3697,6 +4562,7 @@ $transition: all 0.2s ease;
     z-index: 1000;
   }
 
+/* ---------------- Section 1091 ---------------- */
   .cal-modal {
     background: $bg-white;
     border-radius: $radius;
@@ -3707,10 +4573,12 @@ $transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
 
+/* ---------------- Section 1093 ---------------- */
     &.action-modal {
       max-width: 550px;
     }
 
+/* ---------------- Section 1095 ---------------- */
     .cal-modal-header {
       display: flex;
       justify-content: space-between;
@@ -3718,12 +4586,14 @@ $transition: all 0.2s ease;
       padding: 15px 20px;
       border-bottom: 1px solid $border-color;
 
+/* ---------------- Section 1097 ---------------- */
       h3 {
         margin: 0;
         font-size: 1.1rem;
         color: $text-dark;
       }
 
+/* ---------------- Section 1099 ---------------- */
       .cal-modal-close {
         background: none;
         border: none;
@@ -3733,27 +4603,32 @@ $transition: all 0.2s ease;
         padding: 0;
         line-height: 1;
 
+/* ---------------- Section 1101 ---------------- */
         &:hover {
           color: $text-dark;
         }
       }
     }
 
+/* ---------------- Section 1103 ---------------- */
     .cal-modal-body {
       padding: 20px;
       // overflow-y: auto;
       flex: 1;
 
+/* ---------------- Section 1105 ---------------- */
       .no-data {
         text-align: center;
         color: $text-light;
         padding: 20px;
       }
 
+/* ---------------- Section 1107 ---------------- */
       .cal-details-table {
         width: 100%;
         border-collapse: collapse;
 
+/* ---------------- Section 1109 ---------------- */
         th,
         td {
           padding: 10px;
@@ -3761,6 +4636,7 @@ $transition: all 0.2s ease;
           border-bottom: 1px solid $border-color;
         }
 
+/* ---------------- Section 1111 ---------------- */
         th {
           font-weight: 600;
           font-size: 0.85rem;
@@ -3768,6 +4644,7 @@ $transition: all 0.2s ease;
           background: $table-head-bg;
         }
 
+/* ---------------- Section 1113 ---------------- */
         .type-badge {
           font-size: 0.75rem;
           padding: 3px 8px;
@@ -3775,15 +4652,18 @@ $transition: all 0.2s ease;
           color: $text-white;
           font-weight: 500;
 
+/* ---------------- Section 1115 ---------------- */
           &.leave {
             background: #3182ce;
           }
 
+/* ---------------- Section 1117 ---------------- */
           &.absent {
             background: #e53e3e;
           }
         }
 
+/* ---------------- Section 1119 ---------------- */
         .btn-edit-sm,
         .btn-delete-sm {
           padding: 4px 8px;
@@ -3795,6 +4675,7 @@ $transition: all 0.2s ease;
           margin-right: 5px;
           transition: $transition;
 
+/* ---------------- Section 1121 ---------------- */
           &:hover {
             background: $primary-color;
             color: $text-white;
@@ -3802,15 +4683,18 @@ $transition: all 0.2s ease;
           }
         }
 
+/* ---------------- Section 1123 ---------------- */
         .btn-delete-sm:hover {
           background: #e53e3e;
           border-color: #e53e3e;
         }
       }
 
+/* ---------------- Section 1125 ---------------- */
       .form-group {
         margin-bottom: 15px;
 
+/* ---------------- Section 1127 ---------------- */
         label {
           display: block;
           font-size: 0.85rem;
@@ -3819,6 +4703,7 @@ $transition: all 0.2s ease;
           font-weight: 500;
         }
 
+/* ---------------- Section 1129 ---------------- */
         .form-input {
           width: 100%;
           padding: 10px 12px;
@@ -3827,16 +4712,19 @@ $transition: all 0.2s ease;
           font-size: 0.9rem;
           background: $bg-light;
 
+/* ---------------- Section 1131 ---------------- */
           &:disabled {
             background: #eee;
             cursor: not-allowed;
           }
         }
 
+/* ---------------- Section 1133 ---------------- */
         .type-options {
           display: flex;
           gap: 10px;
 
+/* ---------------- Section 1135 ---------------- */
           .type-option {
             flex: 1;
             display: flex;
@@ -3848,28 +4736,34 @@ $transition: all 0.2s ease;
             cursor: pointer;
             transition: $transition;
 
+/* ---------------- Section 1137 ---------------- */
             input {
               display: none;
             }
 
+/* ---------------- Section 1139 ---------------- */
             .type-label {
               font-size: 0.9rem;
               font-weight: 500;
 
+/* ---------------- Section 1141 ---------------- */
               &.leave {
                 color: #3182ce;
               }
 
+/* ---------------- Section 1143 ---------------- */
               &.absent {
                 color: #e53e3e;
               }
             }
 
+/* ---------------- Section 1145 ---------------- */
             &.active {
               border-color: #878787a5;
               background: $bg-hover;
             }
 
+/* ---------------- Section 1147 ---------------- */
             &:hover {
               background: $bg-hover;
             }
@@ -3878,6 +4772,7 @@ $transition: all 0.2s ease;
       }
     }
 
+/* ---------------- Section 1149 ---------------- */
     .cal-modal-footer {
       display: flex;
       justify-content: flex-end;
@@ -3885,6 +4780,7 @@ $transition: all 0.2s ease;
       padding: 15px 20px;
       border-top: 1px solid $border-color;
 
+/* ---------------- Section 1151 ---------------- */
       .btn-cancel {
         padding: 8px 16px;
         border: 1px solid $border-color;
@@ -3894,11 +4790,13 @@ $transition: all 0.2s ease;
         font-size: 0.9rem;
         transition: $transition;
 
+/* ---------------- Section 1153 ---------------- */
         &:hover {
           background: $bg-hover;
         }
       }
 
+/* ---------------- Section 1155 ---------------- */
       .btn-save {
         padding: 8px 20px;
         border: none;
@@ -3909,6 +4807,7 @@ $transition: all 0.2s ease;
         font-size: 0.9rem;
         transition: $transition;
 
+/* ---------------- Section 1157 ---------------- */
         &:hover {
           background: color.scale($primary-color, $lightness: -15%);
         }
@@ -3917,41 +4816,50 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 1159 ---------------- */
 // Responsive
 @media (max-width: 768px) {
   .attendance-calendar-wrapper {
     padding: 10px;
 
+/* ---------------- Section 1161 ---------------- */
     .cal-header {
       flex-direction: column;
       align-items: flex-start;
     }
 
+/* ---------------- Section 1163 ---------------- */
     .cal-employee-select {
       width: 100%;
       flex-direction: column;
       align-items: flex-start !important;
 
+/* ---------------- Section 1165 ---------------- */
       .cal-select__control {
         min-width: 100% !important;
       }
     }
 
+/* ---------------- Section 1167 ---------------- */
     .cal-table tbody .cal-day {
       height: 70px;
 
+/* ---------------- Section 1169 ---------------- */
       .day-content {
         padding: 4px;
 
+/* ---------------- Section 1171 ---------------- */
         .day-number {
           font-size: 0.8rem;
           width: 22px;
           height: 22px;
         }
 
+/* ---------------- Section 1173 ---------------- */
         .day-actions {
           opacity: 1;
 
+/* ---------------- Section 1175 ---------------- */
           button {
             padding: 2px 4px;
           }
@@ -3961,11 +4869,13 @@ $transition: all 0.2s ease;
   }
 }
 
+/* ---------------- Section 1177 ---------------- */
 $primary: #3b82f6;
 $danger: #ef4444;
 $sunday-bg: #f1f5f9;
 $border-color: #e2e8f0;
 
+/* ---------------- Section 1179 ---------------- */
 .calendar-page-wrapper {
   height: 100vh;
   display: flex;
@@ -3973,6 +4883,7 @@ $border-color: #e2e8f0;
   padding: 0;
   background: #fff;
 
+/* ---------------- Section 1181 ---------------- */
   .calendar-top-bar {
     display: flex;
     justify-content: space-between;
@@ -3980,21 +4891,25 @@ $border-color: #e2e8f0;
     padding: 20px 30px;
     border-bottom: 1px solid $border-color;
 
+/* ---------------- Section 1183 ---------------- */
     h1 {
       font-size: 1.5rem;
       margin: 0;
       color: #1e293b;
     }
 
+/* ---------------- Section 1185 ---------------- */
     p {
       margin: 0;
       color: #64748b;
       font-size: 0.9rem;
     }
 
+/* ---------------- Section 1187 ---------------- */
     .filter-area {
       width: 300px;
 
+/* ---------------- Section 1189 ---------------- */
       label {
         display: block;
         font-size: 0.8rem;
@@ -4004,11 +4919,13 @@ $border-color: #e2e8f0;
     }
   }
 
+/* ---------------- Section 1191 ---------------- */
   .calendar-container {
     flex: 1;
     padding: 20px;
     overflow: hidden;
 
+/* ---------------- Section 1193 ---------------- */
     // Custom Cell Styling
     .custom-cell {
       height: 100%;
@@ -4016,12 +4933,14 @@ $border-color: #e2e8f0;
       position: relative;
       min-height: 100px;
 
+/* ---------------- Section 1195 ---------------- */
       &.is-sunday {
         background-color: $sunday-bg;
         cursor: not-allowed;
         opacity: 0.5;
       }
 
+/* ---------------- Section 1197 ---------------- */
       .cell-overlay-actions {
         display: flex;
         gap: 4px;
@@ -4032,6 +4951,7 @@ $border-color: #e2e8f0;
         opacity: 0;
         transition: opacity 0.2s;
 
+/* ---------------- Section 1199 ---------------- */
         button {
           flex: 1;
           padding: 4px;
@@ -4042,23 +4962,27 @@ $border-color: #e2e8f0;
           font-weight: bold;
         }
 
+/* ---------------- Section 1201 ---------------- */
         .btn-view {
           background: #e2e8f0;
           color: #475569;
         }
 
+/* ---------------- Section 1203 ---------------- */
         .btn-add {
           background: $primary;
           color: white;
         }
       }
 
+/* ---------------- Section 1205 ---------------- */
       &:hover .cell-overlay-actions {
         opacity: 1;
       }
     }
   }
 
+/* ---------------- Section 1207 ---------------- */
   // Modal Styles
   .modal-overlay {
     position: fixed;
@@ -4069,6 +4993,7 @@ $border-color: #e2e8f0;
     justify-content: center;
     z-index: 9999;
 
+/* ---------------- Section 1209 ---------------- */
     .modal-content {
       background: white;
       padding: 25px;
@@ -4077,11 +5002,13 @@ $border-color: #e2e8f0;
       max-width: 90%;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
+/* ---------------- Section 1211 ---------------- */
       .type-selector {
         display: flex;
         gap: 10px;
         margin: 20px 0;
 
+/* ---------------- Section 1213 ---------------- */
         button {
           flex: 1;
           padding: 10px;
@@ -4089,6 +5016,7 @@ $border-color: #e2e8f0;
           border-radius: 6px;
           cursor: pointer;
 
+/* ---------------- Section 1215 ---------------- */
           &.active {
             background: $primary;
             color: white;
@@ -4097,6 +5025,7 @@ $border-color: #e2e8f0;
         }
       }
 
+/* ---------------- Section 1217 ---------------- */
       .save-btn {
         background: $primary;
         color: white;
@@ -4109,6 +5038,7 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1219 ---------------- */
 // FullCalendar Theme Overrides
 .fc {
   .fc-col-header-cell {
@@ -4116,15 +5046,18 @@ $border-color: #e2e8f0;
     padding: 10px 0;
   }
 
+/* ---------------- Section 1221 ---------------- */
   .fc-daygrid-day-frame {
     cursor: pointer;
   }
 
+/* ---------------- Section 1223 ---------------- */
   .fc-day-sun {
     background-color: $sunday-bg !important;
   }
 }
 
+/* ---------------- Section 1225 ---------------- */
 // ==========================================
 // RESIGNATION STYLES
 // ==========================================
@@ -4135,18 +5068,21 @@ $border-color: #e2e8f0;
   margin-top: 1.5rem;
 }
 
+/* ---------------- Section 1227 ---------------- */
 .resignation-subtitle {
   font-size: 0.85rem;
   color: $text-light;
   margin-bottom: 1.5rem;
 }
 
+/* ---------------- Section 1229 ---------------- */
 .resignation-options {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
+/* ---------------- Section 1231 ---------------- */
 .resignation-radio-item {
   display: flex;
   align-items: center;
@@ -4156,11 +5092,13 @@ $border-color: #e2e8f0;
   cursor: pointer;
   transition: $transition;
 
+/* ---------------- Section 1233 ---------------- */
   &:hover {
     background: $bg-hover;
     border-color: $primary-color;
   }
 
+/* ---------------- Section 1235 ---------------- */
   input[type="radio"] {
     width: 18px;
     height: 18px;
@@ -4169,12 +5107,14 @@ $border-color: #e2e8f0;
     cursor: pointer;
   }
 
+/* ---------------- Section 1237 ---------------- */
   .radio-label {
     font-size: 0.9rem;
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 1239 ---------------- */
 .other-reason-container {
   margin-top: 1.5rem;
   padding: 1rem;
@@ -4182,6 +5122,7 @@ $border-color: #e2e8f0;
   border: 1px solid $border-color;
 }
 
+/* ---------------- Section 1241 ---------------- */
 .other-reason-label {
   display: block;
   font-size: 0.85rem;
@@ -4190,6 +5131,7 @@ $border-color: #e2e8f0;
   margin-bottom: 0.75rem;
 }
 
+/* ---------------- Section 1243 ---------------- */
 .other-reason-textarea {
   width: 100%;
   padding: 0.75rem;
@@ -4200,24 +5142,29 @@ $border-color: #e2e8f0;
   min-height: 100px;
   font-family: inherit;
 
+/* ---------------- Section 1245 ---------------- */
   &:focus {
     outline: none;
     border-color: $primary-color;
   }
 
+/* ---------------- Section 1247 ---------------- */
   &::placeholder {
     color: #999;
   }
 }
 
+/* ---------------- Section 1249 ---------------- */
 .resignation-btn {
   background: #dc3545 !important;
 
+/* ---------------- Section 1251 ---------------- */
   &:hover {
     background: #c82333 !important;
   }
 }
 
+/* ---------------- Section 1253 ---------------- */
 .resignation-reason-badge {
   display: inline-block;
   padding: 0.25rem 0.5rem;
@@ -4231,6 +5178,7 @@ $border-color: #e2e8f0;
   white-space: nowrap;
 }
 
+/* ---------------- Section 1255 ---------------- */
 // ==========================================
 // LEDGER STYLES (inside Employee form)
 // ==========================================
@@ -4240,17 +5188,20 @@ $border-color: #e2e8f0;
   max-height: 85vh;
 }
 
+/* ---------------- Section 1257 ---------------- */
 .ledger-select-row {
   display: flex;
   align-items: flex-end;
   gap: 0.5rem;
 
+/* ---------------- Section 1259 ---------------- */
   .ledger-select-field {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 4px;
 
+/* ---------------- Section 1261 ---------------- */
     label {
       font-size: 0.8rem;
       font-weight: 500;
@@ -4259,6 +5210,7 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1263 ---------------- */
 .ledger-add-btn {
   display: flex;
   align-items: center;
@@ -4273,11 +5225,13 @@ $border-color: #e2e8f0;
   color: $text-light;
   transition: $transition;
 
+/* ---------------- Section 1265 ---------------- */
   svg {
     width: 18px;
     height: 18px;
   }
 
+/* ---------------- Section 1267 ---------------- */
   &:hover {
     border-color: $text-dark;
     color: $text-dark;
@@ -4285,11 +5239,13 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1269 ---------------- */
 .required-star {
   color: #dc3545;
   margin-left: 2px;
 }
 
+/* ---------------- Section 1271 ---------------- */
 .ledger-form-error {
   display: flex;
   align-items: center;
@@ -4302,47 +5258,49 @@ $border-color: #e2e8f0;
   font-size: 0.82rem;
   border-radius: $radius;
 
+/* ---------------- Section 1273 ---------------- */
   .error-icon {
     width: 16px;
     height: 16px;
     flex-shrink: 0;
   }
 }
-
-.ledger-view {
-  .table-responsive {
+.ledger-view{
+  .table-responsive{
     overflow: scroll;
-
     // overflow-y: hidden;
-    .simple-table {
+    .simple-table{
       width: 1200px;
 
+/* ---------------- Section 1275 ---------------- */
     }
 
-    td {
+/* ---------------- Section 1277 ---------------- */
+    td{
       padding: 10px 0 !important;
-
-      &:nth-child(1) {
+      &:nth-child(1){
         padding: 10px 15px !important;
       }
-
-      &:nth-last-child(1) {
+       &:nth-last-child(1){
         padding: 10px 15px !important;
       }
     }
   }
 }
 
+/* ---------------- Section 1279 ---------------- */
 // ==========================================
 // VOUCHER FORM STYLES
 // ==========================================
 
+/* ---------------- Section 1281 ---------------- */
 .voucher-form-wrapper {
   background: $bg-white;
   border: 1px solid $border-color;
   border-radius: $radius;
 }
 
+/* ---------------- Section 1283 ---------------- */
 .vf-header {
   padding: 1.5rem;
   border-bottom: 1px solid $border-color;
@@ -4350,6 +5308,7 @@ $border-color: #e2e8f0;
   justify-content: space-between;
   align-items: center;
 
+/* ---------------- Section 1285 ---------------- */
   .vf-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -4357,6 +5316,7 @@ $border-color: #e2e8f0;
     margin: 0;
   }
 
+/* ---------------- Section 1287 ---------------- */
   .vf-subtitle {
     font-size: 0.82rem;
     color: $text-light;
@@ -4364,6 +5324,7 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1289 ---------------- */
 .vf-top-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -4372,11 +5333,13 @@ $border-color: #e2e8f0;
   border-bottom: 1px solid $border-color;
   background: $bg-light;
 
+/* ---------------- Section 1291 ---------------- */
   .vf-field {
     display: flex;
     flex-direction: column;
     gap: 6px;
 
+/* ---------------- Section 1293 ---------------- */
     label {
       font-size: 0.8rem;
       font-weight: 500;
@@ -4385,6 +5348,7 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1295 ---------------- */
 .vf-input {
   width: 100%;
   padding: 0.5rem 0.75rem;
@@ -4395,11 +5359,13 @@ $border-color: #e2e8f0;
   background: $bg-white;
   transition: $transition;
 
+/* ---------------- Section 1297 ---------------- */
   &:focus {
     outline: none;
     border-color: $primary-color;
   }
 
+/* ---------------- Section 1299 ---------------- */
   &[readOnly] {
     background: $bg-light;
     color: $text-light;
@@ -4407,6 +5373,7 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1301 ---------------- */
 .vf-date-group {
   .vf-date-inputs {
     display: flex;
@@ -4414,15 +5381,18 @@ $border-color: #e2e8f0;
     gap: 4px;
   }
 
+/* ---------------- Section 1303 ---------------- */
   .vf-date-input {
     width: 55px;
     text-align: center;
   }
 
+/* ---------------- Section 1305 ---------------- */
   .vf-date-year {
     width: 70px;
   }
 
+/* ---------------- Section 1307 ---------------- */
   .vf-date-sep {
     color: $text-light;
     font-size: 0.9rem;
@@ -4430,12 +5400,14 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1309 ---------------- */
 // Section (Debit / Credit)
 .vf-section {
   margin: 1rem 1.5rem;
   border: 1px solid $border-color;
   border-radius: $radius;
 
+/* ---------------- Section 1311 ---------------- */
   .vf-section-head {
     display: flex;
     justify-content: space-between;
@@ -4445,6 +5417,7 @@ $border-color: #e2e8f0;
     border-bottom: 1px solid $border-color;
   }
 
+/* ---------------- Section 1313 ---------------- */
   .vf-section-title {
     font-size: 0.95rem;
     font-weight: 600;
@@ -4452,6 +5425,7 @@ $border-color: #e2e8f0;
     margin: 0;
   }
 
+/* ---------------- Section 1315 ---------------- */
   .vf-section-total {
     font-size: 0.85rem;
     font-weight: 600;
@@ -4459,10 +5433,12 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1317 ---------------- */
 .vf-table {
   width: 100%;
   border-collapse: collapse;
 
+/* ---------------- Section 1319 ---------------- */
   thead th {
     text-align: left;
     padding: 0.6rem 0.75rem;
@@ -4475,28 +5451,33 @@ $border-color: #e2e8f0;
     background: $bg-white;
   }
 
+/* ---------------- Section 1321 ---------------- */
   tbody td {
     padding: 0.5rem 0.75rem;
     vertical-align: middle;
     border-bottom: 1px solid lighten($border-color, 5%);
   }
 
+/* ---------------- Section 1323 ---------------- */
   .vf-num {
     font-size: 0.82rem;
     color: $text-light;
     text-align: center;
   }
 
+/* ---------------- Section 1325 ---------------- */
   .vf-amount {
     text-align: right;
   }
 }
 
+/* ---------------- Section 1327 ---------------- */
 .vf-row-actions {
   display: flex;
   gap: 6px;
   justify-content: center;
 
+/* ---------------- Section 1329 ---------------- */
   button {
     width: 30px;
     height: 30px;
@@ -4510,26 +5491,31 @@ $border-color: #e2e8f0;
     justify-content: center;
     transition: $transition;
 
+/* ---------------- Section 1331 ---------------- */
     &:hover:not(:disabled) {
       border-color: $text-dark;
       background: $bg-hover;
     }
 
+/* ---------------- Section 1333 ---------------- */
     &:disabled {
       opacity: 0.35;
       cursor: not-allowed;
     }
   }
 
+/* ---------------- Section 1335 ---------------- */
   .vf-btn-add {
     color: #27ae60;
   }
 
+/* ---------------- Section 1337 ---------------- */
   .vf-btn-del {
     color: #e74c3c;
   }
 }
 
+/* ---------------- Section 1339 ---------------- */
 // Balance indicator
 .vf-balance {
   margin: 0 1.5rem;
@@ -4541,23 +5527,27 @@ $border-color: #e2e8f0;
   font-weight: 500;
   border-radius: $radius;
 
+/* ---------------- Section 1341 ---------------- */
   &.balanced {
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
     color: #166534;
   }
 
+/* ---------------- Section 1343 ---------------- */
   &.unbalanced {
     background: #fff5f5;
     border: 1px solid #fecaca;
     color: #dc3545;
   }
 
+/* ---------------- Section 1345 ---------------- */
   .vf-balance-divider {
     color: #ccc;
   }
 }
 
+/* ---------------- Section 1347 ---------------- */
 // Narration & Attachment
 .vf-bottom-section {
   display: grid;
@@ -4565,6 +5555,7 @@ $border-color: #e2e8f0;
   gap: 1.25rem;
   padding: 1.25rem 1.5rem;
 
+/* ---------------- Section 1349 ---------------- */
   label {
     display: block;
     font-size: 0.8rem;
@@ -4574,6 +5565,7 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1351 ---------------- */
 .vf-textarea {
   width: 100%;
   padding: 0.6rem 0.75rem;
@@ -4584,12 +5576,14 @@ $border-color: #e2e8f0;
   resize: vertical;
   font-family: inherit;
 
+/* ---------------- Section 1353 ---------------- */
   &:focus {
     outline: none;
     border-color: $primary-color;
   }
 }
 
+/* ---------------- Section 1355 ---------------- */
 .vf-file-area {
   border: 1px dashed $border-color;
   border-radius: $radius;
@@ -4599,6 +5593,7 @@ $border-color: #e2e8f0;
   justify-content: center;
 }
 
+/* ---------------- Section 1357 ---------------- */
 .vf-file-placeholder {
   display: flex;
   flex-direction: column;
@@ -4607,20 +5602,24 @@ $border-color: #e2e8f0;
   cursor: pointer;
   padding: 1.5rem;
 
+/* ---------------- Section 1359 ---------------- */
   span {
     font-size: 0.8rem;
     color: #999;
   }
 
+/* ---------------- Section 1361 ---------------- */
   &:hover span {
     color: $text-dark;
   }
 }
 
+/* ---------------- Section 1363 ---------------- */
 .vf-preview {
   position: relative;
   padding: 0.5rem;
 
+/* ---------------- Section 1365 ---------------- */
   img {
     max-height: 110px;
     max-width: 100%;
@@ -4628,6 +5627,7 @@ $border-color: #e2e8f0;
     object-fit: contain;
   }
 
+/* ---------------- Section 1367 ---------------- */
   .vf-preview-remove {
     position: absolute;
     top: 0;
@@ -4647,6 +5647,7 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1369 ---------------- */
 // Footer
 .vf-footer {
   padding: 1rem 1.5rem;
@@ -4656,22 +5657,24 @@ $border-color: #e2e8f0;
   gap: 0.75rem;
 }
 
+/* ---------------- Section 1371 ---------------- */
 // ---- Responsive ----
 @media (max-width: 768px) {
   .vf-top-row {
     grid-template-columns: 1fr;
   }
 
+/* ---------------- Section 1373 ---------------- */
   .vf-bottom-section {
     grid-template-columns: 1fr;
   }
 
+/* ---------------- Section 1375 ---------------- */
   .vf-table {
     display: block;
     overflow-x: auto;
   }
 }
-
 // .css-1xc3v61-indicatorContainer{
 //   display: none !important;
 // }
@@ -4679,15 +5682,16 @@ $border-color: #e2e8f0;
 //   display: none !important;
 // }
 .vf-field {
-  .flex {
-    input {
-      &:nth-child(1) {
+  .flex{
+    input{
+      &:nth-child(1){
         width: 40px !important;
       }
     }
   }
 }
 
+/* ---------------- Section 1377 ---------------- */
 // ===== LOGIN PAGE =====
 .login-overlay {
   position: fixed;
@@ -4699,6 +5703,7 @@ $border-color: #e2e8f0;
   z-index: 99999;
 }
 
+/* ---------------- Section 1379 ---------------- */
 .login-card {
   background: $bg-white;
   border: 1px solid $border-color;
@@ -4708,6 +5713,7 @@ $border-color: #e2e8f0;
   max-width: 40%;
 }
 
+/* ---------------- Section 1381 ---------------- */
 .login-logo {
   display: flex;
   align-items: center;
@@ -4715,6 +5721,7 @@ $border-color: #e2e8f0;
   justify-content: center;
   margin-bottom: 8px;
 
+/* ---------------- Section 1383 ---------------- */
   .login-logo-icon {
     width: 44px;
     height: 44px;
@@ -4730,18 +5737,21 @@ $border-color: #e2e8f0;
     text-align: center;
   }
 
+/* ---------------- Section 1385 ---------------- */
   .login-logo-text {
     font-size: 20px;
     font-weight: 700;
     color: $text-dark;
     margin: 0;
 
+/* ---------------- Section 1387 ---------------- */
     span {
       color: $primary-color;
     }
   }
 }
 
+/* ---------------- Section 1389 ---------------- */
 .login-subtitle {
   text-align: center;
   color: $text-light;
@@ -4750,22 +5760,26 @@ $border-color: #e2e8f0;
   margin-top: 4px;
 }
 
+/* ---------------- Section 1391 ---------------- */
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 
+/* ---------------- Section 1393 ---------------- */
   .login-input-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
 
+/* ---------------- Section 1395 ---------------- */
     label {
       font-size: 0.85rem;
       font-weight: 600;
       color: $text-dark;
     }
 
+/* ---------------- Section 1397 ---------------- */
     input {
       width: 100%;
       padding: 0.6rem;
@@ -4774,6 +5788,7 @@ $border-color: #e2e8f0;
       font-size: 0.9rem;
       color: #000;
 
+/* ---------------- Section 1399 ---------------- */
       &:focus {
         outline: none;
         border-color: $primary-color;
@@ -4781,16 +5796,19 @@ $border-color: #e2e8f0;
     }
   }
 
+/* ---------------- Section 1401 ---------------- */
   // ── show/hide password wrapper ──
   .login-pw-wrap {
     position: relative;
     display: flex;
     align-items: center;
 
+/* ---------------- Section 1403 ---------------- */
     input {
       padding-right: 2.4rem;
     }
 
+/* ---------------- Section 1405 ---------------- */
     .login-pw-toggle {
       position: absolute;
       right: 0.6rem;
@@ -4802,17 +5820,18 @@ $border-color: #e2e8f0;
       align-items: center;
       color: $text-light;
 
+/* ---------------- Section 1407 ---------------- */
       svg {
         width: 18px;
         height: 18px;
       }
 
-      &:hover {
-        color: $text-dark;
-      }
+/* ---------------- Section 1409 ---------------- */
+      &:hover { color: $text-dark; }
     }
   }
 
+/* ---------------- Section 1411 ---------------- */
   // ── remember me ──
   .login-remember {
     .login-remember-label {
@@ -4823,6 +5842,7 @@ $border-color: #e2e8f0;
       color: $text-light;
       cursor: pointer;
 
+/* ---------------- Section 1413 ---------------- */
       input[type='checkbox'] {
         width: 15px;
         height: 15px;
@@ -4830,12 +5850,12 @@ $border-color: #e2e8f0;
         cursor: pointer;
       }
 
-      span {
-        user-select: none;
-      }
+/* ---------------- Section 1415 ---------------- */
+      span { user-select: none; }
     }
   }
 
+/* ---------------- Section 1417 ---------------- */
   .login-btn {
     padding: 10px;
     border-radius: $radius;
@@ -4850,15 +5870,16 @@ $border-color: #e2e8f0;
     letter-spacing: 0.5px;
     transition: $transition;
 
-    &:hover {
-      background: $text-dark;
-    }
+/* ---------------- Section 1419 ---------------- */
+    &:hover { background: $text-dark; }
 
+/* ---------------- Section 1421 ---------------- */
     &:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
 
+/* ---------------- Section 1423 ---------------- */
     .login-btn-loading {
       display: flex;
       align-items: center;
@@ -4866,6 +5887,7 @@ $border-color: #e2e8f0;
       gap: 8px;
     }
 
+/* ---------------- Section 1425 ---------------- */
     .login-spinner {
       display: inline-block;
       width: 14px;
@@ -4877,6 +5899,7 @@ $border-color: #e2e8f0;
     }
   }
 
+/* ---------------- Section 1427 ---------------- */
   .login-error {
     background: #fff5f5;
     border: 1px solid #e8cccc;
@@ -4888,25 +5911,15 @@ $border-color: #e2e8f0;
   }
 }
 
+/* ---------------- Section 1429 ---------------- */
 // ── Login entry animation ──
 @keyframes login-card-in {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)  scale(1);    }
 }
-
 @keyframes login-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
-
 .login-card--animate {
   animation: login-card-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }

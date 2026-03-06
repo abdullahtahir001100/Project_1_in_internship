@@ -1,11 +1,13 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 import { Listbox } from "@headlessui/react";
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
 import Loading from './loading.js';
+
 export default function Departments() {
+    const { axios } = useApi();
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -39,7 +41,7 @@ export default function Departments() {
     const fetchAll = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('http://localhost/react-backend/api/Posts/get_department');
+            const res = await axios.get('/Posts/get_department');
             setData(res.data);
         }
         catch (err) {
@@ -56,7 +58,7 @@ export default function Departments() {
         setEditId(id);
         if (id) {
             try {
-                const res = await axios.get(`http://localhost/react-backend/api/departments/get?id=${id}`);
+                const res = await axios.get(`/departments/get?id=${id}`);
                 const department = res?.data?.[0] || {};
                 setDeptName(department.department_name || ''); // Ensure deptName is always a string
                 const statusValue = Number(department.status ?? 1);
@@ -83,7 +85,7 @@ export default function Departments() {
 
         const url = editId ? "update" : "create";
         try {
-            const res = await axios.post(`http://localhost/react-backend/api/departments/${url}`, fd);
+            const res = await axios.post(`/departments/${url}`, fd);
 
             modalCheck.current.checked = false;
             fetchAll();
@@ -103,7 +105,7 @@ export default function Departments() {
     };
 
     const handleDelete = async () => {
-        await axios.delete('http://localhost/react-backend/api/departments/delete', { data: { id: targetId } });
+        await axios.delete('/departments/delete', { data: { id: targetId } });
         setShowDeleteModal(false);
         fetchAll();
     };

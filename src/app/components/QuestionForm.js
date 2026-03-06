@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect, use } from 'react';
 import { Listbox } from "@headlessui/react";
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import Loading from './loading.js';
+
 export default function QuestionForm({ onCancel }) {
+  const { axios } = useApi();
 
  
 
@@ -92,7 +94,7 @@ export default function QuestionForm({ onCancel }) {
       try {
         setLoading(true);
         const res = await axios.get(
-          'http://localhost/react-backend/api/Employees/get_info'
+          '/Employees/get_info'
         );
         setDepartments(res.data);
       } catch (error) {
@@ -110,7 +112,7 @@ export default function QuestionForm({ onCancel }) {
   async function fetch_the_exitting_post() {
    try {
     setLoading(true);
-    const res = await axios.get(`http://localhost/react-backend/api/questions/get?department_id=${selectedDept ? selectedDept?.department_id : ""}`);
+    const res = await axios.get(`/questions/get?department_id=${selectedDept ? selectedDept?.department_id : ""}`);
      setData(res?.data[0]?.posts.filter((post) => post.post_id == (selectedPost ? selectedPost.id : null))[0]?.questions || []);
    const post = res?.data?.[0]?.posts?.find(
   post => Number(post.post_id) === Number(selectedPost?.id)
@@ -177,7 +179,7 @@ const handleSubmit = async (e) => {
 
   try {
     const res = await axios.post(
-      'http://localhost/react-backend/api/questions/create',
+      '/questions/create',
       payload,
       {
         headers: {

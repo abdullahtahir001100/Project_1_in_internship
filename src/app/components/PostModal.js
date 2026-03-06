@@ -1,9 +1,12 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
 import { Listbox } from "@headlessui/react";
+import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import Loading from './loading.js';
+
 export default function PostModal() {
+  const { axios } = useApi();
 
 
 
@@ -17,9 +20,8 @@ export default function PostModal() {
     async function get_all_departments() {
       try {
         setloading(true);
-        const request = await fetch('http://localhost/react-backend/api/Posts/get_department')
-        const responce = await request.json();
-        setdata(responce);
+        const response = await axios.get('/Posts/get_department')
+        setdata(response.data);
       } catch (error) {
         setToast({ show: true, type: 'error', message: 'Failed to load departments.' });
       }
@@ -35,12 +37,8 @@ export default function PostModal() {
     const formData = new FormData(form.current);
     try {
       setloading(true);
-      const insert = await fetch('http://localhost/react-backend/api/Posts/create', {
-        method: 'POST',
-        body: formData,
-      })
-      const responce_of = await insert.json()
-      setToast({ show: true, type: 'success', message: responce_of?.message || 'Post created!' });
+      const response = await axios.post('/Posts/create', formData)
+      setToast({ show: true, type: 'success', message: response?.data?.message || 'Post created!' });
     } catch (error) {
       setToast({ show: true, type: 'error', message: error?.message || 'Error creating post' });
     }

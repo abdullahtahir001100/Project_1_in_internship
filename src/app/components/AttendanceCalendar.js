@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 import dynamic from 'next/dynamic';
 import Loading from './loading.js';
 import ToastDisplay from './alert.js';
@@ -9,6 +9,8 @@ import ToastDisplay from './alert.js';
 const Select = dynamic(() => import('react-select'), { ssr: false });
 
 const AttendanceCalendar = () => {
+    const { axios } = useApi();
+
     const [currentDate, setCurrentDate] = useState(new Date());
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -25,7 +27,7 @@ const AttendanceCalendar = () => {
     // Fetch employees
     const fetchEmployees = async () => {
         try {
-            const res = await axios.get('http://localhost/react-backend/api/Employees/get');
+            const res = await axios.get('/Employees/get');
             if (res.data) {
                 const empOptions = res.data.map(emp => ({
                     value: emp.id,
@@ -45,7 +47,7 @@ const AttendanceCalendar = () => {
             setIsLoading(true);
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth() + 1;
-            let url = `http://localhost/react-backend/api/leave/l?year=${year}&month=${month}`;
+            let url = `/leave/l?year=${year}&month=${month}`;
             if (selectedEmployee) {
                 url += `&emp_id=${selectedEmployee.value}`;
             }
@@ -157,7 +159,7 @@ const AttendanceCalendar = () => {
         // if (!confirm('Are you sure you want to delete this record?')) return;
         try {
             setIsLoading(true);
-            await axios.delete(`http://localhost/react-backend/api/leave/l?id=${id}`);
+            await axios.delete(`/leave/l?id=${id}`);
             setToast({ show: true, type: 'success', message: 'Record deleted successfully.' });
             fetchLeaveData();
             setShowDetailsModal(false);
@@ -185,10 +187,10 @@ const AttendanceCalendar = () => {
 
             if (editMode) {
                 payload.id = editId;
-                await axios.put('http://localhost/react-backend/api/leave/l', payload);
+                await axios.put('/leave/l', payload);
                 setToast({ show: true, type: 'success', message: 'Record updated successfully.' });
             } else {
-                await axios.post('http://localhost/react-backend/api/leave/l', payload);
+                await axios.post('/leave/l', payload);
                 setToast({ show: true, type: 'success', message: 'Record added successfully.' });
             }
             fetchLeaveData();

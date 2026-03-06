@@ -1,12 +1,12 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import Select from 'react-select';
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import AlertCard from './AlertCard.js';
 import Loading from './loading.js';
 
-const API_BASE = 'http://localhost/react-backend/api/vouchers';
+const API_BASE = '/vouchers';
 
 // Generate JV number
 function generateJVNumber(type = 'JV') {
@@ -80,6 +80,8 @@ const selectStyles = {
 };
 
 export default function Voucher() {
+    const { axios } = useApi();
+
     const [view, setView] = useState('list'); // 'list' | 'add' | 'edit'
     const [vouchers, setVouchers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -120,7 +122,7 @@ export default function Voucher() {
 
     async function fetchLedgers() {
         try {
-            const res = await axios.get('http://localhost/react-backend/api/Employees/get');
+            const res = await axios.get('/Employees/get');
             setLedgers(res.data || []);
         } catch (err) {
             /* silent */
@@ -246,7 +248,7 @@ export default function Voucher() {
         setAttachment(null);
         if (data.image) {
             setExistingImage(data.image);
-            setAttachmentPreview(`http://localhost/react-backend/${data.image}`);
+            setAttachmentPreview(`${process.env.NEXT_PUBLIC_API_BASE_URL?.replace('/api', '') || ''}/${data.image}`);
         } else {
             setExistingImage(null);
             setAttachmentPreview(null);

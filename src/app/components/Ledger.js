@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 import Select from 'react-select';
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
@@ -12,6 +12,8 @@ const statusOptions = [
 ];
 
 export default function Ledger() {
+    const { axios } = useApi();
+
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [editId, setEditId] = useState(null);
@@ -36,7 +38,7 @@ export default function Ledger() {
     async function fetchLedgers() {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost/react-backend/api/ledgers/get_leger');
+            const res = await axios.get('/ledgers/get_leger');
             setData(res.data || []);
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to load ledgers.' });
@@ -91,7 +93,7 @@ export default function Ledger() {
             setLoading(true);
             const res = await axios({
                 method: method,
-                url: `http://localhost/react-backend/api/ledgers/${url}`,
+                url: `/ledgers/${url}`,
                 data: payload,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -108,7 +110,7 @@ export default function Ledger() {
     async function handleDelete() {
         try {
             setLoading(true);
-            await axios.delete('http://localhost/react-backend/api/ledgers/delete', {
+            await axios.delete('/ledgers/delete', {
                 data: { id: targetId }
             });
             setShowDeleteModal(false);

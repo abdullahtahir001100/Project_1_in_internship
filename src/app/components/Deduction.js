@@ -1,11 +1,13 @@
 'use client'
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import AlertCard from './AlertCard.js';
 
 
 export default function deduction() {
+    const { axios } = useApi();
+
     // Sirf ye state chahiye modal open/close ke liye
     const [isOpen, setIsOpen] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
@@ -26,7 +28,7 @@ export default function deduction() {
 
         try {
             const url = editId ? "update" : "create";
-            const res = await axios.post(`http://localhost/react-backend/api/deduction/${url}`, payload);
+            const res = await axios.post(`/deduction/${url}`, payload);
             get_table_data();
             setIsOpen(false);
             res?.data?.message ? setToast({ show: true, type: 'success', message: res.data.message }) : setToast({ show: true, type: 'error', message: editId ? 'Failed to update deduction!' : 'deduction created!' });
@@ -43,7 +45,7 @@ export default function deduction() {
     };
     async function get_edit_data(id) {
         try {
-            const res = await axios.get(`http://localhost/react-backend/api/deduction/get?id=${id}`);
+            const res = await axios.get(`/deduction/get?id=${id}`);
             const deductionData = res.data[0];
 
             setPayload({
@@ -55,7 +57,7 @@ export default function deduction() {
     }
     async function handleDelete(id) {
         try {
-            const res = await axios.post(`http://localhost/react-backend/api/deduction/delete`, { id });
+            const res = await axios.post(`/deduction/delete`, { id });
             setToast({ show: true, type: 'success', message: res?.data?.message || 'deduction deleted!' });
             setIsDeleteOpen(false);
             get_table_data();
@@ -66,7 +68,7 @@ export default function deduction() {
     }
     async function get_table_data() {
         try {
-            const res = await axios.get(`http://localhost/react-backend/api/deduction/get`);
+            const res = await axios.get(`/deduction/get`);
             setdata(res.data);
 
         }
@@ -75,8 +77,8 @@ export default function deduction() {
 
     useEffect(() => {
         get_table_data();
-    }
-        , []);
+    }, []);
+
 
 
     return (

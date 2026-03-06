@@ -1,11 +1,13 @@
 'use client'
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import AlertCard from './AlertCard.js';
 
 
 export default function Bonus() {
+    const { axios } = useApi();
+
     // Sirf ye state chahiye modal open/close ke liye
     const [isOpen, setIsOpen] = useState(false);
     const [deleteId, setDeleteId] = useState(null);
@@ -26,7 +28,7 @@ export default function Bonus() {
 
         try {
             const url = editId ? "update.php" : "create.php";
-            const res = await axios.post(`http://localhost/react-backend/api/bonus/${url}`, payload);
+            const res = await axios.post(`/bonus/${url}`, payload);
             get_table_data();
             setIsOpen(false);
             res?.data?.message ? setToast({ show: true, type: 'success', message: res.data.message }) : setToast({ show: true, type: 'error', message: editId ? 'Failed to update Bonus!' : 'Bonus created!' });
@@ -43,7 +45,7 @@ export default function Bonus() {
     };
     async function get_edit_data(id) {
         try {
-            const res = await axios.get(`http://localhost/react-backend/api/bonus/get.php?id=${id}`);
+            const res = await axios.get(`/bonus/get.php?id=${id}`);
             const bonusData = res.data[0];
 
             setPayload({
@@ -55,7 +57,7 @@ export default function Bonus() {
     }
     async function handleDelete(id) {
         try {
-            const res = await axios.post(`http://localhost/react-backend/api/bonus/delete.php`, { id });
+            const res = await axios.post(`/bonus/delete.php`, { id });
             setToast({ show: true, type: 'success', message: res?.data?.message || 'Bonus deleted!' });
             setIsDeleteOpen(false);
             get_table_data();
@@ -66,7 +68,7 @@ export default function Bonus() {
     }
     async function get_table_data() {
         try {
-            const res = await axios.get(`http://localhost/react-backend/api/bonus/get.php`);
+            const res = await axios.get(`/bonus/get.php`);
             setdata(res.data);
 
         }
@@ -75,8 +77,8 @@ export default function Bonus() {
 
     useEffect(() => {
         get_table_data();
-    }
-        , []);
+    }, []);
+
 
 
     return (

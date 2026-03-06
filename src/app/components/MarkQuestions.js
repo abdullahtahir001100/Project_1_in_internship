@@ -1,9 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import Loading from './loading.js';
+
 export default function MarkQuestions({ empId, onBack }) {
+    const { axios } = useApi();
+
     const [employee, setEmployee] = useState(null);
     const [questions, setQuestions] = useState([]);
     const [ratings, setRatings] = useState({});
@@ -15,11 +18,11 @@ export default function MarkQuestions({ empId, onBack }) {
         async function fetchData() {
             try {
                 setLoading(true);
-                const empRes = await axios.get(`http://localhost/react-backend/api/Employees/get_data?id=${empId}`);
+                const empRes = await axios.get(`/Employees/get_data?id=${empId}`);
                 const emp = empRes.data;
                 setEmployee(emp);
 
-                const qRes = await axios.get(`http://localhost/react-backend/api/questions/get?department_id=${emp.department_id}`);
+                const qRes = await axios.get(`/questions/get?department_id=${emp.department_id}`);
                 const qData = qRes.data;
 
                 await get_existing_rating();
@@ -44,7 +47,7 @@ export default function MarkQuestions({ empId, onBack }) {
                 employee_id: empId,
                 ratings: ratings
             };
-            const res = await axios.post('http://localhost/react-backend/api/questions/save_rating', payload);
+            const res = await axios.post('/questions/save_rating', payload);
             setToast({ show: true, type: 'success', message: res.data.message || 'Saved successfully!' });
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to save ratings.' });
@@ -56,7 +59,7 @@ export default function MarkQuestions({ empId, onBack }) {
     async function get_existing_rating() {
         try {
             const res = await axios.get(
-                `http://localhost/react-backend/api/questions/get_rating?employee_id=${empId}`
+                `/questions/get_rating?employee_id=${empId}`
             );
 
             const dbRatings = res.data;

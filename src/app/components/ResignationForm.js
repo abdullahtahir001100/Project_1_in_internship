@@ -1,10 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import Loading from './loading.js';
 
 export default function ResignationForm({ empId, onBack }) {
+    const { axios } = useApi();
+
     const [employee, setEmployee] = useState(null);
     const [loading, setLoading] = useState(true);
     const [toast, setToast] = useState({ show: false, type: '', message: '' });
@@ -25,7 +27,7 @@ export default function ResignationForm({ empId, onBack }) {
         async function fetchData() {
             try {
                 setLoading(true);
-                const empRes = await axios.get(`http://localhost/react-backend/api/Employees/get_data?id=${empId}`);
+                const empRes = await axios.get(`/Employees/get_data?id=${empId}`);
                 const emp = empRes.data;
                 setEmployee(emp);
             } catch (error) {
@@ -57,7 +59,7 @@ export default function ResignationForm({ empId, onBack }) {
                 resignation_date: new Date().toISOString().split('T')[0]
             };
 
-            const res = await axios.post('http://localhost/react-backend/api/reasons/save', payload);
+            const res = await axios.post('/reasons/save', payload);
             setToast({ show: true, type: 'success', message: res.data.message || 'Resignation submitted successfully!' });
             
             setTimeout(() => {

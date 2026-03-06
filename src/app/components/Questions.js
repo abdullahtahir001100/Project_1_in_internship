@@ -1,17 +1,19 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import QuestionForm from './QuestionForm';
-import axios from 'axios';
+import { useApi } from '../context/ApiProvider';
 import Loading from './loading.js';
 
 export default function Questions() {
+  const { axios } = useApi();
+
   const [view, setView] = useState('list'); 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const fetchAll = async () => {
     setLoading(true);
     try {
-      const resPosts = await axios.get('http://localhost/react-backend/api/Posts/get');
+      const resPosts = await axios.get('/Posts/get');
       setData(resPosts.data);
 
     } catch (err) { /* silently fail */ }
@@ -19,6 +21,7 @@ export default function Questions() {
   };
 
   useEffect(() => { fetchAll(); }, []);
+
   return (
     <div className="section-container">
       {view === 'list' ? (

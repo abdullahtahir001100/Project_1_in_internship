@@ -6,6 +6,14 @@
   },
   "headers": [
     {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, PUT, DELETE, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
+      ]
+    },
+    {
       "source": "/fonts/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
@@ -24,10 +32,18 @@
       ]
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.php"
-    }
+  "rewrites": [
+    { "source": "/api/bonus/:path*", "destination": "/api/api/bonus/:path*.php" },
+    { "source": "/api/bonusmain/:path*", "destination": "/api/api/bonusmain/:path*.php" },
+    { "source": "/api/deduction/:path*", "destination": "/api/api/deduction/:path*.php" },
+    { "source": "/api/departments/:path*", "destination": "/api/api/departments/:path*.php" },
+    { "source": "/api/Employees/:path*", "destination": "/api/api/Employees/:path*.php" },
+    { "source": "/api/leave/:path*", "destination": "/api/api/leave/:path*.php" },
+    { "source": "/api/ledgers/:path*", "destination": "/api/api/ledgers/:path*.php" },
+    { "source": "/api/payrool/:path*", "destination": "/api/api/payrool/:path*.php" },
+    { "source": "/api/Posts/:path*", "destination": "/api/api/Posts/:path*.php" },
+    { "source": "/api/questions/:path*", "destination": "/api/api/questions/:path*.php" },
+    { "source": "/api/reasons/:path*", "destination": "/api/api/reasons/:path*.php" },
+    { "source": "/api/vouchers/:path*", "destination": "/api/api/vouchers/:path*.php" }
   ]
 }

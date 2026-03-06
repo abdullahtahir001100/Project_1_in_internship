@@ -1,8 +1,10 @@
 'use client';
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useApi } from '../context/ApiProvider';
 import Loading from "./loading.js";
+
 export default function DashboardPage() {
+  const { axios } = useApi();
  
   const [reportData, setReportData] = useState({
     totalEmployees: 0,
@@ -19,11 +21,11 @@ export default function DashboardPage() {
   async function fetchReportData() {
     try {
     setLoading(true);
-      const response1 = await axios.get('http://localhost/react-backend/api/Posts/get_department'); // Departments
-      const response2 = await axios.get('http://localhost/react-backend/api/Posts/get'); // Posts
-      const response3 = await axios.get('http://localhost/react-backend/api/bonus/get'); // Bonuses
-      const response4 = await axios.get('http://localhost/react-backend/api/deduction/get'); // Deductions
-      const response6 = await axios.get('http://localhost/react-backend/api/Employees/get'); // Employees
+      const response1 = await axios.get('/Posts/get_department'); // Departments
+      const response2 = await axios.get('/Posts/get'); // Posts
+      const response3 = await axios.get('/bonus/get'); // Bonuses
+      const response4 = await axios.get('/deduction/get'); // Deductions
+      const response6 = await axios.get('/Employees/get'); // Employees
 
         const employees = response6.data;
 
