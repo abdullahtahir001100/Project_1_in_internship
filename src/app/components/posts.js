@@ -20,13 +20,15 @@ export default function Posts() {
   const [toast, setToast] = useState({ show: false, type: '', message: '' });
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const modalCheck = useRef(null);
   const formRef = useRef(null);
 
   // --- Modal Reset & Close ---
   const closeModal = () => {
-    modalCheck.current.checked = false; // Checkbox uncheck (Modal hide)
+    setShowModal(false);
     setEditId(null);
     setPostName('');
     setSelectedDept(null);
@@ -47,21 +49,27 @@ export default function Posts() {
   useEffect(() => { fetchAll(); }, []);
 
   const openModal = async (id = null) => {
+    setShowModal(true);
     if (id) {
       setEditId(id);
+      setEditLoading(true);
       try {
         const res = await axios.get(`/Posts/get_data?id=${id}`);
         const postData = res.data[0];
         setPostName(postData?.Post_name ?? '');
         const matchedDept = depts.find(d => d.id == postData?.department_id);
         setSelectedDept(matchedDept || null);
-      } catch (err) { setToast({ show: true, type: 'error', message: 'Failed to load post data.' }); }
+      } catch (err) { 
+        setToast({ show: true, type: 'error', message: 'Failed to load post data.' }); 
+        setShowModal(false);
+      } finally {
+        setEditLoading(false);
+      }
     } else {
       setEditId(null);
       setPostName('');
       setSelectedDept(null);
     }
-    modalCheck.current.checked = true;
   };
 
   const handleSave = async (e) => {
@@ -99,54 +107,79 @@ export default function Posts() {
         </div>
 
         <div className="modal-wrapper">
-          <input type="checkbox" id="modal-toggle" ref={modalCheck} hidden />
+          <input type="checkbox" id="modal-toggle" ref={modalCheck} hidden checked={showModal} onChange={() => {}} />
           <button className="btn-add" onClick={() => openModal()}>Add New Post</button>
 
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h3>{editId ? "Edit" : "Create"} Post</h3>
-                {/* Cross Icon par onClick add kiya */}
-                <span className="close-icon" onClick={closeModal} style={{ cursor: 'pointer' }}>×</span>
-              </div>
-              <form className="modal-form" ref={formRef} onSubmit={handleSave}>
-                <div className="form-group">
-                  <label>Desination Name</label>
-                  <input
-                    name='Post_name'
-                    value={postName}
-                    onChange={(e) => setPostName(e.target.value)}
-                    type="text"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Department</label>
-                  <Listbox value={selectedDept} onChange={setSelectedDept}>
-                    <div className="custom-select-container">
-                      <Listbox.Button className="select-trigger">
-                        {selectedDept ? selectedDept.department_name : "Select Department"}
-                      </Listbox.Button>
-                      <Listbox.Options className="select-options">
-                        {depts.map(dept => (
-                          <Listbox.Option key={dept.id} value={dept} className="option-item">
-                            {dept.department_name}
-                          </Listbox.Option>
-                        ))}
-                      </Listbox.Options>
+          {showModal && (
+            <div className="modal-overlay" style={{ display: 'flex' }}>
+              <div className="modal-content">
+                {editLoading ? (
+                  <>
+                    <div className="modal-header">
+                      <div className="skeleton-box" style={{ width: '120px', height: '20px' }}></div>
+                      <span className="close-icon" onClick={closeModal} style={{ cursor: 'pointer' }}>×</span>
                     </div>
-                  </Listbox>
-                </div>
-                <div className="modal-footer">
-                  {/* Cancel button par onClick add kiya */}
-                  <button type="button" className="btn-cancel" onClick={closeModal}>Cancel</button>
-                  <LoadingButton type="submit" className="btn-save" loading={saving} loadingText="Saving...">
-                    Save
-                  </LoadingButton>
-                </div>
-              </form>
+                    <div className="modal-form" style={{ padding: '20px' }}>
+                      <div className="skeleton-form-field" style={{ marginBottom: '16px' }}>
+                        <div className="skeleton-box" style={{ width: '100px', height: '14px', marginBottom: '8px' }}></div>
+                        <div className="skeleton-box" style={{ width: '100%', height: '38px' }}></div>
+                      </div>
+                      <div className="skeleton-form-field" style={{ marginBottom: '16px' }}>
+                        <div className="skeleton-box" style={{ width: '80px', height: '14px', marginBottom: '8px' }}></div>
+                        <div className="skeleton-box" style={{ width: '100%', height: '38px' }}></div>
+                      </div>
+                      <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                        <div className="skeleton-box" style={{ width: '80px', height: '38px' }}></div>
+                        <div className="skeleton-box" style={{ width: '80px', height: '38px' }}></div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="modal-header">
+                      <h3>{editId ? "Edit" : "Create"} Post</h3>
+                      <span className="close-icon" onClick={closeModal} style={{ cursor: 'pointer' }}>×</span>
+                    </div>
+                    <form className="modal-form" ref={formRef} onSubmit={handleSave}>
+                      <div className="form-group">
+                        <label>Desination Name</label>
+                        <input
+                          name='Post_name'
+                          value={postName}
+                          onChange={(e) => setPostName(e.target.value)}
+                          type="text"
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Department</label>
+                        <Listbox value={selectedDept} onChange={setSelectedDept}>
+                          <div className="custom-select-container">
+                            <Listbox.Button className="select-trigger">
+                              {selectedDept ? selectedDept.department_name : "Select Department"}
+                            </Listbox.Button>
+                            <Listbox.Options className="select-options">
+                              {depts.map(dept => (
+                                <Listbox.Option key={dept.id} value={dept} className="option-item">
+                                  {dept.department_name}
+                                </Listbox.Option>
+                              ))}
+                            </Listbox.Options>
+                          </div>
+                        </Listbox>
+                      </div>
+                      <div className="modal-footer">
+                        <button type="button" className="btn-cancel" onClick={closeModal}>Cancel</button>
+                        <LoadingButton type="submit" className="btn-save" loading={saving} loadingText="Saving...">
+                          Save
+                        </LoadingButton>
+                      </div>
+                    </form>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -192,6 +225,7 @@ export default function Posts() {
           message="Confirm delete department. This Task Not Be Undone"
           onCancel={() => setShowDeleteModal(false)}
           onContinue={handleDelete}
+          loading={deleting}
         />
       )}
       <ToastDisplay toast={toast} setToast={setToast} />

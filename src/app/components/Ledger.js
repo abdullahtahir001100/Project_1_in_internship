@@ -272,6 +272,7 @@ export default function Ledger() {
                     message="This action cannot be undone. Are you sure?"
                     onCancel={() => setShowDeleteModal(false)}
                     onContinue={handleDelete}
+                    loading={deleting}
                 />
             )}
 

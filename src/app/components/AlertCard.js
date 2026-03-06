@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MinimalAlert = ({ title, message, onCancel, onContinue }) => {
+const MinimalAlert = ({ title, message, onCancel, onContinue, loading = false }) => {
     return (
         <>
         <div className="overlay"></div>
@@ -22,11 +22,16 @@ const MinimalAlert = ({ title, message, onCancel, onContinue }) => {
                     </div>
 
                     <div className="alert-bar">
-                        <button className="btn-flat-light" onClick={onCancel}>
+                        <button className="btn-flat-light" onClick={onCancel} disabled={loading}>
                             Cancel
                         </button>
-                        <button className="btn-flat-dark" onClick={onContinue}>
-                            Continue
+                        <button className="btn-flat-dark" onClick={onContinue} disabled={loading}>
+                            {loading ? (
+                                <span className="btn-loading-content">
+                                    <span className="btn-spinner"></span>
+                                    Deleting...
+                                </span>
+                            ) : 'Continue'}
                         </button>
                     </div>
                 </div>

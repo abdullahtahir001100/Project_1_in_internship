@@ -7,7 +7,7 @@ import ResignationForm from './ResignationForm';
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
 import Select from 'react-select';
-import { TableSkeleton, LoadingButton } from './Skeleton';
+import { TableSkeleton, LoadingButton, ModalSkeleton } from './Skeleton';
 
 export default function Employees() {
     const { axios } = useApi();
@@ -35,6 +35,7 @@ export default function Employees() {
     const [saving, setSaving] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [ledgerSaving, setLedgerSaving] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
 
     // Ledger states
     const [ledgers, setLedgers] = useState([]);
@@ -167,7 +168,7 @@ export default function Employees() {
     async function get_edit_data(id) {
         setEditId(id);
         try {
-            setLoading(true);
+            setEditLoading(true);
             const response = await axios.get(`/Employees/get_data?id=${id}`);
             const data = response.data;
             setEditdata(data);
@@ -201,7 +202,7 @@ export default function Employees() {
         } catch (error) {
             setToast({ show: true, type: 'error', message: 'Failed to load employee data.' });
         } finally {
-            setLoading(false);
+            setEditLoading(false);
         }
     }
 
@@ -372,6 +373,9 @@ export default function Employees() {
                             </button>
                         </div>
 
+                        {editLoading ? (
+                            <ModalSkeleton fields={8} showFooter={true} />
+                        ) : (
                         <form className="emp-modal-form" ref={form} onSubmit={post_data}>
                             <div className="form-section">
                                 <h4 className="form-section-title">Ledger Account</h4>
@@ -543,6 +547,7 @@ export default function Employees() {
                                 </LoadingButton>
                             </div>
                         </form>
+                        )}
                     </div>
                 </div>
             )}
@@ -550,9 +555,10 @@ export default function Employees() {
             {showDeleteModal && (
                 <AlertCard
                     title="Delete?"
-                    message="Confirm delete department. This Task Not Be Undone"
+                    message="Confirm delete employee. This action cannot be undone."
                     onCancel={() => setShowDeleteModal(false)}
                     onContinue={() => handleDelete(targetId)}
+                    loading={deleting}
                 />
             )}
 

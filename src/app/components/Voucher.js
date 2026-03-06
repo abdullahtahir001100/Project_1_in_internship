@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { useApi } from '../context/ApiProvider';
 import ToastDisplay from './alert.js';
 import AlertCard from './AlertCard.js';
-import { TableSkeleton, LoadingButton } from './Skeleton';
+import { TableSkeleton, LoadingButton, ModalSkeleton } from './Skeleton';
 
 const API_BASE = '/vouchers';
 
@@ -92,6 +92,7 @@ export default function Voucher() {
     const [deleteTargetId, setDeleteTargetId] = useState(null);
     const [saving, setSaving] = useState(false);
     const [deleting, setDeleting] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
 
     // ---- Form state ----
     const [editId, setEditId] = useState(null);
@@ -157,14 +158,14 @@ export default function Voucher() {
     // =============================
     async function fetchSingleVoucher(id) {
         try {
-            setLoading(true);
+            setEditLoading(true);
             const res = await axios.get(`${API_BASE}/get_single?id=${id}`);
             return res.data;
         } catch (err) {
             setToast({ show: true, type: 'error', message: 'Failed to load voucher details.' });
             return null;
         } finally {
-            setLoading(false);
+            setEditLoading(false);
         }
     }
 
@@ -414,6 +415,7 @@ export default function Voucher() {
                         message="Are you sure you want to delete this voucher? This action cannot be undone."
                         onCancel={() => { setShowDeleteModal(false); setDeleteTargetId(null); }}
                         onContinue={handleDelete}
+                        loading={deleting}
                     />
                 )}
 
@@ -495,6 +497,12 @@ export default function Voucher() {
                 <button className="btn-back" onClick={() => { resetForm(); setView('list'); }}>← Back</button>
             </div>
 
+            {editLoading ? (
+                <div className="vf-loading-skeleton">
+                    <ModalSkeleton fields={10} showFooter={true} />
+                </div>
+            ) : (
+            <>
             {/* Top Row — JV Number, Reference, Date */}
             <div className="vf-top-row">
                 <div className="vf-field">
@@ -741,6 +749,8 @@ export default function Voucher() {
                     {isEditMode ? 'Update Voucher' : 'Save Voucher'}
                 </LoadingButton>
             </div>
+            </>
+            )}
 
             <ToastDisplay toast={toast} setToast={setToast} />
         </div>

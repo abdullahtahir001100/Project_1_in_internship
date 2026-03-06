@@ -129,6 +129,50 @@ export function LoadingButton({
   );
 }
 
+// Modal/Form Skeleton (for when modal is opening)
+export function ModalSkeleton({ fields = 4 }) {
+  return (
+    <div className="modal-skeleton-overlay">
+      <div className="modal-skeleton-content">
+        <div className="modal-skeleton-header">
+          <SkeletonBox width="180px" height="24px" />
+          <SkeletonBox width="24px" height="24px" radius="50%" />
+        </div>
+        <div className="modal-skeleton-body">
+          {Array.from({ length: fields }).map((_, i) => (
+            <FormFieldSkeleton key={i} labelWidth={`${60 + Math.random() * 40}px`} />
+          ))}
+        </div>
+        <div className="modal-skeleton-footer">
+          <SkeletonBox width="90px" height="38px" radius="6px" />
+          <SkeletonBox width="90px" height="38px" radius="6px" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Action Loading Overlay (for edit/delete operations on rows)
+export function ActionLoadingOverlay({ message = 'Loading...' }) {
+  return (
+    <div className="action-loading-overlay">
+      <div className="action-loading-content">
+        <div className="action-spinner"></div>
+        <span>{message}</span>
+      </div>
+    </div>
+  );
+}
+
+// Inline Row Loading (shimmer effect on specific row)
+export function RowLoadingOverlay() {
+  return (
+    <div className="row-loading-overlay">
+      <div className="row-spinner"></div>
+    </div>
+  );
+}
+
 // Full Page Skeleton for initial component load
 export function PageSkeleton({ type = 'table' }) {
   if (type === 'table') {
@@ -169,5 +213,8 @@ export default {
   ButtonSkeleton,
   SectionHeaderSkeleton,
   LoadingButton,
-  PageSkeleton
+  PageSkeleton,
+  ModalSkeleton,
+  ActionLoadingOverlay,
+  RowLoadingOverlay
 };

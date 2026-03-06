@@ -19,6 +19,7 @@ export default function deduction() {
     const [editId, setEditId] = useState(null);
     const [saving, setSaving] = useState(false);
     const [deleting, setDeleting] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
     const [payload, setPayload] = useState({
         deduction_name: '',
         deduction_amount: '',
@@ -45,8 +46,8 @@ export default function deduction() {
     const handleEdit = (item) => {
         setEditId(item.id);
         setIsOpen(true);
+        setEditLoading(true);
         get_edit_data(item.id);
-
     };
     async function get_edit_data(id) {
         try {
@@ -58,7 +59,12 @@ export default function deduction() {
                 deduction_amount: deductionData?.deduction_amount || '',
                 editId: id
             });
-        } catch (err) { setToast({ show: true, type: 'error', message: 'Failed to load deduction data.' }); }
+        } catch (err) { 
+            setToast({ show: true, type: 'error', message: 'Failed to load deduction data.' }); 
+            setIsOpen(false);
+        } finally {
+            setEditLoading(false);
+        }
     }
     async function handleDelete(id) {
         setDeleting(true);
@@ -109,27 +115,51 @@ export default function deduction() {
                 {isOpen && (
                     <div className="modal-overlay" style={{ display: 'flex' }}>
                         <div className="modal-content">
-                            <div className="modal-header">
-                                <h3>{editId ? "Edit deduction" : "Create deduction"}</h3>
-
-                                <span className="close-icon" onClick={() => setIsOpen(false)}>×</span>
-                            </div>
-                            <form className="modal-form">
-                                <div className="form-group">
-                                    <label>deduction Name</label>
-                                    <input type="text" required placeholder='eg: Yearlydeduction' value={payload?.deduction_name || ''} onChange={(e) => setPayload({ ...payload, deduction_name: e.target.value })} />
-                                </div>
-                                <div className="form-group">
-                                    <label>Base Value</label>
-                                    <input type="number" required placeholder='eg : 50,000' value={payload?.deduction_amount || ''} onChange={(e) => setPayload({ ...payload, deduction_amount: e.target.value })} />
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn-cancel" onClick={() => setIsOpen(false)}>Cancel</button>
-                                    <LoadingButton type="button" className="btn-save" loading={saving} loadingText="Saving..." onClick={handlePost}>
-                                        {editId ? "Update" : "Save"}
-                                    </LoadingButton>
-                                </div>
-                            </form>
+                            {editLoading ? (
+                                <>
+                                    <div className="modal-header">
+                                        <div className="skeleton-box" style={{ width: '130px', height: '20px' }}></div>
+                                        <span className="close-icon" onClick={() => { setIsOpen(false); setEditId(null); }}>×</span>
+                                    </div>
+                                    <div className="modal-form" style={{ padding: '20px' }}>
+                                        <div className="skeleton-form-field" style={{ marginBottom: '16px' }}>
+                                            <div className="skeleton-box" style={{ width: '100px', height: '14px', marginBottom: '8px' }}></div>
+                                            <div className="skeleton-box" style={{ width: '100%', height: '38px' }}></div>
+                                        </div>
+                                        <div className="skeleton-form-field" style={{ marginBottom: '16px' }}>
+                                            <div className="skeleton-box" style={{ width: '70px', height: '14px', marginBottom: '8px' }}></div>
+                                            <div className="skeleton-box" style={{ width: '100%', height: '38px' }}></div>
+                                        </div>
+                                        <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                                            <div className="skeleton-box" style={{ width: '80px', height: '38px' }}></div>
+                                            <div className="skeleton-box" style={{ width: '80px', height: '38px' }}></div>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="modal-header">
+                                        <h3>{editId ? "Edit deduction" : "Create deduction"}</h3>
+                                        <span className="close-icon" onClick={() => { setIsOpen(false); setEditId(null); }}>×</span>
+                                    </div>
+                                    <form className="modal-form">
+                                        <div className="form-group">
+                                            <label>deduction Name</label>
+                                            <input type="text" required placeholder='eg: Yearlydeduction' value={payload?.deduction_name || ''} onChange={(e) => setPayload({ ...payload, deduction_name: e.target.value })} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Base Value</label>
+                                            <input type="number" required placeholder='eg : 50,000' value={payload?.deduction_amount || ''} onChange={(e) => setPayload({ ...payload, deduction_amount: e.target.value })} />
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn-cancel" onClick={() => { setIsOpen(false); setEditId(null); }}>Cancel</button>
+                                            <LoadingButton type="button" className="btn-save" loading={saving} loadingText="Saving..." onClick={handlePost}>
+                                                {editId ? "Update" : "Save"}
+                                            </LoadingButton>
+                                        </div>
+                                    </form>
+                                </>
+                            )}
                         </div>
                     </div>
                 )}
@@ -178,6 +208,7 @@ export default function deduction() {
                     message="Confirm delete deduction. This action cannot be undone."
                     onCancel={() => setIsDeleteOpen(false)}
                     onContinue={() => handleDelete(deleteId)}
+                    loading={deleting}
                 />
             )}
 

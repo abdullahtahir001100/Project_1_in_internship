@@ -4,7 +4,7 @@ import { useApi } from '../context/ApiProvider';
 import { Listbox } from "@headlessui/react";
 import AlertCard from './AlertCard.js';
 import ToastDisplay from './alert.js';
-import { TableSkeleton, LoadingButton } from './Skeleton';
+import { TableSkeleton, LoadingButton, ModalSkeleton } from './Skeleton';
 
 export default function Departments() {
     const { axios } = useApi();
@@ -23,6 +23,8 @@ export default function Departments() {
     const [targetId, setTargetId] = useState(null);
     const [saving, setSaving] = useState(false);
     const [deleting, setDeleting] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const options = [
         {
@@ -58,7 +60,9 @@ export default function Departments() {
 
     const openModal = async (id = null) => {
         setEditId(id);
+        setShowModal(true);
         if (id) {
+            setEditLoading(true);
             try {
                 const res = await axios.get(`/departments/get?id=${id}`);
                 const department = res?.data?.[0] || {};
@@ -71,12 +75,14 @@ export default function Departments() {
                     type: "error",
                     message: "Failed to load department data."
                 });
+                setShowModal(false);
+            } finally {
+                setEditLoading(false);
             }
         } else {
             setDeptName(''); // Reset to default values for new department
             setSelectedStatus(options[0]);
         }
-        modalCheck.current.checked = true;
     };
 
     const handleSave = async (e) => {
@@ -91,6 +97,7 @@ export default function Departments() {
             const res = await axios.post(`/departments/${url}`, fd);
 
             modalCheck.current.checked = false;
+            setShowModal(false);
             fetchAll();
             setToast({
                 show: true,
@@ -130,40 +137,67 @@ export default function Departments() {
 
                 {/* --- Add/Edit Modal Logic --- */}
                 <div className="modal-wrapper">
-                    <input type="checkbox" id="modal-toggle" ref={modalCheck} hidden />
+                    <input type="checkbox" id="modal-toggle" ref={modalCheck} hidden checked={showModal} onChange={() => {}} />
                     <button className="btn-add" onClick={() => openModal()}>Add New Department</button>
 
-                    <div className="modal-overlay">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h3>{editId ? "Edit" : "Create"} Department</h3>
-                                <label htmlFor="modal-toggle" className="close-icon">×</label>
-                            </div>
-                            <form className="modal-form" ref={formRef} onSubmit={handleSave}>
-                                <div className="form-group">
-                                    <label>Department Name</label>
-                                    <input name='Department_name' value={deptName} onChange={(e) => setDeptName(e.target.value)} type="text" required />
-                                </div>
-                                <div className="form-group">
-                                    <label>Status</label>
-                                    <Listbox value={selectedStatus} onChange={setSelectedStatus}>
-                                        <div className="custom-select-container">
-                                            <Listbox.Button className="select-trigger">{selectedStatus.name}</Listbox.Button>
-                                            <Listbox.Options className="select-options">
-                                                {options.map(opt => <Listbox.Option key={opt.id} value={opt} className="option-item">{opt.name}</Listbox.Option>)}
-                                            </Listbox.Options>
+                    {showModal && (
+                        <div className="modal-overlay" style={{ display: 'flex' }}>
+                            <div className="modal-content">
+                                {editLoading ? (
+                                    <>
+                                        <div className="modal-header">
+                                            <div className="skeleton-box" style={{ width: '150px', height: '20px' }}></div>
+                                            <span className="close-icon" onClick={() => setShowModal(false)}>×</span>
                                         </div>
-                                    </Listbox>
-                                </div>
-                                <div className="modal-footer">
-                                    <label htmlFor="modal-toggle" className="btn-cancel">Cancel</label>
-                                    <LoadingButton type="submit" className="btn-save" loading={saving} loadingText="Saving...">
-                                        Save
-                                    </LoadingButton>
-                                </div>
-                            </form>
+                                        <div className="modal-form" style={{ padding: '20px' }}>
+                                            <div className="skeleton-form-field" style={{ marginBottom: '16px' }}>
+                                                <div className="skeleton-box" style={{ width: '100px', height: '14px', marginBottom: '8px' }}></div>
+                                                <div className="skeleton-box" style={{ width: '100%', height: '38px' }}></div>
+                                            </div>
+                                            <div className="skeleton-form-field" style={{ marginBottom: '16px' }}>
+                                                <div className="skeleton-box" style={{ width: '60px', height: '14px', marginBottom: '8px' }}></div>
+                                                <div className="skeleton-box" style={{ width: '100%', height: '38px' }}></div>
+                                            </div>
+                                            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                                                <div className="skeleton-box" style={{ width: '80px', height: '38px' }}></div>
+                                                <div className="skeleton-box" style={{ width: '80px', height: '38px' }}></div>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="modal-header">
+                                            <h3>{editId ? "Edit" : "Create"} Department</h3>
+                                            <span className="close-icon" onClick={() => setShowModal(false)}>×</span>
+                                        </div>
+                                        <form className="modal-form" ref={formRef} onSubmit={handleSave}>
+                                            <div className="form-group">
+                                                <label>Department Name</label>
+                                                <input name='Department_name' value={deptName} onChange={(e) => setDeptName(e.target.value)} type="text" required />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Status</label>
+                                                <Listbox value={selectedStatus} onChange={setSelectedStatus}>
+                                                    <div className="custom-select-container">
+                                                        <Listbox.Button className="select-trigger">{selectedStatus.name}</Listbox.Button>
+                                                        <Listbox.Options className="select-options">
+                                                            {options.map(opt => <Listbox.Option key={opt.id} value={opt} className="option-item">{opt.name}</Listbox.Option>)}
+                                                        </Listbox.Options>
+                                                    </div>
+                                                </Listbox>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn-cancel" onClick={() => setShowModal(false)}>Cancel</button>
+                                                <LoadingButton type="submit" className="btn-save" loading={saving} loadingText="Saving...">
+                                                    Save
+                                                </LoadingButton>
+                                            </div>
+                                        </form>
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
 
@@ -203,7 +237,7 @@ export default function Departments() {
             )}
 
             {showDeleteModal && (
-                <AlertCard title="Delete?" message="Confirm delete department. This Task Not Be Undone" onCancel={() => setShowDeleteModal(false)} onContinue={handleDelete} />
+                <AlertCard title="Delete?" message="Confirm delete department. This Task Not Be Undone" onCancel={() => setShowDeleteModal(false)} onContinue={handleDelete} loading={deleting} />
             )}
             <ToastDisplay toast={toast} setToast={setToast} />
             
