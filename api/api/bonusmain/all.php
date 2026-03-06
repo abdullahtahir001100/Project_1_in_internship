@@ -40,7 +40,6 @@ else {
     }
   
 }
-
 $employees = [];
 
 /* Get duration from frontend */
@@ -147,7 +146,49 @@ while ($row = $result->fetch_assoc()) {
 
     $row['bonus_main'] = $bonus_main;
 
+    // $employees[] = $row;
+     /* ================================
+       4️⃣ Advance in vouchers  Main (Monthly Bonus/Fine)
+    ================================= */
+    
+   $vouchers_main_sql = "SELECT vm.date, z.amount, z.id as entry_id
+        FROM voucher_entries z
+        LEFT JOIN vouchers vm ON vm.id = z.voucher_id
+        WHERE z.ledger_id = $emp_id AND z.entry_type = 'credit'
+        ORDER BY vm.date DESC";
+
+$vouchers_main_result = $conn->query($vouchers_main_sql);
+$grouped_vouchers = [];
+
+if ($vouchers_main_result) {
+    while ($vm = $vouchers_main_result->fetch_assoc()) {
+        $date = explode('-', $vm['date'])[0] . '-' . explode('-', $vm['date'])[1]; // YYYY-MM
+        
+        
+        if (!isset($grouped_vouchers[$date])) {
+            $grouped_vouchers[$date] = [
+                'date' => $date,
+                'total_amount' => 0,
+                'vouchers' => [] // Ismein us din ke saare vouchers jayenge
+            ];
+        }
+
+        // Voucher details add karo
+        $grouped_vouchers[$date]['vouchers'][] = [
+            'entry_id' => $vm['entry_id'],
+            'amount' => $vm['amount']
+        ];
+
+        // Saath hi saath total bhi barhate jao
+        $grouped_vouchers[$date]['total_amount'] += $vm['amount'];
+    }
+}
+
+// Array ki keys (dates) hata kar simple list banane ke liye array_values use karein
+$row['vouchers_main'] = array_values($grouped_vouchers);
+
     $employees[] = $row;
+
 }
 
 echo json_encode([
