@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import QuestionForm from './QuestionForm';
 import { useApi } from '../context/ApiProvider';
-import Loading from './loading.js';
+import { TableSkeleton } from './Skeleton';
 
 export default function Questions() {
   const { axios } = useApi();
@@ -26,7 +26,6 @@ export default function Questions() {
     <div className="section-container">
       {view === 'list' ? (
         <>
-        {loading && <Loading />}
           <div className="section-header">
 
             <div className="header-info">
@@ -39,6 +38,9 @@ export default function Questions() {
             </button>
           </div>
 
+          {loading ? (
+            <TableSkeleton rows={5} columns={4} showHeader={false} />
+          ) : (
           <div className="table-responsive">
             <table className="simple-table">
               <thead>
@@ -77,6 +79,7 @@ export default function Questions() {
               </tbody>
             </table>
           </div>
+          )}
         </>
       ) : (
         <QuestionForm onCancel={() => setView('list')} />
