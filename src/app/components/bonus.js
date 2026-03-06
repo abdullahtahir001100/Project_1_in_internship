@@ -32,7 +32,7 @@ export default function Bonus() {
     async function handlePost() {
         setSaving(true);
         try {
-            const url = editId ? "update.php" : "create.php";
+            const url = editId ? "update" : "create";
             const res = await axios.post(`/bonus/${url}`, payload);
             get_table_data();
             setIsOpen(false);
@@ -70,7 +70,7 @@ export default function Bonus() {
     async function handleDelete(id) {
         setDeleting(true);
         try {
-            const res = await axios.post(`/bonus/delete.php`, { id });
+            const res = await axios.post(`/bonus/delete`, { id });
             setToast({ show: true, type: 'success', message: res?.data?.message || 'Bonus deleted!' });
             setIsDeleteOpen(false);
             get_table_data();
