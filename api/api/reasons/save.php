@@ -73,7 +73,7 @@ try {
     }
 
     $stmt = $conn->prepare("INSERT INTO reasons (employee_id, reason_type, reason, resignation_date, created_at)
-                            VALUES (?, ?, ?, ?, NOW())");
+                            VALUES (?, ?, ?, NOW(), NOW())");
     $stmt->bind_param("isss", $employee_id, $reason_type, $reason, $resignation_date);
 
     if ($stmt->execute()) {
