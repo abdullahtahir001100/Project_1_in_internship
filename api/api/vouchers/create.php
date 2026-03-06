@@ -98,7 +98,7 @@ if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ER
         exit;
     }
 
-    $uploadDir = __DIR__ . '/../../uploads/vouchers/';
+    $uploadDir = '/uploads/vouchers/';
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
