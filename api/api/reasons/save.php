@@ -72,9 +72,9 @@ try {
         throw new Exception("Missing required fields");
     }
 
-    $stmt = $conn->prepare("INSERT INTO reasons (employee_id, reason_type, reason, resignation_date, created_at)
-                            VALUES (?, ?, ?, NOW(), NOW())");
-    $stmt->bind_param("isss", $employee_id, $reason_type, $reason, $resignation_date);
+    $stmt = $conn->prepare("INSERT INTO reasons (employee_id, reason_type, reason, created_at)
+                            VALUES (?, ?, ?,  NOW())");
+    $stmt->bind_param("iss", $employee_id, $reason_type, $reason);
 
     if ($stmt->execute()) {
         echo json_encode([

@@ -75,9 +75,9 @@ try {
     $stmt = $conn->prepare("UPDATE reasons
                             SET reason_type = ?,
                                 reason = ?,
-                                -- resignation_date = NOW(),
+                              
                             WHERE id = ?");
-    $stmt->bind_param("sssi", $reason_type, $reason, $resignation_date, $id);
+    $stmt->bind_param("ssi", $reason_type, $reason, $id);
 
     if ($stmt->execute()) {
         echo json_encode([
