@@ -1,60 +1,47 @@
-Theek hai, agar aapka project Next.js, PHP, aur SQL ke combination par hai (jo ki ek kaafi unique aur powerful stack hai), to aapka README.md aur bhi zyada professional dikhna chahiye. Is stack ka matlab hai ki aapne Frontend (React/Next) aur Backend (PHP/SQL) dono ko handle kiya hai.
+## Full-Stack Learning Platform  
 
-Yahan aapke project ke liye ek updated aur "Clean" README hai:
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-Framework-000?style=for-the-badge&logo=nextdotjs" />
+  <img src="https://img.shields.io/badge/PHP-Backend-777BB4?style=for-the-badge&logo=php&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQL-Database-316192?style=for-the-badge&logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/TailwindCSS-Styling-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/GSAP-Animations-88CE02?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Linux-Env-111?style=for-the-badge&logo=linux&logoColor=white" />
+</p>
 
-🚀 Full-Stack Learning Platform
-First Internship Project | Next.js + PHP + SQL
-Yeh project meri internship ka pehla bada milestone hai, jahan maine modern frontend technologies ko robust backend systems ke saath integrate kiya hai. Is platform ka maqsad ek fast, SEO-friendly, aur data-driven learning environment provide karna hai.
+<p align="center">
+  Internship Project | Fast, SEO-friendly, and data-driven Learning Platform
+</p>
 
-🛠 Tech Stack & Architecture
-Frontend: Next.js (React) | Tailwind CSS | SCSS
+---
 
-Backend: PHP (API / Server-side Logic)
+## 🛠 Tech Stack & Architecture  
 
-Database: SQL (PostgreSQL / MySQL)
+- **Frontend:** Next.js (React) | Tailwind CSS | SCSS  
+- **Backend:** PHP (API / Server-side Logic)  
+- **Database:** SQL (PostgreSQL / MySQL)  
+- **Animations:** GSAP for smooth UI/UX  
+- **Environment:** Linux-based development  
 
-Animations: GSAP for smooth UI/UX
+---
 
-Environment: Linux Based Development
+## ✨ Key Features  
 
-✨ Key Features
-Server-Side Rendering (SSR): Next.js ka use karke fast loading aur behtar SEO.
+- **Server-Side Rendering (SSR):** Fast loading and improved SEO  
+- **Dynamic Content:** Real-time data fetching via PHP & SQL  
+- **Advanced Styling:** SCSS + Tailwind mix for premium design  
+- **Secure Database:** Protected against SQL injection & optimized queries  
+- **Responsive UI:** Mobile-first, works across all devices  
 
-Dynamic Content: PHP aur SQL ke zariye real-time data fetching (Courses/Lessons).
+---
 
-Advanced Styling: SCSS aur Tailwind ka mix use karke ek premium design.
+## 📂 Project Structure  
 
-Secure Database: SQL injection se pak aur optimized database queries.
-
-Responsive UI: Mobile-first approach jo har device par perfect chalta hai.
-
-📂 Project Structure
-Plaintext
-├── frontend/           # Next.js App (Pages, Components, Styles)
-│   ├── components/     # Reusable UI elements
-│   └── styles/         # SCSS & Tailwind configs
-├── backend/            # PHP Scripts & API Endpoints
-│   └── config/         # Database Connection (SQL)
-├── public/             # Static assets (Images, Icons)
-└── README.md           # Project Documentation
-💡 What I Mastered
-Is internship project ke dauran maine Intermediate Level ki skills gain ki hain:
-
-API Integration: Next.js frontend ko PHP backend se connect karna.
-
-State Management: Complex data ko React hooks ke saath handle karna.
-
-Database Design: Relational databases (SQL) mein tables aur queries manage karna.
-
-Linux Workflow: Deployment aur server management ki basic samajh.
-
-🚀 How to Run
-Frontend: npm install aur phir npm run dev
-
-Backend: PHP server (Apache/Nginx) par backend folder ko host karein.
-
-Database: Di gayi SQL file ko apne database mein import karein.
-
-🔗 Live Demo
-Check out the project live here:
-portfolio.abdullahtahir.me
+```bash
+frontend/
+  components/
+  styles/
+backend/
+  config/
+public/
+README.md
