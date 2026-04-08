@@ -3,8 +3,8 @@ import "./globals.css";
 import "./styles/style.scss";
 import AuthWrapper from "./components/AuthWrapper.js";
 import { ApiProvider } from "./context/ApiProvider";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
